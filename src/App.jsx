@@ -1,10 +1,9 @@
 import { useState } from 'react'
+import AppRoutes from './routes/Routes';
 
 function App() {
   return (
-    <div>
-      <h1>Plant AI</h1>
-    </div>
+    <AppRoutes />
   )
 }
 
