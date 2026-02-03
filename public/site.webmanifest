@@ -3,13 +3,13 @@
   "short_name": "Plant AI",
   "icons": [
     {
-      "src": "/public/imgs/web-app-manifest-192x192.png",
+      "src": "/imgs/web-app-manifest-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable"
     },
     {
-      "src": "/public/imgs/web-app-manifest-512x512.png",
+      "src": "/imgs/web-app-manifest-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
