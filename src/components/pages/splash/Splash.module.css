@@ -1,0 +1,23 @@
+@keyframes bounceIn {
+  0% {
+    transform: scale(0.2);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  80% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.logo {
+    width: 130px;
+    height: 130px;
+    object-fit: cover;
+    animation: bounceIn .6s ease forwards;
+}
