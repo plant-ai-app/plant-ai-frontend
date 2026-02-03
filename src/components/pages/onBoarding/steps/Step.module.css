@@ -1,0 +1,102 @@
+.step_container{
+    height: 100dvh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    overflow-x: hidden;
+}
+
+
+.step_container > .img{
+    max-width: 290px;
+    height: auto;  
+}
+
+.step_container > .img > img{
+    object-fit: cover;
+    width: 100%;
+    height: auto;
+    margin-left: -3px;
+}
+
+.texts{
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+.texts > h1{
+    color: #032221;
+    font-size: 1.6rem;
+    font-weight: 550;
+    letter-spacing: .5px;
+}
+.texts > p{
+    font-weight: 400;
+    line-height: 1.4;
+    font-size: 1rem;
+    color: rgba(2, 20, 20, .8);
+    width: 90%;
+    margin: 0 auto;
+}
+
+.buttons,
+.last_step_buttons{
+    display: flex;
+    margin-top: 3rem;
+    width: 100%;
+    justify-content: center;
+}
+.last_step_buttons{
+    margin-top: 0;
+}
+
+.buttons > .last_step_buttons button,
+.buttons > button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 45px;
+    width: 50%;
+    padding: 6px 20px;
+    border-radius: 12px;
+    font-weight: 450;
+    background-color: #00DF81;
+    color: #F1F7F6;
+}
+
+.buttons > .last_step_buttons{
+    gap: 12px;
+}
+.buttons > .last_step_buttons button:first-child,
+.buttons > .last_step_buttons button:last-child{
+    background-color: #fff;
+    color: #000;
+    width: 45%;
+}
+
+.buttons > .last_step_buttons > button:first-child{
+    background-color: #00DF81;
+    color: #F1F7F6;
+
+    
+}
+.buttons > .last_step_buttons > button:last-child{
+    background-color: #032221;
+    color: #F1F7F6;
+}
+
+
+/* 
+.buttons > button:last-child{
+    background-color: #6E77F5;
+    color: #fff;
+}
+.buttons > button:last-child:hover {
+  background-color: #5A54E8; 
+} */
