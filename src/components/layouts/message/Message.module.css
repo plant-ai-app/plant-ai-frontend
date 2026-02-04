@@ -1,0 +1,42 @@
+@keyframes dropBounce {
+  0% {
+    top: -2.3rem;
+    opacity: 0;
+  }
+  60% {
+    top: 1.7rem;  
+    opacity: 0.9;
+  }
+  100% {
+    top: 1.5rem; 
+    opacity: 1;
+  }
+}
+
+.message {
+    width: 90%;
+    max-width: 450px;
+    padding: 0.7rem;
+    border-radius: 10px;
+    text-align: center;
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -2.3rem; 
+    color: #fff;
+    font-weight: 500;
+    z-index: 1000;
+    animation: dropBounce 0.6s cubic-bezier(0.25, 1.3, 0.5, 1) forwards;
+}
+
+.message.success {
+  background-color: #0FBF8C;
+}
+
+.message.info {
+  background-color: #0B3D3A;
+}
+
+.message.error {
+  background-color: #8F2D2D;
+}
