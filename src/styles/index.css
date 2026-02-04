@@ -5,7 +5,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Nata Sans", sans-serif;
+    font-family: "Google Sans", "Nata Sans", sans-serif;
 }
 
 html, body, #root{
@@ -67,6 +67,8 @@ form{
 /* Cabeçalhos */
 h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
+  color: #032221;
+
 }
 
 a:focus,
