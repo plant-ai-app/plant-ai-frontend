@@ -1,0 +1,44 @@
+
+.input_container{
+    display: flex;
+    flex-direction: column;
+}
+
+.input_container label{
+    margin-bottom: .6em;
+    font-weight: bold;
+}
+
+.input_container input {
+  width: 100%;
+  padding: 13px 16px;
+  margin-bottom: 0.8rem;
+  border-radius: 8px;      
+  outline: none;
+  transition: border-color 0.3s ease;
+  background-color: white;
+  color: rgba(0, 0, 0, 0.70 );
+  /* box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1); */
+
+}
+
+.input_container input:focus {
+  border-color: #888; /* Cor da borda ao focar */
+}
+
+.input_container input::placeholder{
+    color: #7b7b7b;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.visually_hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  border: 0;
+}
