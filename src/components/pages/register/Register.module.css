@@ -3,13 +3,14 @@
     flex-direction: column;
     gap: 1rem;
     height: 100%;
+    overflow-y: scroll;
 }
 
 .register_container > .texts_header{
     display: flex;
     flex-direction: column;
-    gap: 1.6rem;
-    margin-bottom: 2.3rem;
+    gap: 1.2rem;
+    margin: 2rem 0 2.3rem 0;
 }
 
 .register_container > .texts_header h1{
@@ -23,9 +24,6 @@
     letter-spacing: .3px;
     font-size: 1.2rem;
     color: rgba(2, 20, 20, 0.664);
-}
-.register_container >  form > button{
-    margin-top: 2rem;
 }
 
 .register_container > span:last-child{
