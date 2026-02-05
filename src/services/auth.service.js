@@ -5,3 +5,9 @@ export const login = async (email, senha) => {
 
     return response.data;
 }
+
+export const forgotPassword = async (email) => {
+    const response = await api.post("/usuario/forgot", { email })
+    console.log(response.data)
+    return response.data;
+}
