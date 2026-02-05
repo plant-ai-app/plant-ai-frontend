@@ -30,7 +30,7 @@ const LoginForm = ({value, handleChange, onSubmit}) => {
             />
             <span><Link to={'/forgot-password'}>Esqueceu sua senha ?</Link></span>
 
-            <SubmitButton text="Entrar"/>\
+            <SubmitButton text="Entrar"/>
         </form>
     );
 };
