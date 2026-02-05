@@ -9,7 +9,7 @@ const RegisterForm = ({value, handleChange, onSubmit}) => {
         onSubmit()
     }
     return (
-        <form onSubmit={handleSubmit}>
+        <form className={styles.form_container} onSubmit={handleSubmit}>
             <Input
                 type="text"
                 text="Digite seu nome"
@@ -33,7 +33,7 @@ const RegisterForm = ({value, handleChange, onSubmit}) => {
                 text="Digite sua senha"
                 name="senha"
                 placeholder="Senha"
-                handleOnChange={handleChange}
+            handleOnChange={handleChange}
                 value={value.senha ? value.senha : ''}
                 required = {true}
             />
