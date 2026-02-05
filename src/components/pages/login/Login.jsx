@@ -11,7 +11,7 @@ import styles from "./Login.module.css";
 
 const Login = () => {
 
-    const {loginUser, loading, error} = useUser();
+    const {login, loading, error} = useUser();
 
     const navigate = useNavigate();
 
@@ -30,8 +30,24 @@ const Login = () => {
     const clearForm = () => {
         setFormData({ email: '', senha: '' })
     }
-    const handleSubmit = () => {
-        console.log(formData)
+    const handleSubmit = async () => {
+        setMessage('')
+        setType('')
+        try {
+            const data = await login(formData);
+
+            setType('success')
+            setMessage(data.message);
+            
+            clearForm();
+
+            console.log(data);
+            
+        } catch (error) {
+            console.log(error)
+            setType('error')
+            setMessage(error.response?.data?.message || "Erro ao logar");
+        }
     };
 
     useEffect(() => {
