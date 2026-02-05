@@ -1,18 +1,19 @@
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import {useUser} from "../../../hooks/useUser.js"
+import { useUser } from "../../../hooks/useUser.js"
 
 import Container from "../../common/container/Container.jsx";
 import RegisterForm from "../../forms/registerForm/RegisterForm.jsx";
 import Message from "../../layouts/message/Message.jsx";
 import Loading from "../../layouts/loading/Loading.jsx";
+import BackButton from "../../common/backButton/BackButton.jsx";
 import styles from "./Register.module.css";
 
 const Register = () => {
-    
+
     const navigate = useNavigate();
 
-    const {createUser, loading, error} = useUser();
+    const { createUser, loading, error } = useUser();
     const [type, setType] = useState('');
     const [message, setMessage] = useState();
     const [formData, setFormData] = useState({
@@ -21,8 +22,8 @@ const Register = () => {
         senha: "",
         confirmaSenha: ""
     });
-    const clearForm = () =>{
-        setFormData({nome: '',email: '', senha: '', confirmaSenha: ''})
+    const clearForm = () => {
+        setFormData({ nome: '', email: '', senha: '', confirmaSenha: '' })
     }
 
     const handleChange = (e) => {
@@ -63,10 +64,11 @@ const Register = () => {
     }, [message]);
 
     return (
-        <Container padding={'16% 1.2rem 2.2rem 1.2rem'}>
+        <Container padding={'8% 1.2rem 2.2rem 1.2rem'}>
             <Message type={type} msg={message} />
             {loading && <Loading />}
             <div className={styles.register_container}>
+                <BackButton />
                 <div className={styles.texts_header}>
                     <h1>Vamos criar sua <br /> Conta ✍️</h1>
                     <p>Crie sua conta e tenha suas plantas sempre  bem cuidadas.</p>
@@ -76,7 +78,7 @@ const Register = () => {
                     handleChange={handleChange}
                     onSubmit={handleSubmit}
                 />
-                <span>Já tem uma conta ?<Link to={'/login'}>Login</Link></span>
+                <span>Já tem uma conta? <Link to={'/login'}>Login</Link></span>
             </div>
         </Container>
     );
