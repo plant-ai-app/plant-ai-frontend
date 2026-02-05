@@ -40,10 +40,10 @@ const RegisterForm = ({value, handleChange, onSubmit}) => {
             <Input
                 type="password"
                 text="Confirme sua senha"
-                name="confirmarSenha"
+                name="confirmaSenha"
                 placeholder="Confirmar senha"
                 handleOnChange={handleChange}
-                value={value.confirmarSenha ? value.confirmarSenha : ''}
+                value={value.confirmaSenha ? value.confirmaSenha : ''}
                 required = {true}
             />
             <SubmitButton text="Criar conta"/>
