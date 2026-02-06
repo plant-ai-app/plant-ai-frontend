@@ -1,5 +1,5 @@
 import {useState} from "react";
-import { registerUser, loginUser } from "../services/user.service";
+import { registerUser } from "../services/user.service";
 
 export const useUser = () => {
     const [loading, setLoading] = useState(false);
@@ -20,20 +20,5 @@ export const useUser = () => {
         }
     }
 
-    const login = async (userData) => {
-        try {
-            setLoading(true)
-            setError(null)
-
-            const data = await loginUser(userData)
-            return data
-        } catch (error) {
-            setError(error.response.data.erro || 'Erro ao logar usuário')
-            throw error
-        } finally {
-            setLoading(false)
-        }
-    }
-
-    return {createUser, login, loading, error}
+    return {createUser, loading, error}
 };
