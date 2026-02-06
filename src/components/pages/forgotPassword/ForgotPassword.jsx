@@ -1,9 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../../hooks/useAuth.js";
 
 import Container from "../../common/container/Container.jsx";   
 import ForgotPwdForm from "../../forms/forgotPwdForm/ForgotPwdForm.jsx";
 import BackButton from "../../common/backButton/BackButton.jsx";
+import Loading from "../../layouts/loading/Loading.jsx";
 import img from "./forgot_pwd.svg";
 
 import styles from './ForgotPassword.module.css';
@@ -11,11 +13,18 @@ import styles from './ForgotPassword.module.css';
 
 const ForgotPassword = () => {
     
+    const { forgotPassword, loading, error } = useAuth();
+
     const navigate = useNavigate()
 
     const [formData, setFormData] = useState({
         email: ""
     });
+    const clearForm = () => {
+        setFormData({
+            email: ""
+        });
+    };
 
     const handleChange = (e) => {
         setFormData({
@@ -24,17 +33,22 @@ const ForgotPassword = () => {
         });
     };
 
-    const handleSubmit = () => {
-        console.log(formData);
+    const handleSubmit = async () => {
+        try {
+            const data = await forgotPassword(formData.email);
+            clearForm();
+            console.log(data);
+            navigate('/email-sent');
+        } catch (error) {
+            console.log(error);
+        }
     };
 
-    useEffect(() =>{
-        console.log(formData)
-    }, [formData])
- 
+
 
     return(
         <Container padding={'8% 1.2rem 1.2rem 1.2rem'} >
+            {loading && <Loading />}
             <div className={styles.forgot_container}>
                 <BackButton />
                 <div className={styles.img}>
