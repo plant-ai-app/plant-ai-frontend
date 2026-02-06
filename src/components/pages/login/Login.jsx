@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { useUser } from "../../../hooks/useUser.js";
+import { useAuth } from "../../../hooks/useAuth.js";
 
 import Container from "../../common/container/Container.jsx";
 import LoginForm from "../../forms/loginForm/LoginForm.jsx";
@@ -11,7 +11,7 @@ import styles from "./Login.module.css";
 
 const Login = () => {
 
-    const {login, loading, error} = useUser();
+    const {login, loading, error} = useAuth();
 
     const navigate = useNavigate();
 
