@@ -35,7 +35,7 @@ const ForgotPassword = () => {
 
     const handleSubmit = async () => {
         try {
-            const data = await forgotPassword(formData.email);
+            const data = await forgotPassword(formData);
             clearForm();
             console.log(data);
             navigate('/email-sent');
