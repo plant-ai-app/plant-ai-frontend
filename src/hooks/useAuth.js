@@ -20,12 +20,12 @@ export const useAuth = () => {
         }
     }
 
-    const forgotPassword = async (email) => {
+    const forgotPassword = async (userData) => {
         try {
             setLoading(true)
             setError(null)
 
-            const data = await forgotPasswordUser(email)
+            const data = await forgotPasswordUser(userData)
             return data
         } catch (error) {
             setError(error.response.data.erro || 'Erro ao esquecer senha')
