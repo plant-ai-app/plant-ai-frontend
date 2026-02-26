@@ -13,7 +13,7 @@ export const useUser = () => {
             const data = await registerUser(userData)
             return data
         } catch (error) {
-            setError(error.response.data.erro || 'Erro ao criar usuário')
+            setError(error.response.data.message || 'Erro ao criar usuário')
             throw error
         } finally {
             setLoading(false)
