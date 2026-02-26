@@ -51,11 +51,12 @@ const Login = () => {
     };
 
     useEffect(() => {
-        if (!message) return;
+        if (!message) return; 
 
         const timer = setTimeout(() => {
             setMessage('');
             setType('');
+            navigate('/home')
         }, 2000);
 
         return () => clearTimeout(timer);
