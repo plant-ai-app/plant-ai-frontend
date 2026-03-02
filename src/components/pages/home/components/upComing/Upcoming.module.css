@@ -1,0 +1,88 @@
+.section {
+    margin-bottom: 32px;
+}
+
+.sectionTitle {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0 0 16px 0;
+}
+
+.cardsContainer {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    /* space for scrollbar if it appears */
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.cardsContainer::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.cardsContainer {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+.card {
+    background-color: white;
+    border-radius: 24px;
+    border: 1px solid #e8e8e8;
+    padding: 20px;
+    min-width: 160px;
+    flex: 1;
+}
+
+.iconWrapper {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #f1f8e9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+}
+
+.iconWrapperSecondary {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #e8f5e9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+}
+
+.icon {
+    font-size: 20px;
+    color: #55c34e;
+}
+
+.timeTag {
+    font-size: 12px;
+    font-weight: 700;
+    color: #888;
+    margin: 0 0 4px 0;
+    text-transform: uppercase;
+}
+
+.taskName {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0 0 4px 0;
+}
+
+.plantName {
+    font-size: 13px;
+    color: #666;
+    margin: 0;
+}
