@@ -1,0 +1,55 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
+    width: 100%;
+}
+
+.titleContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1a1a1a;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+}
+
+.plantIcon {
+    color: #55c34e;
+}
+
+.subtitle {
+    font-size: 14px;
+    color: #666;
+    margin: 0;
+}
+
+.bellButton {
+    background-color: transparent;
+    border: 1px solid #e0e0e0;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.bellButton:hover {
+    background-color: #f5f5f5;
+}
+
+.bellIcon {
+    font-size: 20px;
+    color: #1a1a1a;
+}
