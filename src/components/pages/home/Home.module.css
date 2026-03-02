@@ -1,0 +1,16 @@
+.homeContainer {
+    background-color: #fafafa;
+    min-height: 100vh;
+    position: relative;
+    /* font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; */
+}
+
+.scrollArea {
+    padding: 24px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding-bottom: 1.2rem;
+    /* Space for the bottom navigation */
+    max-width: 450px;
+    /* margin: 0 auto; */
+}
