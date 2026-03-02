@@ -38,7 +38,7 @@ const Login = () => {
 
             setType('success')
             setMessage(data.message);
-            
+            setTimeout(() => navigate('/home'), 2000)
             clearForm();
 
             console.log(data);
@@ -56,7 +56,6 @@ const Login = () => {
         const timer = setTimeout(() => {
             setMessage('');
             setType('');
-            navigate('/home')
         }, 2000);
 
         return () => clearTimeout(timer);
