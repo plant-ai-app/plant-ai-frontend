@@ -1,0 +1,77 @@
+.navContainer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: transparent;
+    padding: 16px;
+    z-index: 100;
+}
+
+.navBar {
+    background-color: white;
+    border-radius: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 24px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+    position: relative;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.navItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    background: none;
+    border: none;
+    color: #a0a0a0;
+    font-size: 10px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.navItem.active {
+    color: #55c34e;
+}
+
+.icon {
+    font-size: 24px;
+}
+
+.centerButtonWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    margin-top: -32px;
+    /* Pull the button up */
+}
+
+.centerButton {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background-color: #55c34e;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 8px 16px rgba(85, 195, 78, 0.3);
+}
+
+.centerIcon {
+    font-size: 32px;
+}
+
+.centerLabel {
+    font-size: 10px;
+    color: #a0a0a0;
+    font-weight: 600;
+    margin-top: 4px;
+}
