@@ -3,11 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import styles from './BackButton.module.css';
 
-const BackButton = () => {
+const BackButton = ({ onClick }) => {
     const navigate = useNavigate();
 
     const handleGoBack = () => {
-        navigate(-1);
+        if (onClick) {
+            onClick();
+        } else {
+            navigate(-1);
+        }
     };
 
     return (
