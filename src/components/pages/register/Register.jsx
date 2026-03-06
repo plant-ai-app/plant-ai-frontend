@@ -68,7 +68,7 @@ const Register = () => {
             <Message type={type} msg={message} />
             {loading && <Loading />}
             <div className={styles.register_container}>
-                <BackButton />
+                <BackButton onClick={() => navigate('/onboarding', { state: { step: 4 } })} />
                 <div className={styles.texts_header}>
                     <h1>Vamos criar sua <br /> Conta ✍️</h1>
                     <p>Crie sua conta e tenha suas plantas sempre  bem cuidadas.</p>
