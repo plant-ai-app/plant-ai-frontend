@@ -7,6 +7,9 @@ import Register from "../components/pages/register/Register.jsx";
 import ForgotPassword from "../components/pages/forgotPassword/ForgotPassword.jsx";
 import EmailSent from "../components/pages/emailSent/EmailSent.jsx";
 import ResetPassword from "../components/pages/resetPassword/ResetPassword.jsx";
+import MyPlants from "../components/pages/myPlants/MyPlants.jsx";
+import Perfil from "../components/pages/perfil/Perfil.jsx";
+import Schedule from "../components/pages/schedule/Schedule.jsx";
 
 const AppRoutes = () => {
     return (
@@ -20,6 +23,9 @@ const AppRoutes = () => {
                 <Route path="/forgot-password" element={<ForgotPassword/>} />
                 <Route path="/email-sent" element={<EmailSent/>} />
                 <Route path="/reset-password" element={<ResetPassword/>} />
+                <Route path="/my-plants" element={<MyPlants/>} />
+                <Route path="/perfil" element={<Perfil/>} />
+                <Route path="/schedule" element={<Schedule/>} />
             </Routes>
         </Router>
     );
