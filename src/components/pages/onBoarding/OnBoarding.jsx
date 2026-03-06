@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 import Container from "../../common/container/Container";
 import StepOne from "./steps/StepOne";
 import StepTwo from "./steps/StepTwo";
@@ -6,7 +7,8 @@ import StepThree from "./steps/StepThree";
 import StepFour from "./steps/StepFour";
 
 const OnBoarding = () => {
-    const [currentStep, setCurrentStep] = useState(1);
+    const location = useLocation();
+    const [currentStep, setCurrentStep] = useState(location.state?.step || 1);
 
     const handleNextStep = () => {
         if (currentStep < 4) {
@@ -23,7 +25,7 @@ const OnBoarding = () => {
                 {currentStep === 4 && <StepFour onNext={handleNextStep} />}
             </div>
         </Container>
-        
+
     );
 };
 
