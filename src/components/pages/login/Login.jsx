@@ -42,7 +42,7 @@ const Login = () => {
             clearForm();
 
             console.log(data);
-            
+
         } catch (error) {
             console.log(error)
             setType('error')
@@ -51,7 +51,7 @@ const Login = () => {
     };
 
     useEffect(() => {
-        if (!message) return; 
+        if (!message) return;
 
         const timer = setTimeout(() => {
             setMessage('');
@@ -67,7 +67,7 @@ const Login = () => {
             <Message type={type} msg={message} />
             {loading && <Loading />}
             <div className={styles.login_container}>
-                <BackButton />
+                <BackButton onClick={() => navigate('/onboarding', { state: { step: 4 } })} />
                 <div className={styles.texts_header}>
                     <h1>Bem-vindo de <br /> Volta 👋</h1>
                     <p>Acesse sua conta e continue cuidando das suas plantas.</p>
