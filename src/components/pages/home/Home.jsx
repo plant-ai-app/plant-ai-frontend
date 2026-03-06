@@ -3,7 +3,6 @@ import Header from './components/header/Header.jsx';
 import DueToday from './components/doToday/DueToday.jsx';
 import Upcoming from './components/upComing/Upcoming.jsx';
 import MyPlantsList from './components/myPlantsList/MyPlantsList.jsx';
-import BottomNav from '../../layouts/bottomNav/BottomNav.jsx';
 import Container from '../../common/container/Container.jsx';
 
 const Home = () => {
@@ -15,7 +14,6 @@ const Home = () => {
                 <Upcoming />
                 <MyPlantsList />
             </div>
-            <BottomNav />
         </Container>
     );
 };
