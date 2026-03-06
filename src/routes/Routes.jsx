@@ -1,4 +1,7 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+//react
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+
+//pages
 import Home from "../components/pages/home/Home.jsx";
 import Splash from "../components/pages/splash/Splash.jsx";
 import OnBoarding from "../components/pages/onBoarding/OnBoarding.jsx";
@@ -11,9 +14,20 @@ import MyPlants from "../components/pages/myPlants/MyPlants.jsx";
 import Perfil from "../components/pages/perfil/Perfil.jsx";
 import Schedule from "../components/pages/schedule/Schedule.jsx";
 
+//components
+import BottomNav from "../components/layouts/bottomNav/BottomNav.jsx";
+
+//componente para mostrar o bottomNav apenas nas rotas especificadas
+const ShowBottomNav = () => {
+    const routes = ['/home','/my-plants', '/schedule', '/perfil'];
+    const location = useLocation();
+    return routes.includes(location.pathname) ? <BottomNav /> : null;
+}
+
 const AppRoutes = () => {
     return (
         <Router>
+            <ShowBottomNav/>
             <Routes>
                 <Route path="/" element={<Splash/>} />
                 <Route path="/home" element={<Home/>} />
