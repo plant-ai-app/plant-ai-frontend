@@ -1,0 +1,76 @@
+.sectionContainer {
+    margin-bottom: 32px; /* Extra bottom margin to avoid overlapping with bottom nav if it gets close */
+}
+
+.sectionHeader {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #72d62b;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+}
+
+.listContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.listItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    cursor: pointer;
+}
+
+.itemLeft {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.iconWrapper {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #f5f6f8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.itemIcon {
+    font-size: 1.125rem;
+    color: #4a5568;
+}
+
+.itemTitle {
+    font-size: 1rem;
+    color: #1a1a1a;
+    font-weight: 500;
+}
+
+.itemRight {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.chevronIcon {
+    font-size: 0.875rem;
+    color: #a0aec0;
+}
+
+.dangerIconWrapper {
+    background-color: #fef1f2;
+}
+
+.dangerIcon {
+    font-size: 1.125rem;
+    color: #f53e3e;
+}
+
+.dangerText {
+    color: #f53e3e;
+}
