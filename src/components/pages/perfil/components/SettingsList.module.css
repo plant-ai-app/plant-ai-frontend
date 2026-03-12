@@ -1,0 +1,99 @@
+.sectionContainer {
+    margin-bottom: 24px;
+}
+
+.sectionHeader {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #72d62b;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+}
+
+.listContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.listItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    cursor: pointer;
+}
+
+.itemLeft {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.iconWrapper {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #f5f6f8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.itemIcon {
+    font-size: 1.125rem;
+    color: #4a5568;
+}
+
+.itemTitle {
+    font-size: 1rem;
+    color: #1a1a1a;
+    font-weight: 500;
+}
+
+.itemRight {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.itemValue {
+    font-size: 0.875rem;
+    color: #a0aec0;
+}
+
+.chevronIcon {
+    font-size: 0.875rem;
+    color: #a0aec0;
+}
+
+/* Custom Toggle Switch */
+.toggleSwitch {
+    width: 44px;
+    height: 24px;
+    border-radius: 12px;
+    background-color: #e2e8f0;
+    position: relative;
+    transition: background-color 0.3s;
+    cursor: pointer;
+}
+
+.toggleOn {
+    background-color: #8ce652; /* Lighter green for toggle */
+}
+
+.toggleKnob {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: white;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    transition: transform 0.3s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.toggleOn .toggleKnob {
+    transform: translateX(20px);
+}
