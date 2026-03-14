@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './AccountList.module.css';
 import { BsLockFill, BsTrash, BsBoxArrowRight, BsChevronRight } from 'react-icons/bs';
-import ChangePasswordSheet from '../changePwdForm/ChangePasswordSheet.jsx';
+import ChangePasswordSheet from '../changePwdModal/ChangePasswordSheet.jsx';
 
 const AccountList = () => {
     const [isChangePasswordOpen, setIsChangePasswordOpen] = useState(false);
