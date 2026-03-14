@@ -40,9 +40,6 @@ const Login = () => {
             setMessage(data.message);
             setTimeout(() => navigate('/home'), 2000)
             clearForm();
-
-            console.log(data);
-
         } catch (error) {
             console.log(error)
             setType('error')
