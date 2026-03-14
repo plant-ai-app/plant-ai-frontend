@@ -4,6 +4,7 @@ import {
     forgotPassword as forgotPasswordUser,
     resetPassword as resetPasswordUser,
     changePassword as changePasswordUser,
+    deleteAccount as deleteAccountUser,
 } from "../services/auth.service";
 
 export const useAuth = () => {
@@ -39,7 +40,6 @@ export const useAuth = () => {
     const isAuthenticated = () => {
         return !!token
     }
-
 
     const forgotPassword = async (userData) => {
         try {
@@ -86,6 +86,22 @@ export const useAuth = () => {
         }
     }
 
+    const deleteAccount = async (userData) => {
+        try {
+            setLoading(true)
+            setError(null)
+
+            const data = await deleteAccountUser(userData)
+            return data
+        } catch (error) {
+            setError(error.response.data.erro || 'Erro ao deletar conta')
+            throw error
+        } finally {
+            setLoading(false)
+        }
+    }
+
+
     return {
         login,
         loading,
@@ -93,6 +109,7 @@ export const useAuth = () => {
         forgotPassword,
         resetPassword,
         changePassword,
+        deleteAccount,
         isAuthenticated,
         logout
     }
