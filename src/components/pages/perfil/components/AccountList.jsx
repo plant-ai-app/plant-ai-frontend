@@ -2,18 +2,20 @@ import React, { useState } from 'react';
 import styles from './AccountList.module.css';
 import { BsLockFill, BsTrash, BsBoxArrowRight, BsChevronRight } from 'react-icons/bs';
 import ChangePasswordSheet from '../changePwdModal/ChangePasswordSheet.jsx';
+import DeleteModal from '../deleteModal/DeleteModal.jsx';
 
 const AccountList = () => {
     const [isChangePasswordOpen, setIsChangePasswordOpen] = useState(false);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
     return (
         <div className={styles.sectionContainer}>
             <h3 className={styles.sectionHeader}>ACCOUNT</h3>
-            
+
             <div className={styles.listContainer}>
                 {/* Change Password Item */}
-                <div 
-                    className={styles.listItem} 
+                <div
+                    className={styles.listItem}
                     onClick={() => setIsChangePasswordOpen(true)}
                 >
                     <div className={styles.itemLeft}>
@@ -28,7 +30,10 @@ const AccountList = () => {
                 </div>
 
                 {/* Delete Account Item */}
-                <div className={styles.listItem}>
+                <div
+                    className={styles.listItem}
+                    onClick={() => setIsDeleteModalOpen(true)}
+                >
                     <div className={styles.itemLeft}>
                         <div className={`${styles.iconWrapper} ${styles.dangerIconWrapper}`}>
                             <BsTrash className={styles.dangerIcon} />
@@ -48,9 +53,14 @@ const AccountList = () => {
                 </div>
             </div>
 
-            <ChangePasswordSheet 
-                isOpen={isChangePasswordOpen} 
-                onClose={() => setIsChangePasswordOpen(false)} 
+            <ChangePasswordSheet
+                isOpen={isChangePasswordOpen}
+                onClose={() => setIsChangePasswordOpen(false)}
+            />
+
+            <DeleteModal
+                isOpen={isDeleteModalOpen}
+                onClose={() => setIsDeleteModalOpen(false)}
             />
         </div>
     );
