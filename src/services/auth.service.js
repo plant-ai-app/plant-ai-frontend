@@ -19,3 +19,12 @@ export const changePassword = async (userData) => {
     const response = await api.patch("/usuario/senha", userData)
     return response.data;
 }
+
+export const deleteAccount = async (userData) => {
+    const response = await api.delete("/usuario", {
+        data: {
+            senha: userData.senha
+        }
+    })
+    return response.data;
+}
