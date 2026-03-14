@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BsEyeSlash, BsEye } from "react-icons/bs";
+import { BsEyeSlashFill, BsEyeFill } from "react-icons/bs";
 import styles from './changePwdForm.module.css';
 
 const ChangePasswordForm = ({value, handleChange, onSubmit, onClose}) => {
@@ -11,7 +11,7 @@ const ChangePasswordForm = ({value, handleChange, onSubmit, onClose}) => {
         <form onSubmit={onSubmit}>
               <div className={styles.form}>
                     <div className={styles.inputGroup}>
-                        <label className={styles.label}>SENHA ATUAL</label>
+                        <label className={styles.label}>Senha Atual</label>
                         <div className={styles.inputWrapper}>
                             <input
                                 type={showCurrent ? "text" : "password"}
@@ -26,13 +26,13 @@ const ChangePasswordForm = ({value, handleChange, onSubmit, onClose}) => {
                                 className={styles.eyeBtn}
                                 onClick={() => setShowCurrent(!showCurrent)}
                             >
-                                {showCurrent ? <BsEyeSlash /> : <BsEye />}
+                                {showCurrent ? <BsEyeSlashFill /> : <BsEyeFill />}
                             </button>
                         </div>
                     </div>
 
                     <div className={styles.inputGroup}>
-                        <label className={styles.label}>NOVA SENHA</label>
+                        <label className={styles.label}>Nova Senha</label>
                         <div className={styles.inputWrapper}>
                             <input
                                 type={showNew ? "text" : "password"}
@@ -47,7 +47,7 @@ const ChangePasswordForm = ({value, handleChange, onSubmit, onClose}) => {
                                 className={styles.eyeBtn}
                                 onClick={() => setShowNew(!showNew)}
                             >
-                                {showNew ? <BsEyeSlash /> : <BsEye />}
+                                {showNew ? <BsEyeSlashFill /> : <BsEyeFill />}
                             </button>
                         </div>
                     </div>
