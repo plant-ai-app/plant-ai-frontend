@@ -1,0 +1,100 @@
+.form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-self: initial;
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 0.8rem;
+}
+
+.label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #64748b;
+    letter-spacing: 0.5px;
+}
+
+.inputWrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.input {
+    width: 100%;
+    padding: 13px 16px;
+    border-radius: 12px;      
+    outline: none;
+    font-size: 1rem; 
+    transition: border-color 0.2s ease;
+    background-color: white;
+    color: #64748b;
+    background-color: #f8fafc;
+
+}
+
+.input:focus {
+    background-color: #f1f5f9;
+}
+input::placeholder {
+    font-size: 2.5rem;
+}
+
+.eyeBtn {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-42%);
+    background: none;
+    border: none;
+    color: #64748b;
+    font-size: 1.25rem;
+    cursor: pointer;
+    padding: 4px;
+   
+}
+
+.actions {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.saveBtn {
+    width: 100%;
+    background-color: #72d62b;
+    color: #1a1a1a;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 16px;
+    border-radius: 16px;
+    transition: background-color 0.2s;
+}
+
+.saveBtn:hover {
+    background-color: #65c225;
+}
+
+.cancelBtn {
+    width: 100%;
+    background: none;
+    border: none;
+    color: #64748b;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 16px;
+    cursor: pointer;
+}
+
+.cancelBtn:hover {
+    color: #475569;
+}
