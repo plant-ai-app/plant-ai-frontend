@@ -3,10 +3,12 @@ import styles from './AccountList.module.css';
 import { BsLockFill, BsTrash, BsBoxArrowRight, BsChevronRight } from 'react-icons/bs';
 import ChangePasswordSheet from '../changePwdModal/ChangePasswordSheet.jsx';
 import DeleteModal from '../deleteModal/DeleteModal.jsx';
+import LogoutModal from '../logoutModal/LogoutModal.jsx';
 
 const AccountList = () => {
     const [isChangePasswordOpen, setIsChangePasswordOpen] = useState(false);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
     return (
         <div className={styles.sectionContainer}>
@@ -43,7 +45,10 @@ const AccountList = () => {
                 </div>
 
                 {/* Log Out Item */}
-                <div className={styles.listItem}>
+                <div 
+                    className={styles.listItem}
+                    onClick={() => setIsLogoutModalOpen(true)}
+                >
                     <div className={styles.itemLeft}>
                         <div className={styles.iconWrapper}>
                             <BsBoxArrowRight className={styles.itemIcon} />
@@ -61,6 +66,11 @@ const AccountList = () => {
             <DeleteModal
                 isOpen={isDeleteModalOpen}
                 onClose={() => setIsDeleteModalOpen(false)}
+            />
+
+            <LogoutModal
+                isOpen={isLogoutModalOpen}
+                onClose={() => setIsLogoutModalOpen(false)}
             />
         </div>
     );
