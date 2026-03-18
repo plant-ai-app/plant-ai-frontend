@@ -1,5 +1,13 @@
 //react
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import {useContext} from "react";
+
+//routes
+import PrivateRoute from "./PrivateRoute.jsx";
+import PublicRoute from "./PublicRoute.jsx";
+
+//context
+import { AuthContext } from "../contexts/AuthContext.jsx";
 
 //pages
 import Home from "../components/pages/home/Home.jsx";
@@ -21,6 +29,10 @@ import BottomNav from "../components/layouts/bottomNav/BottomNav.jsx";
 const ShowBottomNav = () => {
     const routes = ['/home','/my-plants', '/schedule', '/perfil'];
     const location = useLocation();
+    const { token } = useContext(AuthContext);
+
+    if(!token) return null;
+    
     return routes.includes(location.pathname) ? <BottomNav /> : null;
 }
 
@@ -29,17 +41,49 @@ const AppRoutes = () => {
         <Router>
             <ShowBottomNav/>
             <Routes>
+
+                {/* 🌍 Rotas públicas */}
+                
                 <Route path="/" element={<Splash/>} />
-                <Route path="/home" element={<Home/>} />
                 <Route path="/onBoarding" element={<OnBoarding/>} />
-                <Route path="/login" element={<Login/>} />
-                <Route path="/register" element={<Register/>} />
+
+                <Route path="/login" element={
+                    <PublicRoute>
+                        <Login/>
+                    </PublicRoute>
+                } />
+                <Route path="/register" element={
+                    <PublicRoute>
+                        <Register/>
+                    </PublicRoute>
+                } />
+
                 <Route path="/forgot-password" element={<ForgotPassword/>} />
                 <Route path="/email-sent" element={<EmailSent/>} />
                 <Route path="/reset-password" element={<ResetPassword/>} />
-                <Route path="/my-plants" element={<MyPlants/>} />
-                <Route path="/perfil" element={<Perfil/>} />
-                <Route path="/schedule" element={<Schedule/>} />
+
+
+                {/* 🔒 Rotas privadas */}
+                <Route path="/home" element={
+                    <PrivateRoute>
+                        <Home/>
+                    </PrivateRoute>
+                } />
+                <Route path="/my-plants" element={
+                    <PrivateRoute>
+                        <MyPlants/>
+                    </PrivateRoute>
+                } />
+                <Route path="/perfil" element={
+                    <PrivateRoute>
+                        <Perfil/>
+                    </PrivateRoute>
+                } />
+                <Route path="/schedule" element={
+                    <PrivateRoute>
+                        <Schedule/>
+                    </PrivateRoute>
+                } />
             </Routes>
         </Router>
     );
