@@ -1,8 +1,23 @@
-import React from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import styles from './ProfileInfo.module.css';
 import { BsCameraFill, BsPencil } from 'react-icons/bs';
+import EditProfileSheet from '../editProfileModal/EditProfileSheet.jsx';
+
+//hooks
+import { useUser } from '../../../../hooks/useUser.js';
+
+//context
+import { AuthContext } from '../../../../contexts/AuthContext.jsx';
 
 const ProfileInfo = () => {
+    const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
+
+
+    const { user } = useContext(AuthContext);
+    
+
+    const formattedName = user?.nome ? user.nome.split(' ').slice(0, 2).join(' ') : '';
+
     return (
         <div className={styles.infoContainer}>
             <div className={styles.avatarWrapper}>
@@ -13,18 +28,24 @@ const ProfileInfo = () => {
                         className={styles.avatarImage} 
                     />
                 </div>
-                <button className={styles.cameraButton} aria-label="Change photo">
+                <button onClick={() => alert("Change photo")} className={styles.cameraButton} aria-label="Change photo">
                     <BsCameraFill />
                 </button>
             </div>
             
-            <h1 className={styles.name}>Alex Rivers</h1>
-            <p className={styles.email}>alex.rivers@email.com</p>
+            <h1 className={styles.name}>{formattedName}</h1>
+            <p className={styles.email}>{user && user.email}</p>
             
-            <button className={styles.editButton}>
+            <button onClick={() => setIsEditProfileOpen(true)} className={styles.editButton}>
                 <BsPencil className={styles.editIcon} />
                 Edit Profile
             </button>
+
+            <EditProfileSheet 
+                isOpen={isEditProfileOpen} 
+                onClose={() => setIsEditProfileOpen(false)} 
+                initialData={{ name: user && user.nome, email: user && user.email }}
+            />
         </div>
     );
 };
