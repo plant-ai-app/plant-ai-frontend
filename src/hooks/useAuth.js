@@ -1,6 +1,5 @@
 import { useState } from "react";
 import {
-    login as loginUser,
     forgotPassword as forgotPasswordUser,
     resetPassword as resetPasswordUser,
     changePassword as changePasswordUser,
@@ -8,38 +7,8 @@ import {
 } from "../services/auth.service";
 
 export const useAuth = () => {
-    const [token, setToken] = useState(localStorage.getItem("token") || null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-
-    const login = async (userData) => {
-        try {
-            setLoading(true)
-            setError(null)
-
-            const data = await loginUser(userData)
-            const token = data.usuario.token
-
-            localStorage.setItem("token", token)
-            setToken(token)
-
-            return data
-        } catch (error) {
-            setError(error.response?.data?.erro || 'Erro ao logar usuário')
-            throw error
-        } finally {
-            setLoading(false)
-        }
-    }
-
-    const logout = () => {
-        localStorage.removeItem("token")
-        setToken(null)
-    }
-
-    const isAuthenticated = () => {
-        return !!token
-    }
 
     const forgotPassword = async (userData) => {
         try {
@@ -101,16 +70,12 @@ export const useAuth = () => {
         }
     }
 
-
     return {
-        login,
         loading,
         error,
         forgotPassword,
         resetPassword,
         changePassword,
-        deleteAccount,
-        isAuthenticated,
-        logout
+        deleteAccount,        
     }
 }
