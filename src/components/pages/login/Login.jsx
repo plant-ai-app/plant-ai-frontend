@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { useAuth } from "../../../hooks/useAuth.js";
+
+import { AuthContext } from "../../../contexts/AuthContext";
 
 import Container from "../../common/container/Container.jsx";
 import LoginForm from "../../forms/loginForm/LoginForm.jsx";
@@ -11,7 +12,7 @@ import styles from "./Login.module.css";
 
 const Login = () => {
 
-    const {login, loading, error} = useAuth();
+    const { login, loading } = useContext(AuthContext);
 
     const navigate = useNavigate();
 
@@ -38,7 +39,6 @@ const Login = () => {
 
             setType('success')
             setMessage(data.message);
-            setTimeout(() => navigate('/home'), 2000)
             clearForm();
         } catch (error) {
             console.log(error)
