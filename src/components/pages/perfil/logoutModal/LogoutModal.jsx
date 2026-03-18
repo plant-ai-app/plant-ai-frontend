@@ -1,16 +1,15 @@
 //react
-import React from 'react';
+import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 //styles
 import styles from './LogoutModal.module.css';
 //icons
 import { BsBoxArrowRight } from 'react-icons/bs';
-//hooks
-import { useAuth } from '../../../../hooks/useAuth.js';
+//contexts
+import { AuthContext } from '../../../../contexts/AuthContext';
 
 const LogoutModal = ({ isOpen, onClose }) => {
-    const { logout } = useAuth();
-    const navigate = useNavigate();
+    const { logout } = useContext(AuthContext);
 
     if (!isOpen) return null;
 
@@ -22,7 +21,6 @@ const LogoutModal = ({ isOpen, onClose }) => {
 
     const handleLogout = () => {
         logout();
-        navigate('/login');
     };
 
     return (
