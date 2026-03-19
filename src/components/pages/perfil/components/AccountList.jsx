@@ -12,7 +12,7 @@ const AccountList = () => {
 
     return (
         <div className={styles.sectionContainer}>
-            <h3 className={styles.sectionHeader}>ACCOUNT</h3>
+            <h3 className={styles.sectionHeader}>CONTA</h3>
 
             <div className={styles.listContainer}>
                 {/* Change Password Item */}
@@ -24,7 +24,7 @@ const AccountList = () => {
                         <div className={styles.iconWrapper}>
                             <BsLockFill className={styles.itemIcon} />
                         </div>
-                        <span className={styles.itemTitle}>Change Password</span>
+                        <span className={styles.itemTitle}>Mudar Senha</span>
                     </div>
                     <div className={styles.itemRight}>
                         <BsChevronRight className={styles.chevronIcon} />
@@ -40,7 +40,7 @@ const AccountList = () => {
                         <div className={`${styles.iconWrapper} ${styles.dangerIconWrapper}`}>
                             <BsTrash className={styles.dangerIcon} />
                         </div>
-                        <span className={`${styles.itemTitle} ${styles.dangerText}`}>Delete Account</span>
+                        <span className={`${styles.itemTitle} ${styles.dangerText}`}>Deletar Conta</span>
                     </div>
                 </div>
 
@@ -53,7 +53,7 @@ const AccountList = () => {
                         <div className={styles.iconWrapper}>
                             <BsBoxArrowRight className={styles.itemIcon} />
                         </div>
-                        <span className={styles.itemTitle}>Log Out</span>
+                        <span className={styles.itemTitle}>Sair</span>
                     </div>
                 </div>
             </div>
