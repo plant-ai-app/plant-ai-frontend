@@ -11,7 +11,7 @@ const ProfileHeader = () => {
             <button className={styles.iconButton} onClick={() => navigate(-1)} aria-label="Go back">
                 <BsArrowLeft />
             </button>
-            <h2 className={styles.title}>Profile</h2>
+            <h2 className={styles.title}>Perfil</h2>
             <button onClick={() => alert('Settings')} className={styles.iconButton} aria-label="Settings">
                 <BsGearFill />
             </button>
