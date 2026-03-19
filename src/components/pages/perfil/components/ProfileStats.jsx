@@ -10,19 +10,19 @@ const ProfileStats = () => {
             <div className={styles.statCard}>
                 <PiPlant className={styles.statIcon} />
                 <span className={styles.statValue}>24</span>
-                <span className={styles.statLabel}>PLANTS</span>
+                <span className={styles.statLabel}>Plantas</span>
             </div>
             
             <div className={styles.statCard}>
                 <BsDroplet className={styles.statIcon} />
                 <span className={styles.statValue}>128</span>
-                <span className={styles.statLabel}>ACTIONS</span>
+                <span className={styles.statLabel}>Ações</span>
             </div>
             
             <div className={styles.statCard}>
                 <BiTrendingUp className={styles.statIcon} />
                 <span className={styles.statValue}>45</span>
-                <span className={styles.statLabel}>GROWTH</span>
+                <span className={styles.statLabel}>Crescimento</span>
             </div>
         </div>
     );
