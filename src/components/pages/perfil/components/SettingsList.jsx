@@ -7,7 +7,7 @@ const SettingsList = () => {
 
     return (
         <div className={styles.sectionContainer}>
-            <h3 className={styles.sectionHeader}>SETTINGS</h3>
+            <h3 className={styles.sectionHeader}>CONFIGURAÇÕES</h3>
             
             <div className={styles.listContainer}>
                 {/* Notifications Item */}
@@ -16,7 +16,7 @@ const SettingsList = () => {
                         <div className={styles.iconWrapper}>
                             <BsBellFill className={styles.itemIcon} />
                         </div>
-                        <span className={styles.itemTitle}>Notifications</span>
+                        <span className={styles.itemTitle}>Notificações</span>
                     </div>
                     <div className={styles.itemRight}>
                         <div 
@@ -34,7 +34,7 @@ const SettingsList = () => {
                         <div className={styles.iconWrapper}>
                             <BsClockFill className={styles.itemIcon} />
                         </div>
-                        <span className={styles.itemTitle}>Reminder Time</span>
+                        <span className={styles.itemTitle}>Horário de Lembrete</span>
                     </div>
                     <div className={styles.itemRight}>
                         <span className={styles.itemValue}>9:00 AM</span>
@@ -48,10 +48,10 @@ const SettingsList = () => {
                         <div className={styles.iconWrapper}>
                             <BsGlobe className={styles.itemIcon} />
                         </div>
-                        <span className={styles.itemTitle}>Language</span>
+                        <span className={styles.itemTitle}>Idioma</span>
                     </div>
                     <div className={styles.itemRight}>
-                        <span className={styles.itemValue}>English</span>
+                        <span className={styles.itemValue}>Português</span>
                         <BsChevronRight className={styles.chevronIcon} />
                     </div>
                 </div>
@@ -62,10 +62,10 @@ const SettingsList = () => {
                         <div className={styles.iconWrapper}>
                             <BsPaletteFill className={styles.itemIcon} />
                         </div>
-                        <span className={styles.itemTitle}>Theme</span>
+                        <span className={styles.itemTitle}>Tema</span>
                     </div>
                     <div className={styles.itemRight}>
-                        <span className={styles.itemValue}>Light</span>
+                        <span className={styles.itemValue}>Claro</span>
                         <BsChevronRight className={styles.chevronIcon} />
                     </div>
                 </div>
