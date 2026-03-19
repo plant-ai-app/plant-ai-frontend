@@ -5,8 +5,6 @@ import { AuthContext } from "../contexts/AuthContext";
 const PublicRoute = ({ children }) => {
   const { token } = useContext(AuthContext);
 
-  console.log("TOKEN NO PUBLIC ROUTE:", token);
-
   if (token) {
     return <Navigate to="/home" replace />;
   }
