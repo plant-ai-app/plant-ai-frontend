@@ -1,5 +1,5 @@
 //react
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 //styles
 import styles from './DeleteModal.module.css';
@@ -10,10 +10,13 @@ import Loading from '../../../layouts/loading/Loading.jsx';
 import Message from '../../../layouts/message/Message.jsx';
 //hooks
 import { useAuth } from '../../../../hooks/useAuth.js';
+//contexts
+import { AuthContext } from '../../../../contexts/AuthContext.jsx';
 
 const DeleteModal = ({ isOpen, onClose }) => {
 
-    const { deleteAccount, loading, logout } = useAuth();
+    const { deleteAccount, loading } = useAuth();
+    const { logout } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const [showPassword, setShowPassword] = useState(false);
@@ -32,7 +35,7 @@ const DeleteModal = ({ isOpen, onClose }) => {
         e.preventDefault();
         setMessage('')
         setType('')
-        try {
+        try {''
             const data = await deleteAccount(formData);
             setType('success')
             setMessage(data.message || 'Conta deletada com sucesso!');
