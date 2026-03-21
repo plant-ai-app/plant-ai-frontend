@@ -1,0 +1,8 @@
+.listContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.bottomSpacer {
+    height: 100px;
+}
