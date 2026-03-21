@@ -1,0 +1,23 @@
+.fab {
+    position: absolute;
+    bottom: 100px; /* moved up to clear the bottom navigation bar */
+    right: 24px;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background-color: #3b8e1f; /* matching active tab green */
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 8px 24px rgba(59, 142, 31, 0.3);
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+    z-index: 100;
+}
+
+.fab:hover {
+    transform: translateY(-2px);
+    background-color: #337a1a;
+}
