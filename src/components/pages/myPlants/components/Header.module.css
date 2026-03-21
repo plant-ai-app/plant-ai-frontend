@@ -1,0 +1,32 @@
+.headerContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 0 24px 0;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #0d1b2a; /* dark blue/black as per design */
+    margin: 0;
+}
+
+.iconButton {
+    background: #f0f3f2;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #3b5249;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.2s;
+}
+
+.iconButton:hover {
+    background: #e2e8e5;
+}
