@@ -28,7 +28,11 @@ const BottomNav = () => {
                 </button>
 
                 <div className={styles.centerButtonWrapper}>
-                    <button className={styles.centerButton} aria-label="Identify Plant">
+                    <button 
+                        className={styles.centerButton} 
+                        aria-label="Identify Plant"
+                        onClick={() => navigate('/scan')}
+                    >
                         <RiFocus3Line className={styles.centerIcon} />
                     </button>
                     <span className={styles.centerLabel}>Identify</span>
