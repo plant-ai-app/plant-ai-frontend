@@ -16,7 +16,7 @@ const MyPlants = () => {
 
     const handleAddPlant = () => {
         // Mock function for adding a plant
-        console.log("Add button clicked");
+        alert("Add button clicked");
     };
 
     return (
