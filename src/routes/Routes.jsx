@@ -21,6 +21,7 @@ import ResetPassword from "../components/pages/resetPassword/ResetPassword.jsx";
 import MyPlants from "../components/pages/myPlants/MyPlants.jsx";
 import Perfil from "../components/pages/perfil/Perfil.jsx";
 import Schedule from "../components/pages/schedule/Schedule.jsx";
+import Scan from "../components/pages/scan/Scan.jsx";
 
 //components
 import BottomNav from "../components/layouts/bottomNav/BottomNav.jsx";
@@ -82,6 +83,11 @@ const AppRoutes = () => {
                 <Route path="/schedule" element={
                     <PrivateRoute>
                         <Schedule/>
+                    </PrivateRoute>
+                } />
+                <Route path="/scan" element={
+                    <PrivateRoute>
+                        <Scan/>
                     </PrivateRoute>
                 } />
             </Routes>
