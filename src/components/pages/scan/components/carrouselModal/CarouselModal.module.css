@@ -1,0 +1,149 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modalContent {
+    background: #c1def4;
+    width: 90%;
+    max-width: 400px;
+    height: 60%;
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.headerControls {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    right: 15px;
+    display: flex;
+    justify-content: space-between;
+    z-index: 10;
+}
+
+.iconButton {
+    background: rgba(255, 255, 255, 0.6);
+    border: none;
+    color: #333;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    backdrop-filter: blur(4px);
+    transition: background 0.2s;
+}
+
+.iconButton:hover {
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.carouselContainer {
+    flex: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.mainImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.dotsContainer {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
+
+.dot.active {
+    background: #333;
+}
+
+.navButton {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.5);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 24px;
+    color: #333;
+    z-index: 5;
+}
+
+.navButton.left {
+    left: 10px;
+}
+
+.navButton.right {
+    right: 10px;
+}
+
+.navButton:hover {
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.creditsPopover {
+    position: absolute;
+    top: 50px;
+    right: 15px;
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 20;
+    font-size: 14px;
+    color: #333;
+    width: 200px;
+}
+
+.creditsPopover p {
+    margin: 0 0 8px 0;
+}
+
+.creditsPopover p:last-child {
+    margin-bottom: 0;
+}
+
+.creditsPopover a {
+    color: #4a90e2;
+    text-decoration: none;
+}
