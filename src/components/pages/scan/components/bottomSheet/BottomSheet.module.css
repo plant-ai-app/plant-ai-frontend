@@ -1,0 +1,234 @@
+/* --- Results Panel --- */
+.resultsSheet {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 65dvh;
+    background: #fcfcfc;
+    border-top-left-radius: 24px;
+    border-top-right-radius: 24px;
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    padding: 24px 12px;
+    z-index: 20;
+    pointer-events: auto;
+    animation: slideUp 0.3s ease-out;
+    transition: height 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), border-radius 0.3s ease;
+}
+
+.resultsSheet.expanded {
+    height: 100%;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+.sheetHandle {
+    width: 40px;
+    height: 5px;
+    background: #e0e0e0;
+    border-radius: 3px;
+    margin: 0 auto 20px auto;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.resultsList {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-bottom: 20px;
+}
+
+.plantCard {
+    display: flex;
+    background: #ffffff;
+    /* Crisp modern white */
+    border: 1px solid #f0f0f0;
+    /* Subtle thin border */
+    border-radius: 20px;
+    padding: 16px;
+    gap: 20px;
+    align-items: stretch;
+    /* Change to stretch so image stretches with text */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    /* very soft shadow */
+}
+
+.cardImageContainer {
+    position: relative;
+    width: 120px;
+    min-height: 160px;
+    max-height: 180px;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #f4f6f8;
+    /* Soft skeleton background */
+    flex-shrink: 0;
+}
+
+.cardImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.plusButton {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    width: 28px;
+    height: 28px;
+    border-top-left-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+}
+
+.cardInfo {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.scientificName {
+    font-weight: 700;
+    font-size: 17px;
+    color: #1a1a1a;
+    letter-spacing: -0.01em;
+    margin: 0;
+}
+
+.familyName {
+    font-size: 13px;
+    color: #888;
+    margin: 2px 0 10px 0;
+}
+
+.commonNamesContainer {
+    display: flex;
+    flex-wrap: wrap;
+    /* Retornei o wrap, essencial para multilinhas */
+    gap: 6px;
+    margin: 4px 0 10px 0;
+    position: relative;
+    /* For absolute popover anchor */
+}
+
+.commonNames {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: #478628;
+    background: rgba(71, 134, 40, 0.1);
+    padding: 4px 10px;
+    border-radius: 99px;
+    /* Pill shape */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.moreDots {
+    cursor: pointer;
+    background: rgba(71, 134, 40, 0.15);
+    transition: background 0.2s;
+}
+
+.moreDots:hover {
+    background: rgba(71, 134, 40, 0.25);
+}
+
+.namesBackdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+}
+
+.namesPopover {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 8px;
+    background: #ffffff;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    border: 1px solid #f0f0f0;
+    border-radius: 16px;
+    padding: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    z-index: 101;
+    min-width: 200px;
+    animation: popIn 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+@keyframes popIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.cardActions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 14px;
+}
+
+.scoreBubble {
+    color: #fff;
+    padding: 6px 14px;
+    border-radius: 99px;
+    /* Pill style */
+    font-size: 12.5px;
+    font-weight: 700;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.confirmButton {
+    background: #478628;
+    border: none;
+    color: #fff;
+    padding: 8px 22px;
+    border-radius: 99px;
+    /* Pill shape */
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(71, 134, 40, 0.2);
+    transition: all 0.2s ease-in-out;
+}
+
+.confirmButton:hover {
+    background: #6EE830;
+    color: #1a1a1a;
+    box-shadow: 0 6px 16px rgba(110, 232, 48, 0.3);
+}
