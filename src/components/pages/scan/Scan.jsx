@@ -9,8 +9,12 @@ import styles from './Scan.module.css';
 import { FiX, FiImage } from 'react-icons/fi';
 //componentes
 import Container from '../../common/container/Container.jsx';
+import Message from '../../layouts/message/Message.jsx';
+import Loading from '../../layouts/loading/Loading.jsx';
 import CarouselModal from './components/carrouselModal/CarouselModal.jsx';
 import BottomSheet from './components/bottomSheet/BottomSheet.jsx';
+import SavePlantModal from './components/savePlantModal/SavePlantModal.jsx';
+import { createPlant } from '../../../services/plant.service.js';
 
 const Scan = () => {
     const webcamRef = useRef(null);
@@ -22,6 +26,10 @@ const Scan = () => {
     
     // Modal State
     const [selectedPlantForModal, setSelectedPlantForModal] = useState(null);
+    const [plantToSave, setPlantToSave] = useState(null);
+    const [isSaving, setIsSaving] = useState(false);
+    const [message, setMessage] = useState('');
+    const [type, setType] = useState('');
 
 
     const capture = useCallback(async () => {
@@ -54,23 +62,63 @@ const Scan = () => {
     const handleFileChange = async (e) => {
         if (e.target.files && e.target.files[0]) {
             const file = e.target.files[0];
-            const imageUrl = URL.createObjectURL(file);
-            setImageSrc(imageUrl);
             
-            try {
-                await identifyPlant(file);
-            } catch (error) {
-                console.error("Erro ao identificar planta:", error);
-            }
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onloadend = async () => {
+                const base64data = reader.result;
+                setImageSrc(base64data);
+                
+                try {
+                    await identifyPlant(file);
+                } catch (error) {
+                    console.error("Erro ao identificar planta:", error);
+                }
+            };
         }
     };
 
     const confirmPlant = (confirmedPlant) => {
-        console.log("Planta confirmada:", confirmedPlant);
+        setPlantToSave(confirmedPlant);
+    };
+
+    const handleSavePlant = async (plantData) => {
+        setIsSaving(true);
+        setMessage(''); // Limpa a mensagem anterior antes de tentar salvar
+        try {
+            const payload = {
+                fk_local_id: plantData.fk_local_id || null,
+                nome_popular: plantData.nome_popular,
+                nome_cientifico: plantData.nome_cientifico,
+                apelido: plantData.apelido,
+                foto_url: imageSrc,
+                observacao: plantData.observacao,
+                data_aquisicao: new Date().toISOString()
+            };
+
+            await createPlant(payload);
+            setPlantToSave(null); // Esconde o modal para visualização focar na mensagem
+            setMessage('Planta salva com sucesso!');
+            setType('success');
+            
+            // Aguarda a exibição da mensagem antes de ir para a Home
+            setTimeout(() => {
+                navigate('/home');
+            }, 2000);
+        } catch (error) {
+            console.error("Erro ao salvar planta:", error);
+            setMessage(error.response?.data?.message || 'Falha ao salvar a planta. Tente novamente.');
+            setType('error');
+            setTimeout(() => setMessage(''), 3500);
+        } finally {
+            setIsSaving(false);
+        }
     };
 
     return (
         <Container padding='0'>
+            {isSaving && <Loading />}
+            <Message msg={message} type={type} />
             {!imageSrc ? (
                  <Webcam
                       audio={false}
@@ -149,6 +197,16 @@ const Scan = () => {
                 <CarouselModal 
                     plant={selectedPlantForModal} 
                     onClose={() => setSelectedPlantForModal(null)} 
+                />
+            )}
+
+            {plantToSave && (
+                <SavePlantModal
+                    plant={plantToSave}
+                    imageSrc={imageSrc}
+                    onClose={() => setPlantToSave(null)}
+                    onSave={handleSavePlant}
+                    isSaving={isSaving}
                 />
             )}
         </Container>
