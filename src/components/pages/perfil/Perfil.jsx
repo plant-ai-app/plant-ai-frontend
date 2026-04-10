@@ -17,7 +17,7 @@ const Perfil = () => {
                 <ProfileInfo />
                 <ProfileStats />
                 <SettingsList />
-                <AccountList />
+                <AccountList /> 
             </div>
         </Container>
     );
