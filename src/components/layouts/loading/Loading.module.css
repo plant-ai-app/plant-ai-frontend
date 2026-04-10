@@ -7,8 +7,8 @@
     justify-content: center;
     height: 100dvh;
     overflow-y: scroll;
-    z-index: 2;
-    background-color: rgba(217, 217, 231, 0.3);
+    z-index: 9998;
+    background-color: rgba(217, 217, 231, 0.4);
 }
 
 .loading_container > img{
