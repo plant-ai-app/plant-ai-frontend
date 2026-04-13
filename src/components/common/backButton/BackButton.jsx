@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import styles from './BackButton.module.css';
 
-const BackButton = ({ onClick }) => {
+const BackButton = ({ onClick, widht, height, borderRadius, backgroundColor, color }) => {
     const navigate = useNavigate();
 
     const handleGoBack = () => {
@@ -15,7 +15,15 @@ const BackButton = ({ onClick }) => {
     };
 
     return (
-        <button className={styles.backButton} onClick={handleGoBack} aria-label="Voltar">
+        <button className={styles.backButton}
+            style={{
+                width: widht,
+                height: height,
+                borderRadius: borderRadius,
+                backgroundColor: backgroundColor,
+                color: color
+            }}
+            onClick={handleGoBack} aria-label="Voltar">
             <ArrowLeft className={styles.icon} />
         </button>
     );
