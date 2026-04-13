@@ -17,16 +17,14 @@
 
 .searchInput {
     flex: 1;
-    border: none;
-    background: transparent;
     font-size: 16px;
     color: #1a1a1a;
-    outline: none;
     width: 100%;
 }
 
 .searchInput::placeholder {
     color: #8c9792;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 500;
+    
 }
