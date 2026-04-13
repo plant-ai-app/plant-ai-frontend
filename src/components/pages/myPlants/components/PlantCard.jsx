@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './PlantCard.module.css';
 import { BsThreeDotsVertical, BsGeoAltFill } from 'react-icons/bs';
 
 const PlantCard = ({ plant }) => {
     const [showAllNames, setShowAllNames] = useState(false);
+    const navigate = useNavigate();
 
     const commonNames = typeof plant.nome_popular === 'string' 
         ? plant.nome_popular.split(',').map(name => name.trim()) 
@@ -13,8 +15,15 @@ const PlantCard = ({ plant }) => {
     const namesToShow = commonNames.slice(0, 2);
     const hasMore = commonNames.length > 2;
 
+    const handleCardClick = () => {
+        const plantId = plant.id || plant._id;
+        if (plantId) {
+            navigate(`/plant/${plantId}`);
+        }
+    };
+
     return (
-        <div className={styles.plantCard}>
+        <div className={styles.plantCard} onClick={handleCardClick} style={{ cursor: 'pointer' }}>
             <div className={styles.cardImageContainer}>
                 {plant.foto_url && (
                     <img src={plant.foto_url} alt={plant.nome_cientifico} className={styles.cardImage} />
