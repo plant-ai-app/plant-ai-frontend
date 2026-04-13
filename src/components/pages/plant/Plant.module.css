@@ -1,0 +1,257 @@
+.container {
+    height: 100vh;
+    overflow-y: auto;
+    background-color: #f6f9f6;
+    position: relative;
+}
+
+.header {
+    height: 40vh;
+    position: relative;
+    overflow: hidden;
+}
+
+.headerImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.headerOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 40%, rgba(0,0,0,0.4) 100%);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.topActions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.iconButton {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(4px);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.headerInfo {
+    margin-bottom: 30px;
+}
+
+.nickname {
+    color: white;
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.dateInfo {
+    color: rgba(255, 255, 255, 0.9);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+}
+
+/* Card de Conteúdo */
+.contentCard {
+    background-color: white;
+    border-radius: 30px 30px 0 0;
+    margin-top: -25px;
+    position: relative;
+    padding: 24px;
+    min-height: 60vh;
+    box-shadow: 0 -10px 20px rgba(0, 0, 0, 0.05);
+}
+
+.plantInfo {
+    margin-bottom: 24px;
+}
+
+.scientificName {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 12px;
+    line-height: 1.2;
+}
+
+.familyInfo {
+    font-size: 0.95rem;
+    color: #666;
+    margin-bottom: 4px;
+}
+
+.familyInfo strong {
+    color: #333;
+}
+
+.commonNames {
+    font-size: 0.95rem;
+    color: #666;
+}
+
+.commonNames span {
+    color: #333;
+}
+
+/* Tabs */
+.tabs {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 24px;
+    padding-bottom: 8px;
+}
+
+.tab {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #888;
+    padding: 8px 0;
+    position: relative;
+}
+
+.activeTab {
+    color: #4caf50;
+}
+
+.activeTab::after {
+    content: '';
+    position: absolute;
+    bottom: -9px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: #4caf50;
+    border-radius: 3px 3px 0 0;
+}
+
+/* Seções */
+.section {
+    margin-bottom: 24px;
+}
+
+.sectionTitle {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 12px;
+}
+
+/* Card de Anotação */
+.noteCard {
+    background-color: #e6ee9c; /* Amarelo esverdeado claro */
+    border-radius: 12px;
+    padding: 16px;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    opacity: 0.8;
+}
+
+.noteContent {
+    flex: 1;
+}
+
+.noteDate {
+    font-size: 0.7rem;
+    color: #555;
+    text-align: right;
+}
+
+/* Card de Identificar */
+.identifyCard {
+    background-color: white;
+    border: 1px solid #f0f0f0;
+    border-radius: 20px;
+    padding: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+
+.identifyHeader {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.searchIconWrapper {
+    width: 40px;
+    height: 40px;
+    background-color: #e0e0e0;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+}
+
+.identifyText {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.identifyTitle {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+}
+
+.identifySubtitle {
+    font-size: 0.8rem;
+    color: #888;
+    margin: 0;
+}
+
+.identifyButton {
+    background-color: #66bb6a;
+    color: white;
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+/* Lista de Cuidados e Mais */
+.careList {
+    margin-bottom: 16px;
+}
+
+.moreActions {
+    display: flex;
+    justify-content: center;
+    color: #888;
+    margin-top: 8px;
+}
+
+.loading, .error {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: #666;
+}
