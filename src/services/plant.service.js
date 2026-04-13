@@ -7,7 +7,7 @@ export const getPlants = async () => {
 
 export const getPlantById = async (id) => {
     const response = await api.get(`/plants/${id}`);
-    return response.data;
+    return response.data.planta;
 }
 
 export const getPlantByName = async (name) => {
