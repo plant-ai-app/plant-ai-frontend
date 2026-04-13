@@ -1,34 +1,77 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './PlantCard.module.css';
-import { BsThreeDotsVertical, BsGeoAltFill, BsDropletHalf } from 'react-icons/bs';
+import { BsThreeDotsVertical, BsGeoAltFill } from 'react-icons/bs';
 
 const PlantCard = ({ plant }) => {
+    const [showAllNames, setShowAllNames] = useState(false);
+
+    const commonNames = typeof plant.nome_popular === 'string' 
+        ? plant.nome_popular.split(',').map(name => name.trim()) 
+        : (plant.commonNames || []);
+    
+    const hasNames = commonNames.length > 0;
+    const namesToShow = commonNames.slice(0, 2);
+    const hasMore = commonNames.length > 2;
+
     return (
-        <div className={styles.card}>
-            <div className={styles.imageContainer}>
-                <img src={plant.image} alt={plant.name} className={styles.plantImage} />
+        <div className={styles.plantCard}>
+            <div className={styles.cardImageContainer}>
+                {plant.foto_url && (
+                    <img src={plant.foto_url} alt={plant.nome_cientifico} className={styles.cardImage} />
+                )}
             </div>
-            
-            <div className={styles.infoContainer}>
+
+            <div className={styles.cardInfo}>
                 <div className={styles.headerRow}>
-                    <h3 className={styles.plantName}>{plant.name}</h3>
+                    <div>
+                        <h3 className={styles.scientificName}>{plant.nome_cientifico}</h3>
+                        <p className={styles.familyName}>{plant.family}</p>
+                    </div>
                     <button className={styles.moreButton} aria-label="Mais opções">
                         <BsThreeDotsVertical />
                     </button>
                 </div>
-                
-                <p className={styles.nickname}>"{plant.nickname}"</p>
-                
-                <div className={styles.detailsRow}>
-                    <div className={styles.detailItem}>
-                        <BsGeoAltFill className={styles.detailIcon} />
-                        <span>{plant.location}</span>
-                    </div>
-                    <div className={styles.detailItem}>
-                        <BsDropletHalf className={styles.detailIcon} />
-                        <span>Every {plant.waterDays} days</span>
-                    </div>
+
+                {plant.apelido && (
+                    <p className={styles.nickname}>"{plant.apelido}"</p>
+                )}
+
+                <div className={styles.commonNamesContainer}>
+                    {hasNames ? (
+                        <>
+                            {namesToShow.map((name, i) => (
+                                <span key={i} className={styles.commonNames}>{name}</span>
+                            ))}
+                            {hasMore && (
+                                <span
+                                    className={`${styles.commonNames} ${styles.moreDots}`}
+                                    onClick={() => setShowAllNames(!showAllNames)}
+                                >
+                                    ...
+                                </span>
+                            )}
+                            {showAllNames && hasMore && (
+                                <>
+                                    <div className={styles.namesBackdrop} onClick={() => setShowAllNames(false)} />
+                                    <div className={styles.namesPopover}>
+                                        {commonNames.map((n, idx) => (
+                                            <span key={`f-${idx}`} className={styles.commonNames}>{n}</span>
+                                        ))}
+                                    </div>
+                                </>
+                            )}
+                        </>
+                    ) : (
+                        <span className={styles.commonNames}>Nomes não disponíveis</span>
+                    )}
                 </div>
+
+                {plant.local?.nome && (
+                    <div className={styles.locationRow}>
+                        <BsGeoAltFill className={styles.locationIcon} />
+                        <span className={styles.locationText}>{plant.local.nome}</span>
+                    </div>
+                )}
             </div>
         </div>
     );
