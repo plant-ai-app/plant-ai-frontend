@@ -6,3 +6,10 @@
 .bottomSpacer {
     height: 100px;
 }
+
+.statusText {
+    text-align: center;
+    color: #888;
+    font-size: 14px;
+    padding: 32px 0;
+}
