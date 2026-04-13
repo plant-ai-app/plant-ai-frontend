@@ -29,13 +29,17 @@ import BottomNav from "../components/layouts/bottomNav/BottomNav.jsx";
 
 //componente para mostrar o bottomNav apenas nas rotas especificadas
 const ShowBottomNav = () => {
-    const routes = ['/home','/my-plants', '/schedule', '/perfil', '/plant'];
+    const routes = ['/home','/my-plants', '/schedule', '/perfil',];
     const location = useLocation();
     const { token } = useContext(AuthContext);
 
     if(!token) return null;
     
-    return routes.includes(location.pathname) ? <BottomNav /> : null;
+    // Mostra bottomNav se estiver em uma das rotas base ou em sub-rotas de /plant
+    const isMainRoute = routes.includes(location.pathname);
+    // const isPlantRoute = location.pathname.startsWith('/plant');
+    
+    return (isMainRoute) ? <BottomNav /> : null;
 }
 
 const AppRoutes = () => {
@@ -91,7 +95,7 @@ const AppRoutes = () => {
                         <Scan/>
                     </PrivateRoute>
                 } />
-                <Route path="/plant" element={
+                <Route path="/plant/:id" element={
                     <PrivateRoute>
                         <Plant/>
                     </PrivateRoute>
