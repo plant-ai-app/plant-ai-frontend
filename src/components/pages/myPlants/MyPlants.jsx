@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 //styles
 import styles from "./MyPlants.module.css";
 
@@ -14,12 +13,12 @@ import AddButton from "./components/AddButton.jsx";
 const MyPlants = () => {
     const [filterCategory, setFilterCategory] = useState("Todas");
     const [searchQuery, setSearchQuery] = useState("");
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
-    const handleAddPlant = () => {
-        // Mock function for adding a plant
-        alert("Add button clicked");
-    };
+    // const handleAddPlant = () => {
+    //     Mock function for adding a plant
+    //     alert("Add button clicked");
+    // };
 
     return (
         <Container padding={"0"}>
@@ -29,7 +28,7 @@ const MyPlants = () => {
                 <CategoryTabs onSelectCategory={setFilterCategory} />
                 <PlantList filterCategory={filterCategory} searchQuery={searchQuery} />
             </div>
-            <AddButton onClick={() => navigate("/scan")} />
+            {/* <AddButton onClick={() => navigate("/scan")} /> */}
         </Container>
     );
 };
