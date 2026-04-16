@@ -7,10 +7,10 @@ const PlantCard = ({ plant }) => {
     const [showAllNames, setShowAllNames] = useState(false);
     const navigate = useNavigate();
 
-    const commonNames = typeof plant.nome_popular === 'string' 
-        ? plant.nome_popular.split(',').map(name => name.trim()) 
+    const commonNames = typeof plant.nome_popular === 'string'
+        ? plant.nome_popular.split(',').map(name => name.trim())
         : (plant.commonNames || []);
-    
+
     const hasNames = commonNames.length > 0;
     const namesToShow = commonNames.slice(0, 2);
     const hasMore = commonNames.length > 2;
@@ -22,8 +22,19 @@ const PlantCard = ({ plant }) => {
         }
     };
 
+    const handleButtonClick = (acao) => (e) => {
+        e.stopPropagation();
+        acao()
+    }
+    const modalTest = () => alert("Modal test");
+
+    const handleShowAllNames = () => {
+        setShowAllNames(!showAllNames);
+    }
+
+
     return (
-        <div className={styles.plantCard} onClick={handleCardClick} style={{ cursor: 'pointer' }}>
+        <div onClick={handleCardClick} className={styles.plantCard} style={{ cursor: 'pointer' }}>
             <div className={styles.cardImageContainer}>
                 {plant.foto_url && (
                     <img src={plant.foto_url} alt={plant.nome_cientifico} className={styles.cardImage} />
@@ -36,7 +47,7 @@ const PlantCard = ({ plant }) => {
                         <h3 className={styles.scientificName}>{plant.nome_cientifico}</h3>
                         <p className={styles.familyName}>{plant.family}</p>
                     </div>
-                    <button className={styles.moreButton} aria-label="Mais opções">
+                    <button onClick={handleButtonClick(modalTest)} className={styles.moreButton} aria-label="Mais opções">
                         <BsThreeDotsVertical />
                     </button>
                 </div>
@@ -54,14 +65,15 @@ const PlantCard = ({ plant }) => {
                             {hasMore && (
                                 <span
                                     className={`${styles.commonNames} ${styles.moreDots}`}
-                                    onClick={() => setShowAllNames(!showAllNames)}
+                                    onClick={handleButtonClick(handleShowAllNames)}
+
                                 >
                                     ...
                                 </span>
                             )}
                             {showAllNames && hasMore && (
                                 <>
-                                    <div className={styles.namesBackdrop} onClick={() => setShowAllNames(false)} />
+                                    <div className={styles.namesBackdrop} onClick={handleButtonClick(handleShowAllNames)} />
                                     <div className={styles.namesPopover}>
                                         {commonNames.map((n, idx) => (
                                             <span key={`f-${idx}`} className={styles.commonNames}>{n}</span>
