@@ -97,7 +97,7 @@
 .moreDots {
     cursor: pointer;
     background: rgba(71, 134, 40, 0.15);
-    transition: background 0.2s;
+    /* transition: background 0.2s; */
 }
 
 .moreDots:hover {
@@ -110,7 +110,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: 100;
+    z-index: 10;
 }
 
 .namesPopover {
