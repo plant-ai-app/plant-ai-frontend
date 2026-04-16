@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { getPlantById } from '../../../services/plant.service';
 import styles from './Plant.module.css';
 import BackButton from '../../common/backButton/BackButton';
@@ -28,6 +29,10 @@ const Plant = () => {
 
         if (id) fetchPlant();
     }, [id]);
+
+    const handleSettingsClick = () => {
+        navigate(`/plant/settings/${id}`);
+    };
 
     if (loading) return <div className={styles.loading}>Carregando...</div>;
     if (!plant) return <div className={styles.error}>Planta não encontrada.</div>;
@@ -70,7 +75,7 @@ const Plant = () => {
                             backgroundColor="rgba(255, 255, 255, 0.2)"
                             color="#fbfbfb"
                         />
-                        <button className={styles.iconButton} aria-label="Settings">
+                        <button className={styles.iconButton} onClick={handleSettingsClick} aria-label="Settings">
                             <Hexagon size={24} color="white" />
                         </button>
                     </div>
