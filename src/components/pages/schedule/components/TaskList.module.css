@@ -1,0 +1,52 @@
+.section {
+    margin-bottom: 32px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.titleArea {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.warningIcon {
+    color: #ed5555;
+    font-size: 18px;
+}
+
+.title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0;
+}
+
+.warningTitle {
+    color: #ed5555;
+}
+
+.badge {
+    font-size: 13px;
+    padding: 2px 0;
+    font-weight: 500;
+}
+
+.warningBadge {
+    color: #ed5555;
+}
+
+.normalBadge {
+    color: #5c8b54;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
