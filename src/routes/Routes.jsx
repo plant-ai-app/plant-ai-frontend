@@ -23,13 +23,14 @@ import Perfil from "../components/pages/perfil/Perfil.jsx";
 import Schedule from "../components/pages/schedule/Schedule.jsx";
 import Scan from "../components/pages/scan/Scan.jsx";
 import Plant from "../components/pages/plant/Plant.jsx";
+import PlantSettings from "../components/pages/plantSettings/PlantSettings.jsx";
 
 //components
 import BottomNav from "../components/layouts/bottomNav/BottomNav.jsx";
 
 //componente para mostrar o bottomNav apenas nas rotas especificadas
 const ShowBottomNav = () => {
-    const routes = ['/home','/my-plants', '/schedule', '/perfil',];
+    const routes = ['/home','/my-plants', '/schedule', '/perfil'];
     const location = useLocation();
     const { token } = useContext(AuthContext);
 
@@ -93,6 +94,11 @@ const AppRoutes = () => {
                 <Route path="/scan" element={
                     <PrivateRoute>
                         <Scan/>
+                    </PrivateRoute>
+                } />
+                <Route path="/plant/settings/:id" element={
+                    <PrivateRoute>
+                        <PlantSettings/>
                     </PrivateRoute>
                 } />
                 <Route path="/plant/:id" element={
