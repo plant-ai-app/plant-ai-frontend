@@ -56,7 +56,7 @@ const AvatarSheet = ({ isOpen, onClose, onSave, currentAvatarUrl }) => {
 
                 {loading ? (
                     <div className={styles.loadingContainer}>
-                        <Loading />
+                        <Loading inline={true} size="100px" />
                     </div>
                 ) : (
                     <div className={styles.avatarGrid}>
