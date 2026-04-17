@@ -17,40 +17,42 @@ const BottomNav = () => {
                     onClick={() => navigate('/home')}
                 >
                     <BiHomeAlt className={styles.icon} />
-                    <span>Home</span>
+                    <span>Início</span>
                 </button>
-                <button
-                    className={`${styles.navItem} ${location.pathname === '/my-plants' ? styles.active : ''}`}
-                    onClick={() => navigate('/my-plants')}
-                >
-                    <PiPlant className={styles.icon} />
-                    <span>My Plants</span>
-                </button>
-
-                <div className={styles.centerButtonWrapper}>
-                    <button 
-                        className={styles.centerButton} 
-                        aria-label="Identify Plant"
-                        onClick={() => navigate('/scan')}
-                    >
-                        <RiFocus3Line className={styles.centerIcon} />
-                    </button>
-                    <span className={styles.centerLabel}>Identify</span>
-                </div>
 
                 <button
                     className={`${styles.navItem} ${location.pathname === '/schedule' ? styles.active : ''}`}
                     onClick={() => navigate('/schedule')}
                 >
                     <BiCalendar className={styles.icon} />
-                    <span>Schedule</span>
+                    <span>Agenda</span>
                 </button>
+
+                <div className={styles.centerButtonWrapper}>
+                    <button
+                        className={styles.centerButton}
+                        aria-label="Identify Plant"
+                        onClick={() => navigate('/scan')}
+                    >
+                        <RiFocus3Line className={styles.centerIcon} />
+                    </button>
+                    <span className={styles.centerLabel}>Identificar</span>
+                </div>
+
+                <button
+                    className={`${styles.navItem} ${location.pathname === '/my-plants' ? styles.active : ''}`}
+                    onClick={() => navigate('/my-plants')}
+                >
+                    <PiPlant className={styles.icon} />
+                    <span>Plantas</span>
+                </button>
+
                 <button
                     className={`${styles.navItem} ${location.pathname === '/perfil' ? styles.active : ''}`}
                     onClick={() => navigate('/perfil')}
                 >
                     <BsPerson className={styles.icon} />
-                    <span>Profile</span>
+                    <span>Perfil</span>
                 </button>
             </div>
         </nav>
