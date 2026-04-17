@@ -58,8 +58,7 @@ const ForgotPassword = () => {
                     <div className={styles.texts}>
                     <h1>Esqueceu sua <br/>Senha?</h1>
                     <p>
-                        Não se preocupe! Isso acontece. <br/>
-                        Insira o seu endereço de email para o qual enviaremos uma mensagem.
+                        Não se preocupe! <br/> Insira seu e-mail para redefinir sua senha.
                     </p>
                 </div>
                 <ForgotPwdForm
