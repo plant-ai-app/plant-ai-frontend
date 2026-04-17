@@ -11,8 +11,16 @@
     background-color: rgba(217, 217, 231, 0.4);
 }
 
-.loading_container > img{
+.loading_container > img, .loading_inline > img{
     height: 150px;
     width: 150px;
     object-fit: cover;
 }
+
+.loading_inline {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
