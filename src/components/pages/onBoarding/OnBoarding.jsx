@@ -41,7 +41,7 @@ const OnBoarding = () => {
 
     return (
         <Container padding={'1% 1.2rem 0rem 1.2rem'}>
-            <div style={{ overflowX: "hidden", position: "relative", width: "100%", height: "100%" }}>
+            <div style={{ overflow: "hidden", position: "relative", width: "100%", height: "100%" }}>
                 <AnimatePresence mode="wait">
                     <motion.div
                         key={currentStep}
