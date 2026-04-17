@@ -1,25 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import PlantCard from './PlantCard.jsx';
 import styles from './PlantList.module.css';
-import { getPlants } from '../../../../services/plant.service.js';
+import { usePlant } from '../../../../hooks/usePlant.js';
 
 const PlantList = ({ filterCategory, searchQuery }) => {
     const [plants, setPlants] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const { getPlants, loading, error } = usePlant();
+    // const [initialLoading, setInitialLoading] = useState(true);
 
     useEffect(() => {
         const fetchPlants = async () => {
             try {
-                setLoading(true);
                 const data = await getPlants();
                 setPlants(Array.isArray(data) ? data : []);
             } catch (err) {
                 console.error('Erro ao buscar plantas:', err);
-                setError('Não foi possível carregar as plantas.');
-            } finally {
-                setLoading(false);
-            }
+            } /*finally {
+                setInitialLoading(false);
+            }*/
         };
 
         fetchPlants();
