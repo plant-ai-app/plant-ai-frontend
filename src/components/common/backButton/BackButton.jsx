@@ -1,9 +1,8 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import styles from './BackButton.module.css';
 
-const BackButton = ({ onClick, widht, height, borderRadius, backgroundColor, color }) => {
+const BackButton = ({ onClick, width, height, borderRadius, backgroundColor, color }) => {
     const navigate = useNavigate();
 
     const handleGoBack = () => {
@@ -17,7 +16,7 @@ const BackButton = ({ onClick, widht, height, borderRadius, backgroundColor, col
     return (
         <button className={styles.backButton}
             style={{
-                width: widht,
+                width: width,
                 height: height,
                 borderRadius: borderRadius,
                 backgroundColor: backgroundColor,
