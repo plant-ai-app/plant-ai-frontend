@@ -1,0 +1,60 @@
+.dateTimeRow {
+    display: flex;
+    gap: 12px;
+}
+
+.dateTimeBox {
+    flex: 1;
+    background: #ffffff;
+    border: 1px solid #f0f0f0;
+    border-radius: 20px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+.dtLabel {
+    font-size: 11px;
+    font-weight: 700;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.dtInputWrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.dtIcon {
+    color: #478628;
+    font-size: 18px;
+}
+
+.dtInput {
+    border: none;
+    background: transparent;
+    font-size: 15px;
+    font-weight: 600;
+    color: #1a1a1a;
+    width: 100%;
+    font-family: inherit;
+    outline: none;
+}
+
+/* Input Styles overrides */
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator {
+    opacity: 0;
+    width: 100%;
+    position: absolute;
+    cursor: pointer;
+}
+
+.dtInputContainer {
+    position: relative;
+    flex: 1;
+}
