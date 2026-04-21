@@ -5,6 +5,7 @@ import { BsThreeDotsVertical, BsGeoAltFill } from 'react-icons/bs';
 
 const PlantCard = ({ plant }) => {
     const [showAllNames, setShowAllNames] = useState(false);
+    const [showMenu, setShowMenu] = useState(false);
     const navigate = useNavigate();
 
     const commonNames = typeof plant.nome_popular === 'string'
@@ -14,9 +15,9 @@ const PlantCard = ({ plant }) => {
     const hasNames = commonNames.length > 0;
     const namesToShow = commonNames.slice(0, 2);
     const hasMore = commonNames.length > 2;
+    const plantId = plant.id || plant._id;
 
     const handleCardClick = () => {
-        const plantId = plant.id || plant._id;
         if (plantId) {
             navigate(`/plant/${plantId}`);
         }
@@ -26,7 +27,7 @@ const PlantCard = ({ plant }) => {
         e.stopPropagation();
         acao()
     }
-    const modalTest = () => alert("Modal test");
+    const toggleMenu = () => setShowMenu(!showMenu);
 
     const handleShowAllNames = () => {
         setShowAllNames(!showAllNames);
@@ -47,9 +48,38 @@ const PlantCard = ({ plant }) => {
                         <h3 className={styles.scientificName}>{plant.nome_cientifico}</h3>
                         <p className={styles.familyName}>{plant.family}</p>
                     </div>
-                    <button onClick={handleButtonClick(modalTest)} className={styles.moreButton} aria-label="Mais opções">
-                        <BsThreeDotsVertical />
-                    </button>
+                    
+                    <div className={styles.optionsMenuContainer}>
+                        <button onClick={handleButtonClick(toggleMenu)} className={styles.moreButton} aria-label="Mais opções">
+                            <BsThreeDotsVertical />
+                        </button>
+                        
+                        {showMenu && (
+                            <>
+                                <div className={styles.optionsBackdrop} onClick={handleButtonClick(toggleMenu)} />
+                                <div className={styles.optionsPopover}>
+                                    <button 
+                                        className={styles.optionsMenuItem} 
+                                        onClick={handleButtonClick(() => { navigate(`/plant/${plantId}/care/create`); setShowMenu(false); })}
+                                    >
+                                        Adicionar cuidado
+                                    </button>
+                                    <button 
+                                        className={styles.optionsMenuItem} 
+                                        onClick={handleButtonClick(() => { navigate(`/plant/settings/${plantId}`); setShowMenu(false); })}
+                                    >
+                                        Ajustes da Planta
+                                    </button>
+                                    <button 
+                                        className={`${styles.optionsMenuItem} ${styles.deleteItem}`} 
+                                        onClick={handleButtonClick(() => { alert("Deletar Planta"); setShowMenu(false); })}
+                                    >
+                                        Deletar Planta
+                                    </button>
+                                </div>
+                            </>
+                        )}
+                    </div>
                 </div>
 
                 {plant.apelido && (
