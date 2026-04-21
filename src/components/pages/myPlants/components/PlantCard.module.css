@@ -43,6 +43,7 @@
 .scientificName {
     font-weight: 700;
     font-size: 16px;
+    width: 90%;
     color: #1a1a1a;
     letter-spacing: -0.01em;
     margin: 0;
@@ -58,8 +59,8 @@
     background: none;
     border: none;
     color: #b0bcab;
-    padding: 0;
-    font-size: 18px;
+    padding: 8px;
+    font-size: 16px;
     cursor: pointer;
     flex-shrink: 0;
     display: flex;
@@ -160,3 +161,58 @@
     color: #5c6e61;
     font-weight: 500;
 }
+
+.optionsMenuContainer {
+    position: relative;
+    display: inline-block;
+}
+
+.optionsBackdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+}
+
+.optionsPopover {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 4px;
+    background: #ffffff;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    border: 1px solid #f0f0f0;
+    border-radius: 12px;
+    padding: 8px 0;
+    display: flex;
+    flex-direction: column;
+    z-index: 101;
+    min-width: 180px;
+    animation: popIn 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+.optionsMenuItem {
+    background: transparent;
+    border: none;
+    padding: 10px 16px;
+    text-align: left;
+    font-size: 14px;
+    color: #1a1a1a;
+    cursor: pointer;
+    width: 100%;
+}
+
+.optionsMenuItem:hover {
+    background: rgba(71, 134, 40, 0.05);
+}
+
+.optionsMenuItem.deleteItem {
+    color: #e53935;
+}
+
+.optionsMenuItem.deleteItem:hover {
+    background: rgba(229, 57, 53, 0.05);
+}
+
