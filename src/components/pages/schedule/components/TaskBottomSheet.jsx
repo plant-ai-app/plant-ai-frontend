@@ -16,12 +16,18 @@ const TaskBottomSheet = ({ isOpen, onClose, plantId }) => {
     return (
         <div className={styles.overlay} onClick={onClose}>
             <div className={styles.container} onClick={(e) => e.stopPropagation()}>
-                <button className={styles.option} onClick={handleNavigate}>
-                    <span className={styles.optionText}>Configurações da planta</span>
+                <div className={styles.handle} />
+                
+                <button className={`${styles.option} ${styles.edit}`} onClick={() => {alert("Editar cuidado")}}>
+                    <span className={styles.optionText}>Editar cuidado</span>
                 </button>
                 
-                <button className={styles.cancelOption} onClick={onClose}>
-                    Cancelar
+                <button className={`${styles.option} ${styles.settings}`} onClick={handleNavigate}>
+                    <span className={styles.optionText}>Configurações</span>
+                </button>
+                
+                <button className={`${styles.option} ${styles.delete}`} onClick={() => {alert("Deletar cuidado")}}>
+                    <span className={styles.optionText}>Deletar cuidado</span>
                 </button>
             </div>
         </div>
