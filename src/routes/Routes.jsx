@@ -24,6 +24,8 @@ import Schedule from "../components/pages/schedule/Schedule.jsx";
 import Scan from "../components/pages/scan/Scan.jsx";
 import Plant from "../components/pages/plant/Plant.jsx";
 import PlantSettings from "../components/pages/plantSettings/PlantSettings.jsx";
+import CreateCare from "../components/pages/createCare/CreateCare.jsx";
+import EditCare from "../components/pages/editCare/EditCare.jsx";
 
 //components
 import BottomNav from "../components/layouts/bottomNav/BottomNav.jsx";
@@ -104,6 +106,16 @@ const AppRoutes = () => {
                 <Route path="/plant/:id" element={
                     <PrivateRoute>
                         <Plant/>
+                    </PrivateRoute>
+                } />
+                <Route path="/plant/:id/care/create" element={
+                    <PrivateRoute>
+                        <CreateCare/>
+                    </PrivateRoute>
+                } />
+                <Route path="/plant/:id/care/edit/:careId" element={
+                    <PrivateRoute>
+                        <EditCare/>
                     </PrivateRoute>
                 } />
             </Routes>
