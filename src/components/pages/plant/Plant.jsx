@@ -69,7 +69,7 @@ const Plant = () => {
                 <div className={styles.headerOverlay}>
                     <div className={styles.topActions}>
                         <BackButton 
-                            widht="40px"
+                            width="40px"
                             height="40px"
                             borderRadius="50%"
                             backgroundColor="rgba(255, 255, 255, 0.2)"
@@ -159,9 +159,13 @@ const Plant = () => {
                 <div className={styles.section}>
                     <h3 className={styles.sectionTitle}>Cuidados anteriores</h3>
                     <div className={styles.careList}>
-                        {careHistory.map(item => (
-                            <CareCard key={item.id} {...item} />
-                        ))}
+                        {careHistory.length === 0 ? (
+                            <p>Nenhum cuidado registrado.</p>
+                        ) : (
+                            careHistory.map(item => (
+                                <CareCard key={item.id} {...item} />
+                            ))
+                        )}
                     </div>
                     <div className={styles.moreActions}>
                         <MoreHorizontal />
