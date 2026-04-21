@@ -1,0 +1,28 @@
+.sectionTitle {
+    font-size: 15px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0 0 12px 0;
+}
+
+.textAreaBox {
+    background: #ffffff;
+    border: 1px solid #f0f0f0;
+    border-radius: 20px;
+    padding: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+.instructionsInput {
+    width: 100%;
+    resize: none;
+    font-family: inherit;
+    font-size: 15px;
+    color: #1a1a1a;
+    height: 80px;
+    outline: none;
+}
+
+.instructionsInput::placeholder {
+    color: #b0bcab;
+}
