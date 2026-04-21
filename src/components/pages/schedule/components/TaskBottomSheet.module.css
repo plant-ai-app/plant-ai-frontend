@@ -23,7 +23,7 @@
     margin: 0 auto;
     background-color: #ffffff;
     border-radius: 20px 20px 0 0;
-    padding: 20px 20px 12px 20px;
+    padding: 12px 20px 20px 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -36,6 +36,14 @@
     to { transform: translateY(0); }
 }
 
+.handle {
+    width: 40px;
+    height: 4px;
+    background-color: #e0e0e0;
+    border-radius: 2px;
+    margin-bottom: 20px;
+}
+
 .option {
     display: flex;
     align-items: center;
@@ -43,22 +51,27 @@
     border: none;
     width: 100%;
     justify-content: center;
-    padding: 12px;
+    padding: 18px;
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.option:last-of-type {
+    border-bottom: none;
+}
+
+.option:active {
+    background-color: #fafafa;
 }
 
 .optionText {
     font-size: 1rem;
-    font-weight: 600;
-    color: #478628;
+    font-weight: 500;
+    color: #595959;
+}
+.option.delete > span{
+    color: #e53935;
 }
 
-.cancelOption {
-    font-size: 1rem;
-    font-weight: 600;
-    color: #a0a0a0;
-    background: none;
-    padding: 8px;
-    cursor: pointer;
-    width: 100%;
-}
 
