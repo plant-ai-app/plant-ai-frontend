@@ -1,0 +1,38 @@
+.formContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 16px 0;
+}
+
+/* Submit Button */
+.submitButtonContainer {
+    margin-top: 16px;
+    margin-bottom: 32px;
+}
+
+.submitBtn {
+    width: 100%;
+    background: #478628;
+    color: #ffffff;
+    padding: 16px;
+    border-radius: 99px;
+    font-size: 16px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: 0 4px 15px rgba(71, 134, 40, 0.3);
+    transition: background 0.2s;
+}
+
+.submitBtn:hover {
+    background: #3b7420;
+}
+
+.submitBtn:disabled {
+    background: #b0bcab;
+    box-shadow: none;
+    cursor: not-allowed;
+}
