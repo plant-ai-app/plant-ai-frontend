@@ -136,13 +136,10 @@
 }
 
 .moreBtn {
-    color: #555;
-    font-size: 18px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
+    color: #707070;
+    font-size: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 4px;
+    padding: 8px;
 }
