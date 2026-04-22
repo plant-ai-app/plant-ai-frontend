@@ -1,10 +1,19 @@
-import React from 'react';
+import { useState } from 'react';
+import { BsInfoCircleFill } from 'react-icons/bs';
 import styles from './CareTypeGrid.module.css';
+import CareTypeInfoSheet from './CareTypeInfoSheet/CareTypeInfoSheet.jsx';
 
 const CareTypeGrid = ({ types, selectedTypeId, onSelect }) => {
+    const [isInfoOpen, setIsInfoOpen] = useState(false);
+
     return (
         <div>
-            <h4 className={styles.sectionTitle}>Tipo de Cuidado</h4>
+            <div className={styles.headerRow}>
+                <h4 className={styles.sectionTitle}>Tipo de Cuidado</h4>
+                <button type="button" className={styles.infoBtn} onClick={() => setIsInfoOpen(true)}>
+                    <BsInfoCircleFill />
+                </button>
+            </div>
             <div className={styles.typesGrid}>
                 {types.map(type => (
                     <button
@@ -30,6 +39,11 @@ const CareTypeGrid = ({ types, selectedTypeId, onSelect }) => {
                     </button>
                 ))}
             </div>
+            <CareTypeInfoSheet 
+                isOpen={isInfoOpen} 
+                onClose={() => setIsInfoOpen(false)} 
+                types={types} 
+            />
         </div>
     );
 };
