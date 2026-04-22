@@ -2,12 +2,12 @@ import api from "./api";
 
 export const getCareById = async (id) => {
     const response = await api.get(`/cuidado/${id}`);
-    return response.data.cuidado;
+    return response.data;
 }
 
 export const getCaresByPlantId = async (plantId) => {
     const response = await api.get(`/cuidado/planta/${plantId}`);
-    return response.data.cuidados;
+    return response.data;
 }
 
 export const createCare = async (care) => {
