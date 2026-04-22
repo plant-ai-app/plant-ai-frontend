@@ -21,6 +21,7 @@ import FrequencySelector from './components/FrequencySelector.jsx';
 import DateTimeSelector from './components/DateTimeSelector.jsx';
 import InstructionsInput from './components/InstructionsInput.jsx';
 import StatusToggle from './components/StatusToggle';
+import Loading from '../layouts/loading/Loading.jsx';
 //hooks
 import { useCareType } from '../../hooks/useCareType.js';
 
@@ -158,16 +159,26 @@ const CareForm = ({
                 onChange={setInstrucoes}
             />
 
-            <StatusToggle
-                isActive={isActive}
-                onToggle={setIsActive}
-            />
+            {initialValues && (
+                <StatusToggle
+                    isActive={isActive}
+                    onToggle={setIsActive}
+                />
+            )}
 
             <div className={styles.submitButtonContainer}>
-                <button type="submit" className={styles.submitBtn} disabled={loading}>
-                    <BsSave />
-                    {loading ? 'Salvando...' : submitText}
-                </button>
+                {loading ? (
+                    <Loading />
+                ) : (
+                    <button
+                        disabled={!tipoId || loading}
+                        type="submit"
+                        className={styles.submitBtn}
+                    >
+                        <BsSave />
+                        {submitText}
+                    </button>
+                )}
             </div>
         </form>
     );
