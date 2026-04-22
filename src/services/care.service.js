@@ -5,6 +5,11 @@ export const getCareById = async (id) => {
     return response.data;
 }
 
+export const getAllCares = async () => {
+    const response = await api.get(`/cuidado`);
+    return response.data;
+}
+
 export const getCaresByPlantId = async (plantId) => {
     const response = await api.get(`/cuidado/planta/${plantId}`);
     return response.data;

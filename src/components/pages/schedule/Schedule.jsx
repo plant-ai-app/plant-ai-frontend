@@ -1,3 +1,5 @@
+//react
+import React, { useState, useEffect } from 'react';
 
 //styles
 import styles from "./Schedule.module.css";
@@ -9,91 +11,139 @@ import DateSelector from "./components/DateSelector.jsx";
 import TaskList from "./components/TaskList.jsx";
 import AddButton from "./components/AddButton.jsx";
 
-//icons
-import { Droplet, Scissors, FlaskConical, Sun } from 'lucide-react';
+//services
+import { getPlants } from "../../../services/plant.service";
+import { getCaresByPlantId } from "../../../services/care.service";
 
-const mockTaskGroups = [
-    {
-        group: 'Overdue',
-        title: 'Atrasado',
-        count: 2,
-        type: 'overdue',
-        tasks: [
-            {
-                id: 1,
-                name: 'Monstera Deliciosa',
-                image: 'https://images.unsplash.com/photo-1614594975525-e45190c55d40?auto=format&fit=crop&w=150&q=80',
-                action: 'Necessita de rega',
-                status: '2 dias atrás',
-                statusType: 'error',
-                icon: <Droplet size={14} />,
-                iconColor: '#ed5555', // red
-                actionStyle: 'check'
-            },
-            {
-                id: 2,
-                name: 'Fiddle Leaf Fig',
-                image: 'https://images.unsplash.com/photo-1597055936561-12fec34d9302?auto=format&fit=crop&w=150&q=80',
-                action: 'Necessita de poda',
-                status: 'Ontem',
-                statusType: 'error',
-                icon: <Scissors size={14} />,
-                iconColor: '#f5a623', // orange
-                actionStyle: 'check'
-            }
-        ]
-    },
-    {
-        group: 'Today',
-        title: 'Hoje',
-        count: 3,
-        type: 'today',
-        tasks: [
-            {
-                id: 3,
-                name: 'Snake Plant',
-                image: 'https://images.unsplash.com/photo-1593482892290-f56b509fd75c?auto=format&fit=crop&w=150&q=80',
-                action: 'Rega Semanal',
-                status: '10:00',
-                statusType: 'normal',
-                icon: <Droplet size={14} />,
-                iconColor: '#4a90e2', // blue
-                actionStyle: 'check'
-            },
-            {
-                id: 4,
-                name: 'Golden Pothos',
-                image: 'https://images.unsplash.com/photo-1620127816040-5e3e3b3a6ff6?auto=format&fit=crop&w=150&q=80',
-                action: 'Fertilização',
-                status: '14:00',
-                statusType: 'normal',
-                icon: <FlaskConical size={14} />,
-                iconColor: '#9013fe', // purple
-                actionStyle: 'check'
-            }
-        ]
-    },
-    {
-        group: 'Tomorrow',
-        title: 'Amanhã',
-        type: 'tomorrow',
-        tasks: [
-            {
-                id: 5,
-                name: 'Aloe Vera',
-                image: 'https://images.unsplash.com/photo-1596547609652-9cb5d8d73bba?auto=format&fit=crop&w=150&q=80',
-                action: 'Girar o vaso',
-                status: '09:00',
-                statusType: 'normal',
-                icon: <Sun size={14} />,
-                iconColor: '#9b9b9b', // gray
-                actionStyle: 'time'
-            }
-        ]
+//icons
+import { BsSave, BsDroplet, BsLightningCharge, BsScissors, BsSun, BsWind, BsBug, BsStars, BsArrowRepeat } from 'react-icons/bs';
+
+const getIconForCareType = (name) => {
+    switch (name) {
+        case 'Exposição Solar': return { icon: <BsSun />, color: '#ffcc00', bgColor: '#ffffe6' };
+        case 'Adubação': return { icon: <BsLightningCharge />, color: '#88cc00', bgColor: '#f2ffe6' };
+        case 'Poda': return { icon: <BsScissors />, color: '#ff4d4d', bgColor: '#ffe6e6' };
+        case 'Controle de Pragas': return { icon: <BsBug />, color: '#a64dff', bgColor: '#f2e6ff' };
+        case 'Limpeza das Folhas': return { icon: <BsStars />, color: '#0088ff', bgColor: '#e6f4ff' };
+        case 'Rega': return { icon: <BsDroplet />, color: '#00b386', bgColor: '#e6fff7' };
+        case 'Troca de Vaso': return { icon: <BsArrowRepeat />, color: '#ff8800', bgColor: '#ffeee0' };
+        default: return { icon: <BsSun />, color: '#808080', bgColor: '#f2f2f2' };
     }
-];
+};
 
 const Schedule = () => {
+    const [taskGroups, setTaskGroups] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchSchedule = async () => {
+            try {
+                // 1. Obter todas as plantas do usuário
+                const plantas = await getPlants();
+                
+                // 2. Para cada planta, buscar seus cuidados
+                let allCares = [];
+                for (const plant of plantas) {
+                    try {
+                        const response = await getCaresByPlantId(plant.id);
+                        if (response && response.cuidados) {
+                            // Adicionar informações da planta em cada cuidado
+                            const cuidadosComPlanta = response.cuidados.map(c => ({
+                                ...c,
+                                plantaInfo: plant
+                            }));
+                            allCares = [...allCares, ...cuidadosComPlanta];
+                        }
+                    } catch (err) {
+                        console.error(`Erro ao buscar cuidados para planta ${plant.id}:`, err);
+                    }
+                }
+
+                // 3. Organizar os cuidados por data
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+
+                const tomorrow = new Date(today);
+                tomorrow.setDate(tomorrow.getDate() + 1);
+
+                const overdueTasks = [];
+                const todayTasks = [];
+                const tomorrowTasks = [];
+
+                allCares.forEach((cuidado) => {
+                    const styleData = getIconForCareType(cuidado.tipo?.nome);
+                    
+                    const taskDate = new Date(cuidado.proxima_data);
+                    taskDate.setHours(0, 0, 0, 0);
+
+                    // A imagem pode vir de campos diferentes dependendo do schema
+                    const plantImage = cuidado.plantaInfo?.imagem || cuidado.plantaInfo?.foto || cuidado.plantaInfo?.image || '';
+
+                    const task = {
+                        id: cuidado.planta_id, // Usado para abrir o TaskBottomSheet
+                        name: cuidado.plantaInfo?.nome || `Planta ${cuidado.planta_id}`,
+                        image: plantImage,
+                        action: cuidado.tipo?.nome || 'Cuidado',
+                        status: cuidado.horario_preferencial || '00:00',
+                        statusType: 'normal',
+                        icon: styleData.icon,
+                        iconColor: styleData.color,
+                        actionStyle: 'check'
+                    };
+
+                    if (taskDate < today) {
+                        task.statusType = 'error';
+                        const diffTime = Math.abs(today - taskDate);
+                        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                        task.status = `${diffDays} dia${diffDays > 1 ? 's' : ''} atrás`;
+                        overdueTasks.push(task);
+                    } else if (taskDate.getTime() === today.getTime()) {
+                        todayTasks.push(task);
+                    } else if (taskDate.getTime() === tomorrow.getTime()) {
+                        task.actionStyle = 'time';
+                        tomorrowTasks.push(task);
+                    }
+                });
+
+                const groups = [];
+                if (overdueTasks.length > 0) {
+                    groups.push({
+                        group: 'Overdue',
+                        title: 'Atrasado',
+                        count: overdueTasks.length,
+                        type: 'overdue',
+                        tasks: overdueTasks
+                    });
+                }
+                if (todayTasks.length > 0) {
+                    groups.push({
+                        group: 'Today',
+                        title: 'Hoje',
+                        count: todayTasks.length,
+                        type: 'today',
+                        tasks: todayTasks
+                    });
+                }
+                if (tomorrowTasks.length > 0) {
+                    groups.push({
+                        group: 'Tomorrow',
+                        title: 'Amanhã',
+                        type: 'tomorrow',
+                        tasks: tomorrowTasks
+                    });
+                }
+
+                setTaskGroups(groups);
+            } catch (error) {
+                console.error("Erro ao carregar agenda:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchSchedule();
+    }, []);
+
     return (
         <Container padding={'0'}>
             <div className={styles.scrollArea}>
@@ -101,15 +151,21 @@ const Schedule = () => {
                 <DateSelector />
                 
                 <div className={styles.tasksContainer}>
-                    {mockTaskGroups.map((group, index) => (
-                        <TaskList
-                            key={index}
-                            title={group.title}
-                            count={group.count}
-                            type={group.type}
-                            tasks={group.tasks}
-                        />
-                    ))}
+                    {loading ? (
+                        <p style={{ textAlign: 'center', marginTop: '20px', color: '#666' }}>Carregando tarefas...</p>
+                    ) : taskGroups.length > 0 ? (
+                        taskGroups.map((group, index) => (
+                            <TaskList
+                                key={index}
+                                title={group.title}
+                                count={group.count}
+                                type={group.type}
+                                tasks={group.tasks}
+                            />
+                        ))
+                    ) : (
+                        <p style={{ textAlign: 'center', marginTop: '20px', color: '#666' }}>Nenhuma tarefa agendada.</p>
+                    )}
                 </div>
             </div>
             <AddButton onClick={() => alert("Adicionar nova tarefa")} />
