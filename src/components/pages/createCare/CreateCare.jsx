@@ -8,6 +8,8 @@ import { BsArrowLeft } from 'react-icons/bs';
 import Container from '../../common/container/Container.jsx'
 import CareForm from '../../care/CareForm.jsx';
 import BackButton from '../../common/backButton/BackButton.jsx';
+import Message from '../../layouts/message/Message.jsx';
+import Loading from '../../layouts/loading/Loading.jsx';
 //hooks
 import { usePlant } from '../../../hooks/usePlant.js';
 import { useCare } from '../../../hooks/useCare.js';
@@ -20,6 +22,8 @@ const CreateCare = () => {
     
     const [plant, setPlant] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [message, setMessage] = useState('');
+    const [messageType, setMessageType] = useState('');
 
     useEffect(() => {
         const fetchPlant = async () => {
@@ -42,17 +46,42 @@ const CreateCare = () => {
     };
 
     const handleSubmit = async (formData) => {
+        setMessage('');
+        setMessageType('');
+
+        // Prepara o payload no formato esperado para a criação do cuidado
+        const payload = {
+            planta_id: formData.planta_id,
+            tipo_id: formData.tipo_id,
+            frequencia_dias: formData.frequencia_dias,
+            // Formata a data para ISO-8601 (ex: "2024-04-25T09:00:00.000Z")
+            proxima_data: new Date(`${formData.proxima_data}T${formData.horario_preferencial}:00`).toISOString(),
+            quantidade_instrucao: formData.quantidade_instrucao,
+            horario_preferencial: formData.horario_preferencial
+        };
+
         try {
-            await createCare(formData);
-            navigate(-1); // Volta para a tela da planta ou agenda após salvar
+            const data = await createCare(payload);
+            setMessage(data.message);
+            setMessageType("success");
+            setTimeout(() => {
+                navigate(-1); // Volta para a tela da planta ou agenda após salvar
+            }, 2000);
         } catch (error) {
             console.error("Erro ao agendar cuidado:", error);
-            alert("Não foi possível salvar o cuidado. Tente novamente.");
+            setMessage(error.response?.data?.message || "Não foi possível salvar o cuidado. Tente novamente.");
+            setMessageType("error");
+            setTimeout(() => {
+                setMessage("");
+            }, 3000);
         }
     };
 
     return (
         <Container padding={'0'}>
+            {saving && <Loading />}
+            {message && <Message type={messageType} msg={message} />}
+
             <header className={styles.header}>
                 <BackButton 
                     onClick={handleGoBack} 
