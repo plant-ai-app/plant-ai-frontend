@@ -6,7 +6,7 @@ const InstructionsInput = ({ value, onChange }) => {
         <div>
             <h4 className={styles.sectionTitle}>Instruções</h4>
             <div className={styles.textAreaBox}>
-                <textarea 
+                <textarea maxLength={80}
                     className={styles.instructionsInput}
                     placeholder="Instruções especiais (ex: Usar 200ml de água filtrada)"
                     value={value}
