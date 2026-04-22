@@ -1,8 +1,28 @@
+.headerRow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
 .sectionTitle {
     font-size: 15px;
     font-weight: 700;
     color: #1a1a1a;
-    margin: 0 0 12px 0;
+    margin: 0;
+}
+
+.infoBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #8c8c8c;
+    font-size: 16px;
+    transition: color 0.2s;
+}
+
+.infoBtn:hover {
+    color: #5c6e61;
 }
 
 .typesGrid {
