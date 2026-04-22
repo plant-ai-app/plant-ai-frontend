@@ -29,7 +29,7 @@ const SettingsList = () => {
                 </div>
 
                 {/* Reminder Time Item */}
-                <div className={styles.listItem}>
+                {/* <div className={styles.listItem}>
                     <div className={styles.itemLeft}>
                         <div className={styles.iconWrapper}>
                             <BsClockFill className={styles.itemIcon} />
@@ -40,7 +40,7 @@ const SettingsList = () => {
                         <span className={styles.itemValue}>9:00 AM</span>
                         <BsChevronRight className={styles.chevronIcon} />
                     </div>
-                </div>
+                </div> */}
 
                 {/* Language Item */}
                 <div className={styles.listItem}>
@@ -57,7 +57,7 @@ const SettingsList = () => {
                 </div>
 
                 {/* Theme Item */}
-                <div className={styles.listItem}>
+                {/* <div className={styles.listItem}>
                     <div className={styles.itemLeft}>
                         <div className={styles.iconWrapper}>
                             <BsPaletteFill className={styles.itemIcon} />
@@ -68,7 +68,7 @@ const SettingsList = () => {
                         <span className={styles.itemValue}>Claro</span>
                         <BsChevronRight className={styles.chevronIcon} />
                     </div>
-                </div>
+                </div> */}
             </div>
         </div>
     );
