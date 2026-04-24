@@ -2,9 +2,12 @@ import React, { useState, useEffect } from 'react';
 import PlantCard from './PlantCard.jsx';
 import styles from './PlantList.module.css';
 import { usePlant } from '../../../../hooks/usePlant.js';
+import Message from '../../../layouts/message/Message.jsx';
 
 const PlantList = ({ filterCategory, searchQuery }) => {
     const [plants, setPlants] = useState([]);
+    const [message, setMessage] = useState('');
+    const [type, setType] = useState('');
     const { getPlants, loading, error } = usePlant();
     // const [initialLoading, setInitialLoading] = useState(true);
 
@@ -35,37 +38,43 @@ const PlantList = ({ filterCategory, searchQuery }) => {
         return matchesCategory && matchesSearch;
     });
 
-    if (loading) {
-        return (
-            <div className={styles.listContainer}>
-                <p className={styles.statusText}>Carregando plantas...</p>
-            </div>
-        );
-    }
+    const handlePlantDeleted = (deletedPlantId, msg, msgType) => {
+        setPlants(prevPlants => prevPlants.filter(p => p.id !== deletedPlantId && p._id !== deletedPlantId));
+        setMessage(msg);
+        setType(msgType);
+        setTimeout(() => {
+            setMessage('');
+        }, 3000);
+    };
 
-    if (error) {
+    const renderContent = () => {
+        if (loading) {
+            return <p className={styles.statusText}>Carregando plantas...</p>;
+        }
+        if (error) {
+            return <p className={styles.statusText}>{error}</p>;
+        }
+        if (displayedPlants.length === 0) {
+            return <p className={styles.statusText}>Nenhuma planta encontrada.</p>;
+        }
         return (
-            <div className={styles.listContainer}>
-                <p className={styles.statusText}>{error}</p>
-            </div>
+            <>
+                {displayedPlants.map(plant => (
+                    <PlantCard 
+                        key={plant.id || plant._id} 
+                        plant={plant} 
+                        onDeleteSuccess={handlePlantDeleted} 
+                    />
+                ))}
+                <div className={styles.bottomSpacer}></div>
+            </>
         );
-    }
-
-    if (displayedPlants.length === 0) {
-        return (
-            <div className={styles.listContainer}>
-                <p className={styles.statusText}>Nenhuma planta encontrada.</p>
-            </div>
-        );
-    }
+    };
 
     return (
         <div className={styles.listContainer}>
-            {displayedPlants.map(plant => (
-                <PlantCard key={plant.id} plant={plant} />
-            ))}
-
-            <div className={styles.bottomSpacer}></div>
+            {message && <Message msg={message} type={type} />}
+            {renderContent()}
         </div>
     );
 };
