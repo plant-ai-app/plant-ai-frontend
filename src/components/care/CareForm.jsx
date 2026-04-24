@@ -63,6 +63,11 @@ const CareForm = ({
     const [instrucoes, setInstrucoes] = useState(initialValues?.quantidade_instrucao || '');
     const [isActive, setIsActive] = useState(initialValues?.ativo !== false);
 
+    const disabledTypeIds = plant?.cuidados?.map(c => c.tipo_id) || [];
+    const effectivelyDisabledTypeIds = initialValues 
+        ? disabledTypeIds.filter(id => id !== initialValues.tipo_id) 
+        : disabledTypeIds;
+
     useEffect(() => {
         const fetchTypes = async () => {
             try {
@@ -84,8 +89,14 @@ const CareForm = ({
                 });
                 setCareTypes(mappedTypes);
                 
+                
                 if (!initialValues?.tipo_id && mappedTypes.length > 0) {
-                    setTipoId(mappedTypes[0].id);
+                    const firstAvailableType = mappedTypes.find(t => !effectivelyDisabledTypeIds.includes(t.id));
+                    if (firstAvailableType) {
+                        setTipoId(firstAvailableType.id);
+                    } else {
+                        setTipoId(null);
+                    }
                 }
             } catch (error) {
                 console.error("Erro ao carregar tipos de cuidado:", error);
@@ -139,6 +150,7 @@ const CareForm = ({
                 types={careTypes}
                 selectedTypeId={tipoId}
                 onSelect={setTipoId}
+                disabledTypeIds={effectivelyDisabledTypeIds}
             />
 
             <FrequencySelector
