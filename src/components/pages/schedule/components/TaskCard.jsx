@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from './TaskCard.module.css';
-import { BsThreeDotsVertical, BsCheck2, BsClock } from 'react-icons/bs';
+import { BsThreeDots, BsCheck2, BsClock, BsGeoAlt } from 'react-icons/bs';
 import TaskBottomSheet from './TaskBottomSheet.jsx';
 
 const TaskCard = ({ task }) => {
@@ -9,43 +9,56 @@ const TaskCard = ({ task }) => {
     return (
         <>
             <div className={styles.card}>
-            <div className={styles.imageWrapper}>
-                {task.image ? (
-                    <img src={task.image} alt={task.name} className={styles.image} />
-                ) : (
-                    <div className={styles.imagePlaceholder}></div>
-                )}
-                <div className={styles.iconBadge} style={{ backgroundColor: task.iconColor }}>
-                    {task.icon}
-                </div>
-            </div>
-            
-            <div className={styles.info}>
-                <div className={styles.infoHeader}>
-                    <h3 className={styles.name}>{task.name}</h3>
-                    <span className={`${styles.status} ${styles[task.statusType]}`}>
-                        {task.status}
-                    </span>
-                </div>
-                <p className={styles.action}>{task.action}</p>
-            </div>
-            
-            <div className={styles.actions}>
-                <button className={`${styles.actionBtn} ${task.actionStyle === 'check' ? styles.checkBtn : styles.timeBtn}`}>
-                    {task.actionStyle === 'check' ? (
-                        <BsCheck2 className={styles.checkIcon} />
+                <div className={styles.imageWrapper}>
+                    {task.image ? (
+                        <img src={task.image} alt={task.name} className={styles.image} />
                     ) : (
-                        <BsClock className={styles.timeIcon} />
+                        <div className={styles.imagePlaceholder}></div>
                     )}
-                </button>
-                <button className={styles.moreBtn} onClick={() => setIsSheetOpen(true)}>
-                    <BsThreeDotsVertical />
-                </button>
+                    <div className={styles.iconBadge} style={{ backgroundColor: task.iconColor }}>
+                        {task.icon}
+                    </div>
+                </div>
+
+                <div className={styles.info}>
+                    <div className={styles.infoHeader}>
+                        <h3 className={styles.name}>{task.name}</h3>
+                        <span className={`${styles.status} ${styles[task.statusType]}`}>
+                            {task.status}
+                        </span>
+                    </div>
+                    <p className={styles.action}>{task.action}</p>
+                    {(task.nickname || task.location) && (
+                        <div className={styles.details}>
+                            {task.nickname && <span className={styles.detailItem}>"{task.nickname}"</span>}
+                            {task.nickname && task.location && <span className={styles.detailSeparator}>•</span>}
+                            {task.location && (
+                                <span className={styles.detailItem} style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                                    <BsGeoAlt size={10} color="#00b386" /> {task.location}
+                                </span>
+                            )}
+                        </div>
+                    )}
+                </div>
+
+                <div className={styles.buttonWrapper}>
+                    <button className={styles.moreBtn} onClick={() => setIsSheetOpen(true)}>
+                        <BsThreeDots />
+                    </button>
+                    <div className={styles.actions}>
+                        <button className={`${styles.actionBtn} ${task.actionStyle === 'check' ? styles.checkBtn : styles.timeBtn}`}>
+                            {task.actionStyle === 'check' ? (
+                                <BsCheck2 className={styles.checkIcon} />
+                            ) : (
+                                <BsClock className={styles.timeIcon} />
+                            )}
+                        </button>
+                    </div>
+                </div>
             </div>
-            </div>
-            <TaskBottomSheet 
-                isOpen={isSheetOpen} 
-                onClose={() => setIsSheetOpen(false)} 
+            <TaskBottomSheet
+                isOpen={isSheetOpen}
+                onClose={() => setIsSheetOpen(false)}
                 plantId={task.id}
             />
         </>
