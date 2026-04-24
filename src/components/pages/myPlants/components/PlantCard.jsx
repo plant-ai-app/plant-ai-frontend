@@ -2,11 +2,17 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './PlantCard.module.css';
 import { BsThreeDotsVertical, BsGeoAltFill } from 'react-icons/bs';
+import { usePlant } from '../../../../hooks/usePlant';
+import Message from '../../../layouts/message/Message';
+import Loading from '../../../layouts/loading/Loading';
 
-const PlantCard = ({ plant }) => {
+const PlantCard = ({ plant, onDeleteSuccess }) => {
     const [showAllNames, setShowAllNames] = useState(false);
     const [showMenu, setShowMenu] = useState(false);
+    const [message, setMessage] = useState('');
+    const [type, setType] = useState('');
     const navigate = useNavigate();
+    const { deletePlant, loading } = usePlant();
 
     const commonNames = typeof plant.nome_popular === 'string'
         ? plant.nome_popular.split(',').map(name => name.trim())
@@ -33,8 +39,27 @@ const PlantCard = ({ plant }) => {
         setShowAllNames(!showAllNames);
     }
 
+    const handleDelete = async () => {
+        try {
+            await deletePlant(plantId);
+            if (onDeleteSuccess) {
+                onDeleteSuccess(plantId, "Planta deletada com sucesso!", "success");
+            }
+        } catch (error) {
+            setMessage(error.response?.data?.message || "Erro ao deletar planta");
+            setType("error");
+            setShowMenu(false);
+            setTimeout(() => {
+                setMessage("");
+            }, 3000);
+        }
+    };
+
 
     return (
+        <>
+        {loading && <Loading />}
+        {message && <Message msg={message} type={type} />}
         <div onClick={handleCardClick} className={styles.plantCard} style={{ cursor: 'pointer' }}>
             <div className={styles.cardImageContainer}>
                 {plant.foto_url && (
@@ -72,7 +97,7 @@ const PlantCard = ({ plant }) => {
                                     </button>
                                     <button 
                                         className={`${styles.optionsMenuItem} ${styles.deleteItem}`} 
-                                        onClick={handleButtonClick(() => { alert("Deletar Planta"); setShowMenu(false); })}
+                                        onClick={handleButtonClick(handleDelete)}
                                     >
                                         Deletar Planta
                                     </button>
@@ -125,6 +150,7 @@ const PlantCard = ({ plant }) => {
                 )}
             </div>
         </div>
+        </>
     );
 };
 
