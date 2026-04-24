@@ -90,6 +90,7 @@ const Scan = () => {
                 fk_local_id: plantData.fk_local_id || null,
                 nome_popular: plantData.nome_popular,
                 nome_cientifico: plantData.nome_cientifico,
+                familia: plantData.family,
                 apelido: plantData.apelido,
                 foto_url: imageSrc,
                 observacao: plantData.observacao,

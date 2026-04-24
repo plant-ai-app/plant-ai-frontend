@@ -52,6 +52,7 @@ const SavePlantForm = ({ plant, imageSrc, onSave, isSaving }) => {
         apelido: '',
         nome_popular: plant.commonNames ? plant.commonNames.join(', ') : '',
         nome_cientifico: plant.scientificName || '',
+        family: plant.family || '',
         observacao: '',
         fk_local_id: '', // Added this
     });
@@ -140,6 +141,18 @@ const SavePlantForm = ({ plant, imageSrc, onSave, isSaving }) => {
                     id="nome_popular"
                     name="nome_popular"
                     value={formData.nome_popular}
+                    readOnly
+                    className={styles.readOnlyInput}
+                />
+            </div>
+
+            <div className={styles.inputGroup}>
+                <label htmlFor="family">Família</label>
+                <input
+                    type="text"
+                    id="family"
+                    name="family"
+                    value={formData.family}
                     readOnly
                     className={styles.readOnlyInput}
                 />
