@@ -12,8 +12,7 @@ import TaskList from "./components/TaskList.jsx";
 import AddButton from "./components/AddButton.jsx";
 
 //services
-import { getPlants } from "../../../services/plant.service";
-import { getCaresByPlantId } from "../../../services/care.service";
+import { getAllCares } from "../../../services/care.service";
 
 //icons
 import { BsSave, BsDroplet, BsLightningCharge, BsScissors, BsSun, BsWind, BsBug, BsStars, BsArrowRepeat } from 'react-icons/bs';
@@ -38,25 +37,15 @@ const Schedule = () => {
     useEffect(() => {
         const fetchSchedule = async () => {
             try {
-                // 1. Obter todas as plantas do usuário
-                const plantas = await getPlants();
-                
-                // 2. Para cada planta, buscar seus cuidados
+                // 1. Buscar todos os cuidados do usuário
                 let allCares = [];
-                for (const plant of plantas) {
-                    try {
-                        const response = await getCaresByPlantId(plant.id);
-                        if (response && response.cuidados) {
-                            // Adicionar informações da planta em cada cuidado
-                            const cuidadosComPlanta = response.cuidados.map(c => ({
-                                ...c,
-                                plantaInfo: plant
-                            }));
-                            allCares = [...allCares, ...cuidadosComPlanta];
-                        }
-                    } catch (err) {
-                        console.error(`Erro ao buscar cuidados para planta ${plant.id}:`, err);
+                try {
+                    const response = await getAllCares();
+                    if (response && response.cuidados) {
+                        allCares = response.cuidados;
                     }
+                } catch (err) {
+                    console.error("Erro ao buscar cuidados do usuário:", err);
                 }
 
                 // 3. Organizar os cuidados por data
@@ -77,11 +66,20 @@ const Schedule = () => {
                     taskDate.setHours(0, 0, 0, 0);
 
                     // A imagem pode vir de campos diferentes dependendo do schema
-                    const plantImage = cuidado.plantaInfo?.imagem || cuidado.plantaInfo?.foto || cuidado.plantaInfo?.image || '';
+                    let plantImage = cuidado.planta?.foto_url || cuidado.planta?.imagem || cuidado.planta?.foto || cuidado.planta?.image || '';
+                    if (plantImage && !plantImage.startsWith('http')) {
+                        const baseUrl = import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL.replace(/\/api\/?$/, '') : 'http://localhost:3000';
+                        plantImage = `${baseUrl}${plantImage.startsWith('/') ? '' : '/'}${plantImage}`;
+                    }
+
+                    const rawName = cuidado.planta?.nome_popular || cuidado.planta?.apelido || `Planta ${cuidado.planta_id || ''}`;
+                    const singleName = rawName.split(',')[0].trim();
 
                     const task = {
-                        id: cuidado.planta_id, // Usado para abrir o TaskBottomSheet
-                        name: cuidado.plantaInfo?.nome || `Planta ${cuidado.planta_id}`,
+                        id: cuidado.planta_id || cuidado.id, // O ideal é o ID da planta se o TaskBottomSheet espera plantId
+                        name: singleName,
+                        nickname: cuidado.planta?.apelido,
+                        location: cuidado.planta?.local?.nome,
                         image: plantImage,
                         action: cuidado.tipo?.nome || 'Cuidado',
                         status: cuidado.horario_preferencial || '00:00',
