@@ -27,16 +27,12 @@ const TaskCard = ({ task }) => {
                             {task.status}
                         </span>
                     </div>
-                    <p className={styles.action}>{task.action}</p>
-                    {(task.nickname || task.location) && (
+                    <p className={styles.action}>{task.quantidade_instrucao}</p>
+                    {task.location && (
                         <div className={styles.details}>
-                            {task.nickname && <span className={styles.detailItem}>"{task.nickname}"</span>}
-                            {task.nickname && task.location && <span className={styles.detailSeparator}>•</span>}
-                            {task.location && (
-                                <span className={styles.detailItem} style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                                    <BsGeoAlt size={10} color="#00b386" /> {task.location}
-                                </span>
-                            )}
+                            <span className={styles.detailItem} style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                                <BsGeoAlt size={10} color="#00b386" /> {task.location}
+                            </span>
                         </div>
                     )}
                 </div>
@@ -59,7 +55,9 @@ const TaskCard = ({ task }) => {
             <TaskBottomSheet
                 isOpen={isSheetOpen}
                 onClose={() => setIsSheetOpen(false)}
-                plantId={task.id}
+                plantId={task.plantId || task.id}
+                careId={task.careId}
+                ativo={task.ativo}
             />
         </>
     );
