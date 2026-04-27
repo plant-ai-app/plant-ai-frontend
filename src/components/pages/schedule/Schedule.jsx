@@ -60,6 +60,8 @@ const Schedule = () => {
                 const tomorrowTasks = [];
 
                 allCares.forEach((cuidado) => {
+                    if (!cuidado.ativo) return; // Não exibe cuidados inativos na agenda
+
                     const styleData = getIconForCareType(cuidado.tipo?.nome);
                     
                     const taskDate = new Date(cuidado.proxima_data);
@@ -77,16 +79,19 @@ const Schedule = () => {
 
                     const task = {
                         id: cuidado.planta_id || cuidado.id, // O ideal é o ID da planta se o TaskBottomSheet espera plantId
+                        careId: cuidado.id,
+                        plantId: cuidado.planta_id,
                         name: singleName,
                         nickname: cuidado.planta?.apelido,
                         location: cuidado.planta?.local?.nome,
                         image: plantImage,
-                        action: cuidado.tipo?.nome || 'Cuidado',
+                        quantidade_instrucao: cuidado.quantidade_instrucao || 'Cuidado',
                         status: cuidado.horario_preferencial || '00:00',
                         statusType: 'normal',
                         icon: styleData.icon,
                         iconColor: styleData.color,
-                        actionStyle: 'check'
+                        actionStyle: 'check',
+                        ativo: cuidado.ativo
                     };
 
                     if (taskDate < today) {
