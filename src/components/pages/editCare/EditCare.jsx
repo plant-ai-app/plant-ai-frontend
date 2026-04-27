@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import styles from './EditCare.module.css';
 import CareForm from '../../care/CareForm.jsx';
+import Container from '../../common/container/Container.jsx';
 import { BsArrowLeft, BsThreeDotsVertical } from 'react-icons/bs';
 import { usePlant } from '../../../hooks/usePlant';
 import { useCare } from '../../../hooks/useCare';
@@ -56,17 +57,24 @@ const EditCare = () => {
     };
 
     const handleSubmit = async (formData) => {
+        // Formata a data para ISO-8601 (ex: "2024-04-25T09:00:00.000Z")
+        const payload = {
+            ...formData,
+            proxima_data: new Date(`${formData.proxima_data}T${formData.horario_preferencial}:00`).toISOString()
+        };
+
         try {
-            await updateCare(careId, formData);
+            await updateCare(careId, payload);
             navigate(-1);
         } catch (error) {
             console.error("Erro ao atualizar cuidado:", error);
-            alert("Não foi possível salvar as alterações. Tente novamente.");
+            alert(error.response?.data?.message || "Não foi possível salvar as alterações. Tente novamente.");
         }
     };
 
     return (
-        <div className={styles.pageContainer}>
+        // <div className={styles.pageContainer}>
+        <Container padding="0">
             <header className={styles.header}>
                 <button onClick={handleGoBack} className={styles.backButton} aria-label="Voltar">
                     <BsArrowLeft />
@@ -108,7 +116,7 @@ const EditCare = () => {
                     )
                 )}
             </main>
-        </div>
+        </Container>
     );
 };
 
