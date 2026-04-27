@@ -34,116 +34,116 @@ const Schedule = () => {
     const [taskGroups, setTaskGroups] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const fetchSchedule = async () => {
+    const fetchSchedule = async () => {
+        try {
+            // 1. Buscar todos os cuidados do usuário
+            let allCares = [];
             try {
-                // 1. Buscar todos os cuidados do usuário
-                let allCares = [];
-                try {
-                    const response = await getAllCares();
-                    if (response && response.cuidados) {
-                        allCares = response.cuidados;
-                    }
-                } catch (err) {
-                    console.error("Erro ao buscar cuidados do usuário:", err);
+                const response = await getAllCares();
+                if (response && response.cuidados) {
+                    allCares = response.cuidados;
                 }
-
-                // 3. Organizar os cuidados por data
-                const today = new Date();
-                today.setHours(0, 0, 0, 0);
-
-                const tomorrow = new Date(today);
-                tomorrow.setDate(tomorrow.getDate() + 1);
-
-                const overdueTasks = [];
-                const todayTasks = [];
-                const tomorrowTasks = [];
-
-                allCares.forEach((cuidado) => {
-                    if (!cuidado.ativo) return; // Não exibe cuidados inativos na agenda
-
-                    const styleData = getIconForCareType(cuidado.tipo?.nome);
-                    
-                    const taskDate = new Date(cuidado.proxima_data);
-                    taskDate.setHours(0, 0, 0, 0);
-
-                    // A imagem pode vir de campos diferentes dependendo do schema
-                    let plantImage = cuidado.planta?.foto_url || cuidado.planta?.imagem || cuidado.planta?.foto || cuidado.planta?.image || '';
-                    if (plantImage && !plantImage.startsWith('http')) {
-                        const baseUrl = import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL.replace(/\/api\/?$/, '') : 'http://localhost:3000';
-                        plantImage = `${baseUrl}${plantImage.startsWith('/') ? '' : '/'}${plantImage}`;
-                    }
-
-                    const rawName = cuidado.planta?.nome_popular || cuidado.planta?.apelido || `Planta ${cuidado.planta_id || ''}`;
-                    const singleName = rawName.split(',')[0].trim();
-
-                    const task = {
-                        id: cuidado.planta_id || cuidado.id, // O ideal é o ID da planta se o TaskBottomSheet espera plantId
-                        careId: cuidado.id,
-                        plantId: cuidado.planta_id,
-                        name: singleName,
-                        nickname: cuidado.planta?.apelido,
-                        location: cuidado.planta?.local?.nome,
-                        image: plantImage,
-                        quantidade_instrucao: cuidado.quantidade_instrucao || 'Cuidado',
-                        status: cuidado.horario_preferencial || '00:00',
-                        statusType: 'normal',
-                        icon: styleData.icon,
-                        iconColor: styleData.color,
-                        actionStyle: 'check',
-                        ativo: cuidado.ativo
-                    };
-
-                    if (taskDate < today) {
-                        task.statusType = 'error';
-                        const diffTime = Math.abs(today - taskDate);
-                        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                        task.status = `${diffDays} dia${diffDays > 1 ? 's' : ''} atrás`;
-                        overdueTasks.push(task);
-                    } else if (taskDate.getTime() === today.getTime()) {
-                        todayTasks.push(task);
-                    } else if (taskDate.getTime() === tomorrow.getTime()) {
-                        task.actionStyle = 'time';
-                        tomorrowTasks.push(task);
-                    }
-                });
-
-                const groups = [];
-                if (overdueTasks.length > 0) {
-                    groups.push({
-                        group: 'Overdue',
-                        title: 'Atrasado',
-                        count: overdueTasks.length,
-                        type: 'overdue',
-                        tasks: overdueTasks
-                    });
-                }
-                if (todayTasks.length > 0) {
-                    groups.push({
-                        group: 'Today',
-                        title: 'Hoje',
-                        count: todayTasks.length,
-                        type: 'today',
-                        tasks: todayTasks
-                    });
-                }
-                if (tomorrowTasks.length > 0) {
-                    groups.push({
-                        group: 'Tomorrow',
-                        title: 'Amanhã',
-                        type: 'tomorrow',
-                        tasks: tomorrowTasks
-                    });
-                }
-
-                setTaskGroups(groups);
-            } catch (error) {
-                console.error("Erro ao carregar agenda:", error);
-            } finally {
-                setLoading(false);
+            } catch (err) {
+                console.error("Erro ao buscar cuidados do usuário:", err);
             }
-        };
 
+            // 3. Organizar os cuidados por data
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+
+            const overdueTasks = [];
+            const todayTasks = [];
+            const tomorrowTasks = [];
+
+            allCares.forEach((cuidado) => {
+                if (!cuidado.ativo) return; // Não exibe cuidados inativos na agenda
+
+                const styleData = getIconForCareType(cuidado.tipo?.nome);
+                
+                const taskDate = new Date(cuidado.proxima_data);
+                taskDate.setHours(0, 0, 0, 0);
+
+                // A imagem pode vir de campos diferentes dependendo do schema
+                let plantImage = cuidado.planta?.foto_url || cuidado.planta?.imagem || cuidado.planta?.foto || cuidado.planta?.image || '';
+                if (plantImage && !plantImage.startsWith('http')) {
+                    const baseUrl = import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL.replace(/\/api\/?$/, '') : 'http://localhost:3000';
+                    plantImage = `${baseUrl}${plantImage.startsWith('/') ? '' : '/'}${plantImage}`;
+                }
+
+                const rawName = cuidado.planta?.nome_popular || cuidado.planta?.apelido || `Planta ${cuidado.planta_id || ''}`;
+                const singleName = rawName.split(',')[0].trim();
+
+                const task = {
+                    id: cuidado.planta_id || cuidado.id, // O ideal é o ID da planta se o TaskBottomSheet espera plantId
+                    careId: cuidado.id,
+                    plantId: cuidado.planta_id,
+                    name: singleName,
+                    nickname: cuidado.planta?.apelido,
+                    location: cuidado.planta?.local?.nome,
+                    image: plantImage,
+                    quantidade_instrucao: cuidado.quantidade_instrucao || 'Cuidado',
+                    status: cuidado.horario_preferencial || '00:00',
+                    statusType: 'normal',
+                    icon: styleData.icon,
+                    iconColor: styleData.color,
+                    actionStyle: 'check',
+                    ativo: cuidado.ativo
+                };
+
+                if (taskDate < today) {
+                    task.statusType = 'error';
+                    const diffTime = Math.abs(today - taskDate);
+                    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                    task.status = `${diffDays} dia${diffDays > 1 ? 's' : ''} atrás`;
+                    overdueTasks.push(task);
+                } else if (taskDate.getTime() === today.getTime()) {
+                    todayTasks.push(task);
+                } else if (taskDate.getTime() === tomorrow.getTime()) {
+                    task.actionStyle = 'time';
+                    tomorrowTasks.push(task);
+                }
+            });
+
+            const groups = [];
+            if (overdueTasks.length > 0) {
+                groups.push({
+                    group: 'Overdue',
+                    title: 'Atrasado',
+                    count: overdueTasks.length,
+                    type: 'overdue',
+                    tasks: overdueTasks
+                });
+            }
+            if (todayTasks.length > 0) {
+                groups.push({
+                    group: 'Today',
+                    title: 'Hoje',
+                    count: todayTasks.length,
+                    type: 'today',
+                    tasks: todayTasks
+                });
+            }
+            if (tomorrowTasks.length > 0) {
+                groups.push({
+                    group: 'Tomorrow',
+                    title: 'Amanhã',
+                    type: 'tomorrow',
+                    tasks: tomorrowTasks
+                });
+            }
+
+            setTaskGroups(groups);
+        } catch (error) {
+            console.error("Erro ao carregar agenda:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
         fetchSchedule();
     }, []);
 
@@ -164,6 +164,7 @@ const Schedule = () => {
                                 count={group.count}
                                 type={group.type}
                                 tasks={group.tasks}
+                                onRefresh={fetchSchedule}
                             />
                         ))
                     ) : (

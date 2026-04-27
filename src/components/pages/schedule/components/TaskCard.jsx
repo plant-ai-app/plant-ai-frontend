@@ -3,7 +3,7 @@ import styles from './TaskCard.module.css';
 import { BsThreeDots, BsCheck2, BsClock, BsGeoAlt } from 'react-icons/bs';
 import TaskBottomSheet from './TaskBottomSheet.jsx';
 
-const TaskCard = ({ task }) => {
+const TaskCard = ({ task, onRefresh }) => {
     const [isSheetOpen, setIsSheetOpen] = useState(false);
 
     return (
@@ -58,6 +58,7 @@ const TaskCard = ({ task }) => {
                 plantId={task.plantId || task.id}
                 careId={task.careId}
                 ativo={task.ativo}
+                onSuccess={onRefresh}
             />
         </>
     );

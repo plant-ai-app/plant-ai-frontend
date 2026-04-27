@@ -3,7 +3,7 @@ import styles from './TaskList.module.css';
 import TaskCard from './TaskCard.jsx';
 import { BsExclamationTriangleFill } from 'react-icons/bs';
 
-const TaskList = ({ title, count, type, tasks }) => {
+const TaskList = ({ title, count, type, tasks, onRefresh }) => {
     return (
         <div className={styles.section}>
             <div className={styles.header}>
@@ -22,7 +22,7 @@ const TaskList = ({ title, count, type, tasks }) => {
             
             <div className={styles.list}>
                 {tasks.map((task, index) => (
-                    <TaskCard key={index} task={task} />
+                    <TaskCard key={index} task={task} onRefresh={onRefresh} />
                 ))}
             </div>
         </div>

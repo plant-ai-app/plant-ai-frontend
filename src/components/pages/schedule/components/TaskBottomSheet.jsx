@@ -1,15 +1,36 @@
 import { useNavigate } from 'react-router-dom';
 import styles from './TaskBottomSheet.module.css';
+import { useCare } from '../../../../hooks/useCare';
 
-
-const TaskBottomSheet = ({ isOpen, onClose, plantId }) => {
+const TaskBottomSheet = ({ isOpen, onClose, plantId, careId, ativo, onSuccess }) => {
     const navigate = useNavigate();
+    const { updateCare } = useCare();
+    
     if (!isOpen) return null;
 
-    const handleNavigate = () => {
+    const handleNavigateSettings = () => {
         onClose();
         if (plantId) {
             navigate(`/plant/settings/${plantId}`);
+        }
+    };
+
+    const handleNavigateEdit = () => {
+        onClose();
+        if (plantId && careId) {
+            navigate(`/plant/${plantId}/care/edit/${careId}`);
+        }
+    };
+
+    const handleToggleStatus = async () => {
+        if (!careId) return;
+        try {
+            await updateCare(careId, { ativo: !ativo });
+            if (onSuccess) onSuccess();
+            onClose();
+        } catch (error) {
+            console.error("Erro ao alterar status:", error);
+            alert("Não foi possível alterar o status do cuidado.");
         }
     };
 
@@ -18,11 +39,15 @@ const TaskBottomSheet = ({ isOpen, onClose, plantId }) => {
             <div className={styles.container} onClick={(e) => e.stopPropagation()}>
                 <div className={styles.handle} />
                 
-                <button className={`${styles.option} ${styles.edit}`} onClick={() => {alert("Editar cuidado")}}>
+                <button className={`${styles.option} ${styles.edit}`} onClick={handleToggleStatus}>
+                    <span className={styles.optionText}>{ativo ? 'Pausar cuidado' : 'Retomar cuidado'}</span>
+                </button>
+
+                <button className={`${styles.option} ${styles.edit}`} onClick={handleNavigateEdit}>
                     <span className={styles.optionText}>Editar cuidado</span>
                 </button>
                 
-                <button className={`${styles.option} ${styles.settings}`} onClick={handleNavigate}>
+                <button className={`${styles.option} ${styles.settings}`} onClick={handleNavigateSettings}>
                     <span className={styles.optionText}>Configurações</span>
                 </button>
                 
