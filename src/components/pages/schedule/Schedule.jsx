@@ -1,5 +1,5 @@
 //react
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 
 //styles
 import styles from "./Schedule.module.css";
@@ -31,42 +31,56 @@ const getIconForCareType = (name) => {
 };
 
 const Schedule = () => {
-    const [taskGroups, setTaskGroups] = useState([]);
+    const [allCares, setAllCares] = useState([]);
+    const [selectedDate, setSelectedDate] = useState(new Date());
     const [loading, setLoading] = useState(true);
 
     const fetchSchedule = async () => {
         try {
-            // 1. Buscar todos os cuidados do usuário
-            let allCares = [];
-            try {
-                const response = await getAllCares();
-                if (response && response.cuidados) {
-                    allCares = response.cuidados;
-                }
-            } catch (err) {
-                console.error("Erro ao buscar cuidados do usuário:", err);
+            setLoading(true);
+            const response = await getAllCares();
+            if (response && response.cuidados) {
+                setAllCares(response.cuidados);
             }
+        } catch (error) {
+            console.error("Erro ao carregar agenda:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
-            // 3. Organizar os cuidados por data
-            const today = new Date();
-            today.setHours(0, 0, 0, 0);
+    useEffect(() => {
+        fetchSchedule();
+    }, []);
 
-            const tomorrow = new Date(today);
-            tomorrow.setDate(tomorrow.getDate() + 1);
+    const isSameDay = (d1, d2) => {
+        return d1.getFullYear() === d2.getFullYear() &&
+               d1.getMonth() === d2.getMonth() &&
+               d1.getDate() === d2.getDate();
+    };
 
-            const overdueTasks = [];
-            const todayTasks = [];
-            const tomorrowTasks = [];
+    const taskGroups = useMemo(() => {
+        if (!allCares || allCares.length === 0) return [];
 
-            allCares.forEach((cuidado) => {
-                if (!cuidado.ativo) return; // Não exibe cuidados inativos na agenda
+        const filteredTasks = [];
 
+        allCares.forEach((cuidado) => {
+            if (!cuidado.ativo || !cuidado.proxima_data) return;
+
+            // Extrair YYYY-MM-DD para evitar problemas de timezone na conversão da data
+            const dateString = typeof cuidado.proxima_data === 'string' ? cuidado.proxima_data.split('T')[0] : '';
+            if (!dateString) return;
+
+            const dateParts = dateString.split('-');
+            const year = parseInt(dateParts[0], 10);
+            const month = parseInt(dateParts[1], 10) - 1;
+            const day = parseInt(dateParts[2], 10);
+            
+            const taskDate = new Date(year, month, day);
+
+            if (isSameDay(taskDate, selectedDate)) {
                 const styleData = getIconForCareType(cuidado.tipo?.nome);
                 
-                const taskDate = new Date(cuidado.proxima_data);
-                taskDate.setHours(0, 0, 0, 0);
-
-                // A imagem pode vir de campos diferentes dependendo do schema
                 let plantImage = cuidado.planta?.foto_url || cuidado.planta?.imagem || cuidado.planta?.foto || cuidado.planta?.image || '';
                 if (plantImage && !plantImage.startsWith('http')) {
                     const baseUrl = import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL.replace(/\/api\/?$/, '') : 'http://localhost:3000';
@@ -77,7 +91,7 @@ const Schedule = () => {
                 const singleName = rawName.split(',')[0].trim();
 
                 const task = {
-                    id: cuidado.planta_id || cuidado.id, // O ideal é o ID da planta se o TaskBottomSheet espera plantId
+                    id: cuidado.planta_id || cuidado.id,
                     careId: cuidado.id,
                     plantId: cuidado.planta_id,
                     name: singleName,
@@ -90,68 +104,58 @@ const Schedule = () => {
                     icon: styleData.icon,
                     iconColor: styleData.color,
                     actionStyle: 'check',
-                    ativo: cuidado.ativo
+                    ativo: cuidado.ativo,
+                    tipoNome: cuidado.tipo?.nome || 'Outros'
                 };
 
-                if (taskDate < today) {
-                    task.statusType = 'error';
-                    const diffTime = Math.abs(today - taskDate);
-                    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                    task.status = `${diffDays} dia${diffDays > 1 ? 's' : ''} atrás`;
-                    overdueTasks.push(task);
-                } else if (taskDate.getTime() === today.getTime()) {
-                    todayTasks.push(task);
-                } else if (taskDate.getTime() === tomorrow.getTime()) {
-                    task.actionStyle = 'time';
-                    tomorrowTasks.push(task);
-                }
-            });
-
-            const groups = [];
-            if (overdueTasks.length > 0) {
-                groups.push({
-                    group: 'Overdue',
-                    title: 'Atrasado',
-                    count: overdueTasks.length,
-                    type: 'overdue',
-                    tasks: overdueTasks
-                });
+                filteredTasks.push(task);
             }
-            if (todayTasks.length > 0) {
-                groups.push({
-                    group: 'Today',
-                    title: 'Hoje',
-                    count: todayTasks.length,
-                    type: 'today',
-                    tasks: todayTasks
-                });
-            }
-            if (tomorrowTasks.length > 0) {
-                groups.push({
-                    group: 'Tomorrow',
-                    title: 'Amanhã',
-                    type: 'tomorrow',
-                    tasks: tomorrowTasks
-                });
-            }
+        });
 
-            setTaskGroups(groups);
-        } catch (error) {
-            console.error("Erro ao carregar agenda:", error);
-        } finally {
-            setLoading(false);
-        }
-    };
+        // Agrupar por tipoNome
+        const grouped = filteredTasks.reduce((acc, task) => {
+            if (!acc[task.tipoNome]) {
+                acc[task.tipoNome] = [];
+            }
+            acc[task.tipoNome].push(task);
+            return acc;
+        }, {});
 
-    useEffect(() => {
-        fetchSchedule();
-    }, []);
+        // Criar array de grupos
+        const groupsArray = Object.keys(grouped).map(key => {
+            const tasks = grouped[key];
+            // Ordenar tasks dentro do grupo por horario_preferencial
+            tasks.sort((a, b) => a.status.localeCompare(b.status));
+            return {
+                group: key,
+                title: key,
+                count: tasks.length,
+                type: 'normal',
+                tasks: tasks
+            };
+        });
+
+        // Ordenar grupos alfabeticamente
+        groupsArray.sort((a, b) => a.title.localeCompare(b.title));
+
+        return groupsArray;
+    }, [allCares, selectedDate]);
+
+    const tasksDates = useMemo(() => {
+        if (!allCares || allCares.length === 0) return [];
+        return allCares.filter(c => c.ativo && c.proxima_data).map(cuidado => {
+            const dateString = typeof cuidado.proxima_data === 'string' ? cuidado.proxima_data.split('T')[0] : '';
+            if(!dateString) return null;
+            const dateParts = dateString.split('-');
+            return new Date(parseInt(dateParts[0], 10), parseInt(dateParts[1], 10) - 1, parseInt(dateParts[2], 10));
+        }).filter(d => d !== null);
+    }, [allCares]);
 
     return (
         <Container padding={'0'}>
             <div className={styles.scrollArea}>
                 <Header />
-                <DateSelector />
+                <DateSelector selectedDate={selectedDate} onSelectDate={setSelectedDate} tasksDates={tasksDates} />
                 
                 <div className={styles.tasksContainer}>
                     {loading ? (
@@ -168,7 +172,7 @@ const Schedule = () => {
                             />
                         ))
                     ) : (
-                        <p style={{ textAlign: 'center', marginTop: '20px', color: '#666' }}>Nenhuma tarefa agendada.</p>
+                        <p style={{ textAlign: 'center', marginTop: '20px', color: '#666' }}>Nenhuma tarefa agendada para esta data.</p>
                     )}
                 </div>
             </div>
