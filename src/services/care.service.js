@@ -2,7 +2,7 @@ import api from "./api";
 
 export const getCareById = async (id) => {
     const response = await api.get(`/cuidado/${id}`);
-    return response.data;
+    return response.data.cuidado;
 }
 
 export const getAllCares = async () => {
@@ -21,7 +21,7 @@ export const createCare = async (care) => {
 }
 
 export const updateCare = async (id, care) => {
-    const response = await api.put(`/cuidado/${id}`, care);
+    const response = await api.patch(`/cuidado/${id}`, care);
     return response.data;
 }
 
