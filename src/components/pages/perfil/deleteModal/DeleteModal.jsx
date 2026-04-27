@@ -103,11 +103,11 @@ const DeleteModal = ({ isOpen, onClose }) => {
 
 
                 <button className={styles.deleteButton} onClick={handleSubmit}>
-                    Delete Account
+                    Deletar Conta
                 </button>
 
                 <button className={styles.cancelButton} onClick={onClose}>
-                    Cancel
+                    Cancelar
                 </button>
             </div>
         </div>
