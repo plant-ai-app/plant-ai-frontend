@@ -12,6 +12,9 @@ const InstructionsInput = ({ value, onChange }) => {
                     value={value}
                     onChange={(e) => onChange(e.target.value)}
                 ></textarea>
+                <div className={styles.charCounter}>
+                    {(value || '').length}/80
+                </div>
             </div>
         </div>
     );
