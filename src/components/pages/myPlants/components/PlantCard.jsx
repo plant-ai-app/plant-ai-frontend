@@ -9,6 +9,7 @@ import Loading from '../../../layouts/loading/Loading';
 const PlantCard = ({ plant, onDeleteSuccess }) => {
     const [showAllNames, setShowAllNames] = useState(false);
     const [showMenu, setShowMenu] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [message, setMessage] = useState('');
     const [type, setType] = useState('');
     const navigate = useNavigate();
@@ -42,6 +43,7 @@ const PlantCard = ({ plant, onDeleteSuccess }) => {
     const handleDelete = async () => {
         try {
             await deletePlant(plantId);
+            setShowDeleteModal(false);
             if (onDeleteSuccess) {
                 onDeleteSuccess(plantId, "Planta deletada com sucesso!", "success");
             }
@@ -49,6 +51,7 @@ const PlantCard = ({ plant, onDeleteSuccess }) => {
             setMessage(error.response?.data?.message || "Erro ao deletar planta");
             setType("error");
             setShowMenu(false);
+            setShowDeleteModal(false);
             setTimeout(() => {
                 setMessage("");
             }, 3000);
@@ -79,6 +82,7 @@ const PlantCard = ({ plant, onDeleteSuccess }) => {
                             <BsThreeDotsVertical />
                         </button>
                         
+                        {/* Menu de opções */}
                         {showMenu && (
                             <>
                                 <div className={styles.optionsBackdrop} onClick={handleButtonClick(toggleMenu)} />
@@ -97,7 +101,7 @@ const PlantCard = ({ plant, onDeleteSuccess }) => {
                                     </button>
                                     <button 
                                         className={`${styles.optionsMenuItem} ${styles.deleteItem}`} 
-                                        onClick={handleButtonClick(handleDelete)}
+                                        onClick={handleButtonClick(() => { setShowMenu(false); setShowDeleteModal(true); })}
                                     >
                                         Deletar Planta
                                     </button>
@@ -150,6 +154,22 @@ const PlantCard = ({ plant, onDeleteSuccess }) => {
                 )}
             </div>
         </div>
+
+        {/* Modal de Confirmação de Deleção */}
+        {showDeleteModal && (
+            <div className={styles.modalOverlay} onClick={(e) => { e.stopPropagation(); setShowDeleteModal(false); }}>
+                <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+                    <h3 className={styles.modalTitle}>Excluir Planta?</h3>
+                    <p className={styles.modalText}>
+                        Deseja excluir esta planta? Esta ação apagará permanentemente todos os dados e agendamentos
+                    </p>
+                    <div className={styles.modalActions}>
+                        <button className={styles.cancelButton} onClick={() => setShowDeleteModal(false)}>Cancelar</button>
+                        <button className={styles.confirmButton} onClick={handleDelete}>Sim, excluir</button>
+                    </div>
+                </div>
+            </div>
+        )}
         </>
     );
 };
