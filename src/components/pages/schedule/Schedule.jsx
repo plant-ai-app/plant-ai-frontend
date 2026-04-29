@@ -1,5 +1,5 @@
 //react
-import React, { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 
 //styles
 import styles from "./Schedule.module.css";
@@ -30,10 +30,43 @@ const getIconForCareType = (name) => {
     }
 };
 
+const mapCuidadoToTask = (cuidado) => {
+    const styleData = getIconForCareType(cuidado.tipo?.nome);
+    
+    let plantImage = cuidado.planta?.foto_url || cuidado.planta?.imagem || cuidado.planta?.foto || cuidado.planta?.image || '';
+    if (plantImage && !plantImage.startsWith('http')) {
+        const baseUrl = import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL.replace(/\/api\/?$/, '') : 'http://localhost:3000';
+        plantImage = `${baseUrl}${plantImage.startsWith('/') ? '' : '/'}${plantImage}`;
+    }
+
+    const rawName = cuidado.planta?.nome_popular || cuidado.planta?.apelido || `Planta ${cuidado.planta_id || ''}`;
+    const singleName = rawName.split(',')[0].trim();
+
+    return {
+        id: cuidado.planta_id || cuidado.id,
+        careId: cuidado.id,
+        plantId: cuidado.planta_id,
+        name: singleName,
+        nickname: cuidado.planta?.apelido,
+        location: cuidado.planta?.local?.nome,
+        image: plantImage,
+        quantidade_instrucao: cuidado.quantidade_instrucao || 'Cuidado',
+        status: cuidado.horario_preferencial || '00:00',
+        statusType: 'normal',
+        icon: styleData.icon,
+        iconColor: styleData.color,
+        actionStyle: 'check',
+        ativo: cuidado.ativo,
+        tipoNome: cuidado.tipo?.nome || 'Outros',
+        data_prevista: cuidado.proxima_data
+    };
+};
+
 const Schedule = () => {
     const [allCares, setAllCares] = useState([]);
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [loading, setLoading] = useState(true);
+    const [overdueExpanded, setOverdueExpanded] = useState(true);
 
     const fetchSchedule = async () => {
         try {
@@ -41,7 +74,7 @@ const Schedule = () => {
             const response = await getAllCares();
             if (response && response.cuidados) {
                 setAllCares(response.cuidados);
-            }
+            }            
         } catch (error) {
             console.error("Erro ao carregar agenda:", error);
         } finally {
@@ -59,58 +92,51 @@ const Schedule = () => {
                d1.getDate() === d2.getDate();
     };
 
+    const overdueTasks = useMemo(() => {
+        if (!allCares || allCares.length === 0) return [];
+
+        const now = new Date();
+        const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+        return allCares
+            .filter((cuidado) => {
+                if (!cuidado.ativo || !cuidado.proxima_data) return false;
+                const taskDate = new Date(cuidado.proxima_data);
+                if (isNaN(taskDate.getTime())) return false;
+                
+                // Apenas tarefas estritamente antes de hoje
+                return taskDate < today;
+            })
+            .map(mapCuidadoToTask)
+            .sort((a, b) => {
+                // Ordenar por data (mais antigas primeiro) e depois por horário
+                const dateA = new Date(a.data_prevista);
+                const dateB = new Date(b.data_prevista);
+                if (dateA.getTime() !== dateB.getTime()) {
+                    return dateA - dateB;
+                }
+                return a.status.localeCompare(b.status);
+            });
+    }, [allCares]);
+
     const taskGroups = useMemo(() => {
         if (!allCares || allCares.length === 0) return [];
 
-        const filteredTasks = [];
+        const now = new Date();
+        const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
-        allCares.forEach((cuidado) => {
-            if (!cuidado.ativo || !cuidado.proxima_data) return;
+        const filteredTasks = allCares
+            .filter((cuidado) => {
+                if (!cuidado.ativo || !cuidado.proxima_data) return false;
+                const taskDate = new Date(cuidado.proxima_data);
+                if (isNaN(taskDate.getTime())) return false;
 
-            // Extrair YYYY-MM-DD para evitar problemas de timezone na conversão da data
-            const dateString = typeof cuidado.proxima_data === 'string' ? cuidado.proxima_data.split('T')[0] : '';
-            if (!dateString) return;
-
-            const dateParts = dateString.split('-');
-            const year = parseInt(dateParts[0], 10);
-            const month = parseInt(dateParts[1], 10) - 1;
-            const day = parseInt(dateParts[2], 10);
-            
-            const taskDate = new Date(year, month, day);
-
-            if (isSameDay(taskDate, selectedDate)) {
-                const styleData = getIconForCareType(cuidado.tipo?.nome);
+                // Não duplicar tarefas que já aparecem na seção "Atrasadas"
+                const isOverdue = taskDate < today;
                 
-                let plantImage = cuidado.planta?.foto_url || cuidado.planta?.imagem || cuidado.planta?.foto || cuidado.planta?.image || '';
-                if (plantImage && !plantImage.startsWith('http')) {
-                    const baseUrl = import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL.replace(/\/api\/?$/, '') : 'http://localhost:3000';
-                    plantImage = `${baseUrl}${plantImage.startsWith('/') ? '' : '/'}${plantImage}`;
-                }
-
-                const rawName = cuidado.planta?.nome_popular || cuidado.planta?.apelido || `Planta ${cuidado.planta_id || ''}`;
-                const singleName = rawName.split(',')[0].trim();
-
-                const task = {
-                    id: cuidado.planta_id || cuidado.id,
-                    careId: cuidado.id,
-                    plantId: cuidado.planta_id,
-                    name: singleName,
-                    nickname: cuidado.planta?.apelido,
-                    location: cuidado.planta?.local?.nome,
-                    image: plantImage,
-                    quantidade_instrucao: cuidado.quantidade_instrucao || 'Cuidado',
-                    status: cuidado.horario_preferencial || '00:00',
-                    statusType: 'normal',
-                    icon: styleData.icon,
-                    iconColor: styleData.color,
-                    actionStyle: 'check',
-                    ativo: cuidado.ativo,
-                    tipoNome: cuidado.tipo?.nome || 'Outros'
-                };
-
-                filteredTasks.push(task);
-            }
-        });
+                return isSameDay(taskDate, selectedDate) && !isOverdue;
+            })
+            .map(mapCuidadoToTask);
 
         // Agrupar por tipoNome
         const grouped = filteredTasks.reduce((acc, task) => {
@@ -144,10 +170,8 @@ const Schedule = () => {
     const tasksDates = useMemo(() => {
         if (!allCares || allCares.length === 0) return [];
         return allCares.filter(c => c.ativo && c.proxima_data).map(cuidado => {
-            const dateString = typeof cuidado.proxima_data === 'string' ? cuidado.proxima_data.split('T')[0] : '';
-            if(!dateString) return null;
-            const dateParts = dateString.split('-');
-            return new Date(parseInt(dateParts[0], 10), parseInt(dateParts[1], 10) - 1, parseInt(dateParts[2], 10));
+            const taskDate = new Date(cuidado.proxima_data);
+            return isNaN(taskDate.getTime()) ? null : taskDate;
         }).filter(d => d !== null);
     }, [allCares]);
 
@@ -160,19 +184,38 @@ const Schedule = () => {
                 <div className={styles.tasksContainer}>
                     {loading ? (
                         <p style={{ textAlign: 'center', marginTop: '20px', color: '#666' }}>Carregando tarefas...</p>
-                    ) : taskGroups.length > 0 ? (
-                        taskGroups.map((group, index) => (
-                            <TaskList
-                                key={index}
-                                title={group.title}
-                                count={group.count}
-                                type={group.type}
-                                tasks={group.tasks}
-                                onRefresh={fetchSchedule}
-                            />
-                        ))
                     ) : (
-                        <p style={{ textAlign: 'center', marginTop: '20px', color: '#666' }}>Nenhuma tarefa agendada para esta data.</p>
+                        <>
+                            {overdueTasks.length > 0 && (
+                                <TaskList
+                                    title="Atrasadas"
+                                    count={overdueTasks.length}
+                                    type="overdue"
+                                    tasks={overdueTasks}
+                                    onRefresh={fetchSchedule}
+                                    collapsible={true}
+                                    isExpanded={overdueExpanded}
+                                    onToggle={() => setOverdueExpanded(!overdueExpanded)}
+                                />
+                            )}
+
+                            {taskGroups.length > 0 ? (
+                                taskGroups.map((group, index) => (
+                                    <TaskList
+                                        key={index}
+                                        title={group.title}
+                                        count={group.count}
+                                        type={group.type}
+                                        tasks={group.tasks}
+                                        onRefresh={fetchSchedule}
+                                    />
+                                ))
+                            ) : (
+                                <p style={{ textAlign: 'center', marginTop: '20px', color: '#666' }}>
+                                    Nenhuma tarefa agendada para esta data.
+                                </p>
+                            )}
+                        </>
                     )}
                 </div>
             </div>
