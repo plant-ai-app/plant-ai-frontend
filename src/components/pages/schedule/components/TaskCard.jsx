@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './TaskCard.module.css';
 import { BsThreeDots, BsCheck2, BsClock, BsGeoAlt } from 'react-icons/bs';
 import TaskBottomSheet from './TaskBottomSheet.jsx';
 
 const TaskCard = ({ task, onRefresh }) => {
     const [isSheetOpen, setIsSheetOpen] = useState(false);
+    const navigate = useNavigate();
+
 
     return (
         <>
-            <div className={styles.card}>
+            <div className={styles.card} onClick={() => navigate(`/plant/${task.plantId}`)}>
                 <div className={styles.imageWrapper}>
                     {task.image ? (
                         <img src={task.image} alt={task.name} className={styles.image} />
@@ -38,7 +41,7 @@ const TaskCard = ({ task, onRefresh }) => {
                 </div>
 
                 <div className={styles.buttonWrapper}>
-                    <button className={styles.moreBtn} onClick={() => setIsSheetOpen(true)}>
+                    <button className={styles.moreBtn} onClick={(e) => { e.stopPropagation(); setIsSheetOpen(true); }}>
                         <BsThreeDots />
                     </button>
                     <div className={styles.actions}>
@@ -52,6 +55,7 @@ const TaskCard = ({ task, onRefresh }) => {
                     </div>
                 </div>
             </div>
+
             <TaskBottomSheet
                 isOpen={isSheetOpen}
                 onClose={() => setIsSheetOpen(false)}

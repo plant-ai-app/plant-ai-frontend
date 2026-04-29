@@ -39,17 +39,21 @@ const TaskBottomSheet = ({ isOpen, onClose, plantId, careId, ativo, onSuccess })
             <div className={styles.container} onClick={(e) => e.stopPropagation()}>
                 <div className={styles.handle} />
                 
-                <button className={`${styles.option} ${styles.edit}`} onClick={handleToggleStatus}>
+                {/* <button className={`${styles.option} ${styles.edit}`} onClick={handleToggleStatus}>
                     <span className={styles.optionText}>{ativo ? 'Pausar cuidado' : 'Retomar cuidado'}</span>
+                </button> */}
+
+                <button className={`${styles.option} ${styles.edit}`} onClick={() => {alert("pular cuidado")}}> 
+                    <span className={styles.optionText}>Pular cuidado</span>
                 </button>
 
                 <button className={`${styles.option} ${styles.edit}`} onClick={handleNavigateEdit}>
                     <span className={styles.optionText}>Editar cuidado</span>
                 </button>
-                
-                <button className={`${styles.option} ${styles.settings}`} onClick={handleNavigateSettings}>
+
+                {/* <button className={`${styles.option} ${styles.settings}`} onClick={handleNavigateSettings}>
                     <span className={styles.optionText}>Configurações</span>
-                </button>
+                </button> */}
                 
                 <button className={`${styles.option} ${styles.delete}`} onClick={() => {alert("Deletar cuidado")}}>
                     <span className={styles.optionText}>Deletar cuidado</span>
