@@ -31,8 +31,6 @@ const ProfileInfo = () => {
                 const data = await getUser();
                 const userData = data.data.usuario;
 
-                console.log("usuario da api")
-                console.log(userData);
                 setUser(userData);
                 localStorage.setItem("user", JSON.stringify(userData));
 
