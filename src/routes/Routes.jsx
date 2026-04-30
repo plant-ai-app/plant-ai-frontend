@@ -54,7 +54,11 @@ const AppRoutes = () => {
                 {/* 🌍 Rotas públicas */}
                 
                 <Route path="/" element={<Splash/>} />
-                <Route path="/onBoarding" element={<OnBoarding/>} />
+                <Route path="/onBoarding" element={
+                    <PublicRoute>
+                        <OnBoarding/>
+                    </PublicRoute>
+                } />
 
                 <Route path="/login" element={
                     <PublicRoute>

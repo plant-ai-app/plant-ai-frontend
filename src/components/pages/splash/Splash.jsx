@@ -1,18 +1,25 @@
 import logo from "./logo.png"
 import Container from "../../common/container/Container";
 import styles from "./Splash.module.css";
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../../contexts/AuthContext";
 
 const Splash = () => {
 
     const navigate = useNavigate();
     
+    const { token } = useContext(AuthContext);
+    
     useEffect(() => {
         setTimeout(() => {
-            navigate('/onBoarding');
+            if (token) {
+                navigate('/home');
+            } else {
+                navigate('/onBoarding');
+            }
         }, 2000);
-    }, []);
+    }, [token, navigate]);
 
     return (
         <Container
