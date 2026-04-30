@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import styles from './EditCare.module.css';
 import CareForm from '../../care/CareForm.jsx';
@@ -60,7 +60,7 @@ const EditCare = () => {
         // Formata a data para ISO-8601 (ex: "2024-04-25T09:00:00.000Z")
         const payload = {
             ...formData,
-            proxima_data: new Date(`${formData.proxima_data}T${formData.horario_preferencial}:00`).toISOString()
+            proxima_data: `${formData.proxima_data}T${formData.horario_preferencial}:00`
         };
 
         try {
@@ -94,6 +94,12 @@ const EditCare = () => {
                                     onClick={() => { handleToggleMenu(); handleDelete(); }}
                                 >
                                     Deletar Cuidado
+                                </button>
+                                <button 
+                                    className={`${styles.optionsMenuItem}`} 
+                                    onClick={() => { alert('Ver informações'); handleToggleMenu(); }}
+                                >
+                                    Ver informações
                                 </button>
                             </div>
                         </>

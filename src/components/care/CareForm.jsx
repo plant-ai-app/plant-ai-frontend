@@ -56,8 +56,11 @@ const CareForm = ({
     const [tipoId, setTipoId] = useState(initialValues?.tipo_id || null);
     const [frequenciaDias, setFrequenciaDias] = useState(initialValues?.frequencia_dias || 7);
     const [proximaData, setProximaData] = useState(() => {
-        if (initialValues?.proxima_data) return initialValues.proxima_data.split('T')[0];
-        return new Date().toISOString().split('T')[0]; // today
+        const dateObj = initialValues?.proxima_data ? new Date(initialValues.proxima_data) : new Date();
+        const yyyy = dateObj.getFullYear();
+        const mm = String(dateObj.getMonth() + 1).padStart(2, '0');
+        const dd = String(dateObj.getDate()).padStart(2, '0');
+        return `${yyyy}-${mm}-${dd}`;
     });
     const [horarioPreferencial, setHorarioPreferencial] = useState(initialValues?.horario_preferencial || '09:00');
     const [instrucoes, setInstrucoes] = useState(initialValues?.quantidade_instrucao || '');
@@ -138,9 +141,9 @@ const CareForm = ({
         onSubmit(formData);
     };
 
-    if (loadingTypes) {
-        return <div className={styles.loadingContainer}>Carregando tipos de cuidado...</div>;
-    }
+    // if (loadingTypes) {
+    //     return <div className={styles.loadingContainer}>Carregando tipos de cuidado...</div>;
+    // }
 
     return (
         <form className={styles.formContainer} onSubmit={handleSubmit}>

@@ -55,12 +55,12 @@ const CreateCare = () => {
             tipo_id: formData.tipo_id,
             frequencia_dias: formData.frequencia_dias,
             // Formata a data para ISO-8601 (ex: "2024-04-25T09:00:00.000Z")
-            proxima_data: new Date(`${formData.proxima_data}T${formData.horario_preferencial}:00`).toISOString(),
+            proxima_data: `${formData.proxima_data}T${formData.horario_preferencial}:00`,
             quantidade_instrucao: formData.quantidade_instrucao,
             horario_preferencial: formData.horario_preferencial
         };
 
-        try {
+        try {   
             const data = await createCare(payload);
             setMessage(data.message);
             setMessageType("success");
