@@ -3,9 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import styles from './TaskCard.module.css';
 import { BsThreeDots, BsCheck2, BsClock, BsGeoAlt } from 'react-icons/bs';
 import TaskBottomSheet from './TaskBottomSheet.jsx';
+import TaskCompleteModal from './TaskCompleteModal.jsx';
 
 const TaskCard = ({ task, onRefresh }) => {
     const [isSheetOpen, setIsSheetOpen] = useState(false);
+    const [isCompleteModalOpen, setIsCompleteModalOpen] = useState(false);
     const navigate = useNavigate();
 
 
@@ -45,8 +47,14 @@ const TaskCard = ({ task, onRefresh }) => {
                         <BsThreeDots />
                     </button>
                     <div className={styles.actions}>
-                        <button className={`${styles.actionBtn} ${task.actionStyle === 'check' ? styles.checkBtn : styles.timeBtn}`}>
-                            {task.actionStyle === 'check' ? (
+                        <button 
+                            className={`${styles.actionBtn} ${task.actionStyle === 'check' ? styles.checkBtn : styles.timeBtn}`}
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                setIsCompleteModalOpen(true);
+                            }}
+                        >
+                            {task.actionStyle !== 'check' ? (
                                 <BsCheck2 className={styles.checkIcon} />
                             ) : (
                                 <BsClock className={styles.timeIcon} />
@@ -62,6 +70,13 @@ const TaskCard = ({ task, onRefresh }) => {
                 plantId={task.plantId || task.id}
                 careId={task.careId}
                 ativo={task.ativo}
+                onSuccess={onRefresh}
+            />
+
+            <TaskCompleteModal
+                isOpen={isCompleteModalOpen}
+                onClose={() => setIsCompleteModalOpen(false)}
+                task={task}
                 onSuccess={onRefresh}
             />
         </>
