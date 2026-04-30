@@ -18,7 +18,6 @@ const Plant = () => {
         const fetchPlant = async () => {
             try {
                 const data = await getPlantById(id);
-                console.log("Dados da planta recebidos:", data);
                 setPlant(data);
             } catch (error) {
                 console.error("Erro ao buscar planta:", error);
