@@ -3,11 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import styles from './TaskCard.module.css';
 import { BsThreeDots, BsCheck2, BsClock, BsGeoAlt } from 'react-icons/bs';
 import TaskBottomSheet from './TaskBottomSheet.jsx';
-import TaskCompleteModal from './TaskCompleteModal.jsx';
+import TaskActionModal from './modal/TaskActionModal.jsx';
 
 const TaskCard = ({ task, onRefresh }) => {
     const [isSheetOpen, setIsSheetOpen] = useState(false);
-    const [isCompleteModalOpen, setIsCompleteModalOpen] = useState(false);
+    const [isActionModalOpen, setIsActionModalOpen] = useState(false);
     const navigate = useNavigate();
 
 
@@ -51,7 +51,7 @@ const TaskCard = ({ task, onRefresh }) => {
                             className={`${styles.actionBtn} ${task.actionStyle === 'check' ? styles.checkBtn : styles.timeBtn}`}
                             onClick={(e) => {
                                 e.stopPropagation();
-                                setIsCompleteModalOpen(true);
+                                setIsActionModalOpen(true);
                             }}
                         >
                             {task.actionStyle !== 'check' ? (
@@ -67,17 +67,16 @@ const TaskCard = ({ task, onRefresh }) => {
             <TaskBottomSheet
                 isOpen={isSheetOpen}
                 onClose={() => setIsSheetOpen(false)}
-                plantId={task.plantId || task.id}
-                careId={task.careId}
-                ativo={task.ativo}
+                task={task}
                 onSuccess={onRefresh}
             />
 
-            <TaskCompleteModal
-                isOpen={isCompleteModalOpen}
-                onClose={() => setIsCompleteModalOpen(false)}
+            <TaskActionModal
+                isOpen={isActionModalOpen}
+                onClose={() => setIsActionModalOpen(false)}
                 task={task}
                 onSuccess={onRefresh}
+                actionType="concluir"
             />
         </>
     );
