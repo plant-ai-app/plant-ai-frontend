@@ -66,7 +66,7 @@ const CreateCare = () => {
             setMessageType("success");
             setTimeout(() => {
                 navigate(-1); // Volta para a tela da planta ou agenda após salvar
-            }, 2000);
+            }, 1000);
         } catch (error) {
             console.error("Erro ao agendar cuidado:", error);
             setMessage(error.response?.data?.message || "Não foi possível salvar o cuidado. Tente novamente.");

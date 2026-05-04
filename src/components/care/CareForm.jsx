@@ -141,9 +141,9 @@ const CareForm = ({
         onSubmit(formData);
     };
 
-    // if (loadingTypes) {
-    //     return <div className={styles.loadingContainer}>Carregando tipos de cuidado...</div>;
-    // }
+    if (loadingTypes) {
+        return <div className={styles.loadingContainer}>Carregando tipos de cuidado...</div>;
+    }
 
     return (
         <form className={styles.formContainer} onSubmit={handleSubmit}>
