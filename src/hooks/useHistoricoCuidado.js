@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { createHistoricoCuidado as createHistoricoService } from '../services/historicoCuidado.service';
+import { createHistoricoCuidado as createHistoricoService, getAllHistoricoCuidado as getAllHistoricoService } from '../services/historicoCuidado.service';
 
 export const useHistoricoCuidado = () => {
     const [loading, setLoading] = useState(false);
@@ -19,8 +19,23 @@ export const useHistoricoCuidado = () => {
         }
     };
 
+    const fetchHistoricoCuidado = async () => {
+        try {
+            setLoading(true);
+            setError(null);
+            const response = await getAllHistoricoService();
+            return response;
+        } catch (err) {
+            setError(err.response?.data?.message || err.message || 'Erro ao carregar histórico de cuidados');
+            throw err;
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return {
         createHistoricoCuidado,
+        fetchHistoricoCuidado,
         loading,
         error
     };
