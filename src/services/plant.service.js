@@ -29,3 +29,8 @@ export const deletePlant = async (id) => {
     const response = await api.delete(`/plant/${id}`);
     return response.data;
 }
+
+export const deleteManyPlants = async (ids) => {
+    const response = await api.delete('/plants', { data: { ids } });
+    return response.data;
+}
