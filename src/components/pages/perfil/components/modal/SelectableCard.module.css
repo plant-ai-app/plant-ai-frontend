@@ -1,0 +1,129 @@
+.card {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    background-color: #ffffff;
+    border: 1px solid #eaeaea;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    transition: all 0.2s ease;
+}
+
+.card.selected {
+    border-color: #2a9d8f;
+    background-color: rgba(42, 157, 143, 0.05);
+}
+
+.checkboxWrapper {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    margin-right: 16px;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.checkbox {
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.customCheckbox {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 24px;
+    height: 24px;
+    border: 2px solid #ccc;
+    border-radius: 6px;
+    background-color: transparent;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.checkbox:checked ~ .customCheckbox {
+    background-color: #2a9d8f;
+    border-color: #2a9d8f;
+}
+
+.checkbox:checked ~ .customCheckbox::after {
+    content: '';
+    width: 6px;
+    height: 12px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    margin-bottom: 2px;
+}
+
+.contentWrapper {
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+.imageContainer {
+    position: relative;
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    margin-right: 16px;
+    flex-shrink: 0;
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.imagePlaceholder {
+    width: 100%;
+    height: 100%;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+}
+
+.iconBadge {
+    position: absolute;
+    bottom: -6px;
+    right: -6px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    border: 2px solid white;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin: 0 0 4px 0;
+}
+
+.subtitle {
+    font-size: 14px;
+    color: #666;
+    margin: 0;
+}
+
+.actionWrapper {
+    margin-left: auto;
+    padding-left: 12px;
+}
