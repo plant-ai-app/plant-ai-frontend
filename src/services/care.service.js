@@ -29,3 +29,8 @@ export const deleteCare = async (id) => {
     const response = await api.delete(`/cuidado/${id}`);
     return response.data;
 }
+
+export const deleteManyCares = async (ids) => {
+    const response = await api.delete('/cuidado', { data: { ids } });
+    return response.data;
+}
