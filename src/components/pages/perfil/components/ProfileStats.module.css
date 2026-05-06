@@ -7,19 +7,65 @@
 
 .statCard {
     flex: 1;
-    background-color: #e4f3dd; /* Light green background */
-    border-radius: 16px;
-    padding: 20px 8px;
+    background-color: #ffffff; 
+    border-radius: 20px;
+    padding: 12px 8px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    border: 2px solid #000000;
+}
+
+
+.iconWrapper {
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8px;
 }
 
 .statIcon {
-    color: #72d62b;
-    font-size: 1.5rem;
-    margin-bottom: 8px;
+    font-size: 1.2rem;
+}
+
+/* Plantas - Soft Green */
+.cardPlantas {
+    background-color: #f6fdf9;
+    border-color: #e2f5ec;
+}
+.cardPlantas .iconWrapper {
+    background-color: #e8f7f0;
+}
+.cardPlantas .statIcon {
+    color: #4dbd8c;
+}
+
+/* Histórico - Soft Blue */
+.cardHistorico {
+    background-color: #f7fbff;
+    border-color: #e8f2ff;
+}
+.cardHistorico .iconWrapper {
+    background-color: #ecf4ff;
+}
+.cardHistorico .statIcon {
+    color: #4da3ff;
+}
+
+/* Pendentes - Soft Red/Peach */
+.cardPendentes {
+    background-color: #fff8f8;
+    border-color: #ffefef;
+}
+.cardPendentes .iconWrapper {
+    background-color: #ffeded;
+}
+.cardPendentes .statIcon {
+    color: #ff8080;
 }
 
 .statValue {
@@ -34,4 +80,23 @@
     font-weight: 700;
     color: #888;
     letter-spacing: 0.5px;
+}
+
+.singleConcludeBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    color: #207f77;
+    padding: 8px;
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+}
+
+.singleConcludeBtn:hover {
+    background-color: rgba(42, 157, 143, 0.1);
+}
+
+.singleConcludeBtn:active {
+    background-color: rgba(42, 157, 143, 0.2);
 }
