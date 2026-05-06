@@ -5,7 +5,8 @@ import {
     getPlantByName as getPlantByNameService,
     createPlant as createPlantService,
     updatePlant as updatePlantService,
-    deletePlant as deletePlantService
+    deletePlant as deletePlantService,
+    deleteManyPlants as deleteManyPlantsService
 } from "../services/plant.service";
 
 export const usePlant = () => {
@@ -96,6 +97,20 @@ export const usePlant = () => {
         }
     };
 
+    const deleteManyPlants = async (ids) => {
+        try {
+            setLoading(true);
+            setError(null);
+            const data = await deleteManyPlantsService(ids);
+            return data;
+        } catch (err) {
+            setError(err.response?.data?.message || 'Erro ao deletar plantas em massa');
+            throw err;
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return {
         getPlants,
         getPlantById,
@@ -103,6 +118,7 @@ export const usePlant = () => {
         createPlant,
         updatePlant,
         deletePlant,
+        deleteManyPlants,
         loading,
         error
     };
