@@ -4,7 +4,8 @@ import {
     getCaresByPlantId as getCaresByPlantIdService,
     createCare as createCareService,
     updateCare as updateCareService,
-    deleteCare as deleteCareService
+    deleteCare as deleteCareService,
+    deleteManyCares as deleteManyCaresService
 } from "../services/care.service";
 
 export const useCare = () => {
@@ -81,12 +82,27 @@ export const useCare = () => {
         }
     };
 
+    const deleteManyCares = async (ids) => {
+        try {
+            setLoading(true);
+            setError(null);
+            const data = await deleteManyCaresService(ids);
+            return data;
+        } catch (err) {
+            setError(err.response?.data?.message || 'Erro ao deletar cuidados em massa');
+            throw err;
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return {
         getCareById,
         getCaresByPlantId,
         createCare,
         updateCare,
         deleteCare,
+        deleteManyCares,
         loading,
         error
     };
