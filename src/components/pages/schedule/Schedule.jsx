@@ -17,7 +17,7 @@ import { getAllCares } from "../../../services/care.service";
 //icons
 import { BsSave, BsDroplet, BsLightningCharge, BsScissors, BsSun, BsWind, BsBug, BsStars, BsArrowRepeat } from 'react-icons/bs';
 
-const getIconForCareType = (name) => {
+export const getIconForCareType = (name) => {
     switch (name) {
         case 'Exposição Solar': return { icon: <BsSun />, color: '#ffcc00', bgColor: '#ffffe6' };
         case 'Adubação': return { icon: <BsLightningCharge />, color: '#88cc00', bgColor: '#f2ffe6' };
@@ -32,7 +32,7 @@ const getIconForCareType = (name) => {
 
 const mapCuidadoToTask = (cuidado) => {
     const styleData = getIconForCareType(cuidado.tipo?.nome);
-    
+
     let plantImage = cuidado.planta?.foto_url || cuidado.planta?.imagem || cuidado.planta?.foto || cuidado.planta?.image || '';
     if (plantImage && !plantImage.startsWith('http')) {
         const baseUrl = import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL.replace(/\/api\/?$/, '') : 'http://localhost:3000';
@@ -74,7 +74,7 @@ const Schedule = () => {
             const response = await getAllCares();
             if (response && response.cuidados) {
                 setAllCares(response.cuidados);
-            }            
+            }
         } catch (error) {
             console.error("Erro ao carregar agenda:", error);
         } finally {
@@ -88,8 +88,8 @@ const Schedule = () => {
 
     const isSameDay = (d1, d2) => {
         return d1.getFullYear() === d2.getFullYear() &&
-               d1.getMonth() === d2.getMonth() &&
-               d1.getDate() === d2.getDate();
+            d1.getMonth() === d2.getMonth() &&
+            d1.getDate() === d2.getDate();
     };
 
     const overdueTasks = useMemo(() => {
@@ -103,7 +103,7 @@ const Schedule = () => {
                 if (!cuidado.ativo || !cuidado.proxima_data) return false;
                 const taskDate = new Date(cuidado.proxima_data);
                 if (isNaN(taskDate.getTime())) return false;
-                
+
                 // Apenas tarefas estritamente antes de hoje
                 return taskDate < today;
             })
@@ -133,7 +133,7 @@ const Schedule = () => {
 
                 // Não duplicar tarefas que já aparecem na seção "Atrasadas"
                 const isOverdue = taskDate < today;
-                
+
                 return isSameDay(taskDate, selectedDate) && !isOverdue;
             })
             .map(mapCuidadoToTask);
@@ -180,7 +180,7 @@ const Schedule = () => {
             <div className={styles.scrollArea}>
                 <Header />
                 <DateSelector selectedDate={selectedDate} onSelectDate={setSelectedDate} tasksDates={tasksDates} />
-                
+
                 <div className={styles.tasksContainer}>
                     {loading ? (
                         <p style={{ textAlign: 'center', marginTop: '20px', color: '#666' }}>Carregando tarefas...</p>
