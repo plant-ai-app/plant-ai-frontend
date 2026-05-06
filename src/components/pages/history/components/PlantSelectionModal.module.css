@@ -83,8 +83,11 @@
 .searchInput {
     background: transparent;
     outline: none;
-    font-size: 14px;
+    font-size: .9rem;
     flex: 1;
+}
+.searchInput::placeholder {
+    font-size: .9rem;
 }
 
 .content {
