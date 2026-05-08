@@ -1,12 +1,20 @@
-import React, { useState, useEffect, useMemo } from 'react';
+//react
+import { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+//hooks
+import { useHistoricoCuidado } from '../../../hooks/useHistoricoCuidado';
+
+//styles and icons
 import styles from './History.module.css';
-import { BsArrowLeft, BsFilter } from 'react-icons/bs';
+import { BsFilter } from 'react-icons/bs';
+
+//components
 import Container from '../../common/container/Container';
+import Loading from '../../layouts/loading/Loading';
 import HistoryCard from './components/HistoryCard';
 import HistoryFilterBottomSheet from './components/HistoryFilterBottomSheet';
-import { useHistoricoCuidado } from '../../../hooks/useHistoricoCuidado';
-import Loading from '../../layouts/loading/Loading';
+import BackButton from '../../common/backButton/BackButton';
 
 const History = () => {
     const navigate = useNavigate();
@@ -124,9 +132,13 @@ const History = () => {
         <Container padding="0">
             <div className={styles.scrollArea}>
                 <div className={styles.header}>
-                    <button className={styles.backBtn} onClick={() => navigate(-1)}>
-                        <BsArrowLeft />
-                    </button>
+                    <BackButton
+                        width="30px"
+                        height="30px"
+                        borderRadius="50%"
+                        backgroundColor="transparent"
+                        color="#000"
+                    />
                     <div className={styles.headerTitle}>
                         <h1>Histórico de Cuidados</h1>
                         <span className={styles.month}>MAIO DE 2026</span>
