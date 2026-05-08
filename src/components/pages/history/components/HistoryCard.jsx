@@ -25,11 +25,19 @@ const HistoryCard = ({ item, onClick }) => {
         return date.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
     };
 
+    const getPlantImage = (plantImage) => {
+        if (plantImage && !plantImage.startsWith('http')) {
+            const baseUrl = import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL.replace(/\/api\/?$/, '') : 'http://localhost:3000';
+            return `${baseUrl}${plantImage.startsWith('/') ? '' : '/'}${plantImage}`;
+        }
+        return plantImage;
+    };
+
     return (
         <div className={styles.card} onClick={onClick}>
             <div className={styles.imageWrapper}>
                 {item.foto ? (
-                    <img src={item.foto} alt={item.planta} className={styles.image} />
+                    <img src={getPlantImage(item.foto)} alt={item.planta} className={styles.image} />
                 ) : (
                     <div className={styles.imagePlaceholder}></div>
                 )}
