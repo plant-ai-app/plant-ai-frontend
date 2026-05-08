@@ -5,7 +5,8 @@ import {
     createCare as createCareService,
     updateCare as updateCareService,
     deleteCare as deleteCareService,
-    deleteManyCares as deleteManyCaresService
+    deleteManyCares as deleteManyCaresService,
+    getAllCares as getAllCaresService
 } from "../services/care.service";
 
 export const useCare = () => {
@@ -20,6 +21,20 @@ export const useCare = () => {
             return data;
         } catch (err) {
             setError(err.response?.data?.message || 'Erro ao buscar cuidado por ID');
+            throw err;
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const getAllCares = async () => {
+        try {
+            setLoading(true);
+            setError(null);
+            const data = await getAllCaresService();
+            return data;
+        } catch (err) {
+            setError(err.response?.data?.message || 'Erro ao buscar todos os cuidados');
             throw err;
         } finally {
             setLoading(false);
@@ -97,6 +112,7 @@ export const useCare = () => {
     };
 
     return {
+        getAllCares,
         getCareById,
         getCaresByPlantId,
         createCare,
