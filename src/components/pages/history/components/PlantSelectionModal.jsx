@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './PlantSelectionModal.module.css';
 import { BsSearch, BsX, BsCheckCircleFill } from 'react-icons/bs';
 import { getPlants } from '../../../../services/plant.service';
@@ -46,7 +46,7 @@ const PlantSelectionModal = ({ isOpen, onClose, selectedPlantIds, onConfirm }) =
                 <div className={styles.header}>
                     <div className={styles.handle} />
                     <div className={styles.headerTop}>
-                        <h2 className={styles.title}>Select Plants</h2>
+                        <h2 className={styles.title}>Selecione as plantas</h2>
                         <button className={styles.closeBtn} onClick={onClose}><BsX /></button>
                     </div>
                     <div className={styles.searchWrapper}>
@@ -54,7 +54,7 @@ const PlantSelectionModal = ({ isOpen, onClose, selectedPlantIds, onConfirm }) =
                         <input 
                             type="text" 
                             className={styles.searchInput} 
-                            placeholder="Search by name or nickname..." 
+                            placeholder="Pesquise por nome ou apelido..." 
                             value={searchTerm}
                             onChange={e => setSearchTerm(e.target.value)}
                         />
