@@ -109,7 +109,6 @@
     flex: 1;
     background-color: #55c34e;
     color: white;
-    border: none;
     border-radius: 30px;
     padding: 16px;
     font-size: 16px;
@@ -118,7 +117,6 @@
     align-items: center;
     justify-content: center;
     gap: 8px;
-    cursor: pointer;
 }
 
 .snoozeBtn {
@@ -130,9 +128,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
     font-size: 20px;
     color: #1a1a1a;
+}
+
+.secondaryTasks {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
 .secondaryCard {
