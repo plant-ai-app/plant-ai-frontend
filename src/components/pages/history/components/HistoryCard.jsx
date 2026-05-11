@@ -1,9 +1,12 @@
-import React from 'react';
+import { useState } from 'react';
+import { createPortal } from 'react-dom';
 import styles from './HistoryCard.module.css';
-import { BsChevronRight } from 'react-icons/bs';
+import { BsX } from 'react-icons/bs';
 import { getIconForCareType } from '../../schedule/Schedule.jsx';
 
 const HistoryCard = ({ item, onClick }) => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
     // Calculando status derivado se necessário
     const getCalculatedStatus = () => {
         if (item.status === 'PULADO') return 'PULADO';
@@ -33,34 +36,64 @@ const HistoryCard = ({ item, onClick }) => {
         return plantImage;
     };
 
+    const observationText = item.observacoes || item.observacao;
+
+    const handleCardClick = (e) => {
+        if (observationText) {
+            setIsModalOpen(true);
+        }
+        if (onClick) {
+            onClick(e);
+        }
+    };
+
     return (
-        <div className={styles.card} onClick={onClick}>
-            <div className={styles.imageWrapper}>
-                {item.foto ? (
-                    <img src={getPlantImage(item.foto)} alt={item.planta} className={styles.image} />
-                ) : (
-                    <div className={styles.imagePlaceholder}></div>
-                )}
-                <div className={styles.iconBadge} style={{ backgroundColor: styleData.bgColor }}>
-                    <span style={{ color: styleData.color }}>{styleData.icon}</span>
+        <div className={styles.card} onClick={handleCardClick}>
+            <div className={styles.topRow}>
+                <div className={styles.imageWrapper}>
+                    {item.foto ? (
+                        <img src={getPlantImage(item.foto)} alt={item.planta} className={styles.image} />
+                    ) : (
+                        <div className={styles.imagePlaceholder}></div>
+                    )}
+                    <div className={styles.iconBadge} style={{ backgroundColor: styleData.bgColor }}>
+                        <span style={{ color: styleData.color }}>{styleData.icon}</span>
+                    </div>
+                </div>
+
+                <div className={styles.info}>
+                    <div className={styles.infoHeader}>
+                        <h3 className={styles.name}>{item.planta}</h3>
+                        <span className={`${styles.statusBadge} ${styles[status.toLowerCase()]}`}>
+                            {status}
+                        </span>
+                    </div>
+                    <p className={styles.details}>
+                        {item.tipo} • {formatTime(item.data_realizacao)}
+                    </p>
                 </div>
             </div>
 
-            <div className={styles.info}>
-                <div className={styles.infoHeader}>
-                    <h3 className={styles.name}>{item.planta}</h3>
-                    <span className={`${styles.statusBadge} ${styles[status.toLowerCase()]}`}>
-                        {status}
-                    </span>
+            {observationText && (
+                <div className={styles.observationBox}>
+                    <p className={styles.observationText}>"{observationText}"</p>
                 </div>
-                <p className={styles.details}>
-                    {item.tipo} • {formatTime(item.data_realizacao)}
-                </p>
-            </div>
+            )}
 
-            <div className={styles.arrow}>
-                <BsChevronRight />
-            </div>
+            {isModalOpen && createPortal(
+                <div className={styles.modalOverlay} onClick={(e) => { e.stopPropagation(); setIsModalOpen(false); }}>
+                    <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+                        <div className={styles.modalHeader}>
+                            <h3>Observação</h3>
+                            <button className={styles.closeButton} onClick={() => setIsModalOpen(false)}>
+                                <BsX size={28} />
+                            </button>
+                        </div>
+                        <p className={styles.modalText}>{observationText}</p>
+                    </div>
+                </div>,
+                document.body
+            )}
         </div>
     );
 };
