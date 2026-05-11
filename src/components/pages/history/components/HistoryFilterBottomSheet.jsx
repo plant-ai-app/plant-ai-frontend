@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './HistoryFilterBottomSheet.module.css';
 import { BsX, BsChevronDown, BsCheck } from 'react-icons/bs';
 import PlantSelectionModal from './PlantSelectionModal';
 
-const HistoryFilterBottomSheet = ({ isOpen, onClose, filters, onApply, onClear }) => {
+const HistoryFilterBottomSheet = ({ isOpen, onClose, filters, onApply, onClear, careTypes = [] }) => {
     const [tempFilters, setTempFilters] = useState(filters);
     const [isPlantModalOpen, setIsPlantModalOpen] = useState(false);
 
@@ -13,7 +13,6 @@ const HistoryFilterBottomSheet = ({ isOpen, onClose, filters, onApply, onClear }
         }
     }, [isOpen, filters]);
 
-    const careTypes = ['Rega', 'Poda', 'Adubação', 'Troca de Vaso', 'Controle de Pragas'];
     const statuses = ['CONCLUIDO', 'PULADO', 'ATRASADO', 'ADIANTADO'];
 
     const handleToggleType = (type) => {
