@@ -62,7 +62,7 @@ textarea {
   background: none;
 }
 button{
-  cursor: pointer;
+  cursor: default !important;
 }
 form{
     display: flex;
