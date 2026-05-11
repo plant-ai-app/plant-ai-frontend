@@ -1,0 +1,189 @@
+/* Applied Filters Section */
+.appliedFilters {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 8px;
+    flex-wrap: nowrap;
+    overflow: hidden;
+}
+
+.filtrandoLabel {
+    font-size: 13px;
+    font-weight: 600;
+    color: #666;
+    white-space: nowrap;
+}
+
+.filterPills {
+    display: flex;
+    gap: 6px;
+    flex-wrap: nowrap;
+    flex: 1;
+    overflow: hidden;
+    align-items: center;
+}
+
+.filterPill {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 100px;
+    padding: 4px 10px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #333;
+    max-width: 90px;
+    flex-shrink: 0;
+}
+
+.pillLabel {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.morePill {
+    background-color: #f0f9f4;
+    border: 1px solid #00b386;
+    border-radius: 100px;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #00b386;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.2s ease;
+}
+
+.morePill:active {
+    transform: scale(0.95);
+}
+
+.removeFilter {
+    background: none;
+    border: none;
+    color: #999;
+    display: flex;
+    align-items: center;
+    padding: 0;
+}
+
+.clearAll {
+    background: none;
+    color: #00b386;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 4px 0;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* Modal Overlay shared style */
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.45);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
+    backdrop-filter: blur(2px);
+    animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Bottom Sheet for More Filters */
+.bottomSheet {
+    background-color: #fff;
+    width: 100%;
+    max-width: 450px;
+    border-radius: 24px 24px 0 0;
+    padding: 24px;
+    position: fixed;
+    bottom: 0;
+    box-shadow: 0 -10px 25px rgba(0, 0, 0, 0.1);
+    animation: slideUpBottom 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideUpBottom {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+}
+
+.modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.modalHeader h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.closeButton {
+    background: none;
+    color: #999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+}
+
+.allFiltersList {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 20px 0;
+    max-height: 50vh;
+    overflow-y: auto;
+}
+
+.modalFilterItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background-color: #f8f9fa;
+    border-radius: 12px;
+}
+
+.modalFilterLabel {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+}
+
+.modalRemoveBtn {
+    background: none;
+    color: #ff4d4f;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.modalClearBtn {
+    width: 100%;
+    padding: 16px;
+    background-color: #f0f9f4;
+    color: #00b386;
+    border: 1px solid #00b386;
+    border-radius: 14px;
+    font-size: 15px;
+    font-weight: 700;
+    margin-top: 10px;
+}
