@@ -28,9 +28,6 @@ const MyPlantsList = ({ plants = [], dueTodayCares = [] }) => {
                             Ver todas
                         </button>
                     )}
-                    <button className={styles.addBtn} aria-label="Adicionar Planta" onClick={() => navigate('/history/select-plant')}>
-                        +
-                    </button>
                 </div>
             </div>
 
