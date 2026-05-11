@@ -1,11 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import {useNavigate} from 'react-router-dom';
+//react
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
-import { getPlantById } from '../../../services/plant.service';
-import styles from './Plant.module.css';
+
+//components
 import BackButton from '../../common/backButton/BackButton';
-import CareCard from '../../common/CareCard/CareCard';
-import { Clock, Hexagon, Camera, Search, MoreHorizontal } from 'lucide-react';
+import HistoryCard from '../history/components/HistoryCard';
+
+//icons and styles
+import { Clock, Hexagon, Camera, Search } from 'lucide-react';
+import styles from './Plant.module.css';
+
+//hooks
+import { useHistoricoCuidado } from '../../../hooks/useHistoricoCuidado';
+import { usePlant } from '../../../hooks/usePlant';
 
 const Plant = () => {
     const { id } = useParams();
@@ -13,14 +21,33 @@ const Plant = () => {
     const [plant, setPlant] = useState(null);
     const [loading, setLoading] = useState(true);
     const [activeTab, setActiveTab] = useState('overview');
+    const { fetchHistoricoCuidado } = useHistoricoCuidado();
+    const { getPlantById } = usePlant();
+    const [history, setHistory] = useState([]);
 
     useEffect(() => {
         const fetchPlant = async () => {
             try {
-                const data = await getPlantById(id);
-                setPlant(data);
+                const [plantData, historyData] = await Promise.all([
+                    getPlantById(id),
+                    fetchHistoricoCuidado()
+                ]);
+                
+                setPlant(plantData);
+                
+                // Extrair registros do histórico (lidando com diferentes formatos de resposta)
+                const allHistory = Array.isArray(historyData) ? historyData : 
+                                  historyData?.registros || historyData?.historico || [];
+                
+                // Filtrar histórico para esta planta específica
+                const plantHistory = allHistory.filter(item => String(item.planta_id) === String(id));
+                
+                // Ordenar por data (mais recente primeiro)
+                plantHistory.sort((a, b) => new Date(b.data_realizacao) - new Date(a.data_realizacao));
+                
+                setHistory(plantHistory);
             } catch (error) {
-                console.error("Erro ao buscar planta:", error);
+                console.error("Erro ao buscar dados:", error);
             } finally {
                 setLoading(false);
             }
@@ -36,25 +63,8 @@ const Plant = () => {
     if (loading) return <div className={styles.loading}>Carregando...</div>;
     if (!plant) return <div className={styles.error}>Planta não encontrada.</div>;
 
-    // Dados mockados para histórico (não encontrados no objeto da planta)
-    const careHistory = [
-        {
-            id: 1,
-            title: 'Fiddle Leaf Fig',
-            type: 'Watering',
-            date: 'Today',
-            status: 'COMPLETED',
-            note: 'Used filtered water'
-        },
-        {
-            id: 2,
-            title: 'Snake Plant',
-            type: 'Fertilizing',
-            date: 'Oct 23',
-            status: 'COMPLETED',
-            note: 'New growth spotted!'
-        }
-    ];
+    // Histórico real filtrado no useEffect
+    const careHistory = history;
 
     return (
         <div className={styles.container}>
@@ -159,16 +169,23 @@ const Plant = () => {
                     <h3 className={styles.sectionTitle}>Cuidados anteriores</h3>
                     <div className={styles.careList}>
                         {careHistory.length === 0 ? (
-                            <p>Nenhum cuidado registrado.</p>
+                            <p className={styles.emptyHistory}>Nenhum cuidado registrado.</p>
                         ) : (
-                            careHistory.map(item => (
-                                <CareCard key={item.id} {...item} />
+                            careHistory.slice(0, 4).map(item => (
+                                <HistoryCard key={item.id} item={item} />
                             ))
                         )}
                     </div>
-                    <div className={styles.moreActions}>
-                        <MoreHorizontal />
-                    </div>
+                    {careHistory.length > 4 && (
+                        <div className={styles.seeMoreWrapper}>
+                            <button 
+                                className={styles.seeMoreButton} 
+                                onClick={() => navigate('/history', { state: { plantId: id } })}
+                            >
+                                Ver todo o histórico
+                            </button>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
