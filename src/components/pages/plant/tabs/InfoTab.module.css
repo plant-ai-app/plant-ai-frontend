@@ -1,0 +1,17 @@
+.tabContent {
+    animation: fadeIn 0.3s ease;
+}
+
+.placeholderCard {
+    background-color: #f9f9f9;
+    border: 1px dashed #ccc;
+    border-radius: 12px;
+    padding: 32px;
+    text-align: center;
+    color: #888;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
