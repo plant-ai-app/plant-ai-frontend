@@ -1,0 +1,31 @@
+.section {
+    margin-bottom: 24px;
+}
+
+.sectionTitle {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 12px;
+}
+
+.noteCard {
+    background-color: #e6ee9c; /* Amarelo esverdeado claro */
+    border-radius: 12px;
+    padding: 16px;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    opacity: 0.8;
+}
+
+.noteContent {
+    flex: 1;
+}
+
+.noteDate {
+    font-size: 0.7rem;
+    color: #555;
+    text-align: right;
+}
