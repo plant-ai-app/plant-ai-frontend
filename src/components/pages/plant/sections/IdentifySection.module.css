@@ -1,0 +1,71 @@
+.section {
+    margin-bottom: 24px;
+}
+
+.sectionTitle {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 12px;
+}
+
+.identifyCard {
+    background-color: white;
+    border: 1px solid #f0f0f0;
+    border-radius: 20px;
+    padding: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+
+.identifyHeader {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.searchIconWrapper {
+    width: 40px;
+    height: 40px;
+    background-color: #e0e0e0;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+}
+
+.identifyText {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.identifyTitle {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+}
+
+.identifySubtitle {
+    font-size: 0.8rem;
+    color: #888;
+    margin: 0;
+}
+
+.identifyButton {
+    background-color: #66bb6a;
+    color: white;
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+
+}
