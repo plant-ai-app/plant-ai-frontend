@@ -18,7 +18,7 @@ const CreateCare = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const { getPlantById } = usePlant();
-    const { createCare, loading: saving } = useCare();
+    const { createCare, getCaresByPlantId, loading: saving } = useCare();
     
     const [plant, setPlant] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -26,19 +26,28 @@ const CreateCare = () => {
     const [messageType, setMessageType] = useState('');
 
     useEffect(() => {
-        const fetchPlant = async () => {
+        const fetchData = async () => {
             try {
                 if (id) {
-                    const data = await getPlantById(id);
-                    setPlant(data);
+                    const [plantData, caresData] = await Promise.all([
+                        getPlantById(id),
+                        getCaresByPlantId(id).catch(() => ({ cuidados: [] }))
+                    ]);
+
+                    const plantWithCares = {
+                        ...plantData,
+                        cuidados: caresData?.cuidados || (Array.isArray(caresData) ? caresData : [])
+                    };
+
+                    setPlant(plantWithCares);
                 }
             } catch (error) {
-                console.error("Erro ao buscar planta", error);
+                console.error("Erro ao buscar dados", error);
             } finally {
                 setLoading(false);
             }
         };
-        fetchPlant();
+        fetchData();
     }, [id]);
 
     const handleGoBack = () => {

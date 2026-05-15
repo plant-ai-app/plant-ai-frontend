@@ -11,7 +11,7 @@ const EditCare = () => {
     const { id, careId } = useParams();
     const navigate = useNavigate();
     const { getPlantById } = usePlant();
-    const { getCareById, updateCare, deleteCare, loading: saving } = useCare();
+    const { getCareById, getCaresByPlantId, updateCare, deleteCare, loading: saving } = useCare();
     
     const [plant, setPlant] = useState(null);
     const [care, setCare] = useState(null);
@@ -22,11 +22,18 @@ const EditCare = () => {
         const fetchData = async () => {
             try {
                 if (id && careId) {
-                    const [plantData, careData] = await Promise.all([
+                    const [plantData, careData, caresData] = await Promise.all([
                         getPlantById(id),
-                        getCareById(careId)
+                        getCareById(careId),
+                        getCaresByPlantId(id).catch(() => ({ cuidados: [] }))
                     ]);
-                    setPlant(plantData);
+
+                    const plantWithCares = {
+                        ...plantData,
+                        cuidados: caresData?.cuidados || (Array.isArray(caresData) ? caresData : [])
+                    };
+
+                    setPlant(plantWithCares);
                     setCare(careData);
                 }
             } catch (error) {
