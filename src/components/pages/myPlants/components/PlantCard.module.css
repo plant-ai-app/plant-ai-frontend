@@ -57,11 +57,9 @@
 
 .moreButton {
     background: none;
-    border: none;
     color: #b0bcab;
     padding: 8px;
     font-size: 16px;
-    cursor: pointer;
     flex-shrink: 0;
     display: flex;
     align-items: center;
@@ -195,12 +193,10 @@
 
 .optionsMenuItem {
     background: transparent;
-    border: none;
     padding: 10px 16px;
     text-align: left;
     font-size: 14px;
     color: #1a1a1a;
-    cursor: pointer;
     width: 100%;
 }
 
@@ -216,91 +212,4 @@
     background: rgba(229, 57, 53, 0.05);
 }
 
-/* Modal de Confirmação de Deleção */
-.modalOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.4);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    animation: fadeIn 0.2s ease;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-.modalContent {
-    background: #ffffff;
-    padding: 32px 24px 24px;
-    border-radius: 24px;
-    width: 90%;
-    max-width: 360px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    animation: popIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.modalTitle {
-    margin: 0 0 12px 0;
-    font-size: 20px;
-    color: #1a1a1a;
-    font-weight: 700;
-    letter-spacing: -0.01em;
-}
-
-.modalText {
-    margin: 0 0 32px 0;
-    font-size: 15px;
-    color: #5c6e61;
-    line-height: 1.5;
-}
-
-.modalActions {
-    display: flex;
-    gap: 12px;
-}
-
-.cancelButton {
-    flex: 1;
-    padding: 14px;
-    background: #f4f6f8;
-    border: none;
-    border-radius: 16px;
-    cursor: pointer;
-    font-weight: 600;
-    font-size: 15px;
-    color: #5c6e61;
-    transition: background 0.2s;
-}
-
-.cancelButton:hover {
-    background: #e9ecef;
-}
-
-.confirmButton {
-    flex: 1;
-    padding: 14px;
-    border: none;
-    background: #e53935;
-    color: white;
-    border-radius: 16px;
-    cursor: pointer;
-    font-weight: 600;
-    font-size: 15px;
-    transition: background 0.2s, transform 0.1s;
-}
-
-.confirmButton:hover {
-    background: #d32f2f;
-}
-.confirmButton:active {
-    transform: scale(0.98);
-}
 
