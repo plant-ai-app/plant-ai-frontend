@@ -1,0 +1,42 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-color: #f8f9fa; /* Light background from design */
+}
+
+.scrollArea {
+    flex: 1;
+    overflow-y: auto;
+    padding-bottom: 40px;
+}
+
+.loading, .error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-size: 16px;
+    color: #666;
+}
+
+.deleteSection {
+    padding: 0 20px 40px;
+    display: flex;
+    justify-content: center;
+}
+
+.deleteBtn {
+    width: 100%;
+    background-color: #fef2f2;
+    color: #dc2626;
+    border-radius: 16px;
+    padding: 16px;
+    font-size: 16px;
+    font-weight: 600;
+    transition: background-color 0.2s;
+}
+
+.deleteBtn:active {
+    background-color: #fee2e2;
+}
