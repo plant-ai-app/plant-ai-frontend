@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './ActionPopup.module.css';
 import { IoClose } from 'react-icons/io5';
 
@@ -17,9 +16,6 @@ const ActionPopup = ({
     return (
         <div className={styles.overlay} onClick={onClose}>
             <div className={styles.popup} onClick={(e) => e.stopPropagation()}>
-                <button className={styles.closeButton} onClick={onClose}>
-                    <IoClose />
-                </button>
                 
                 <h3 className={styles.title}>{title}</h3>
                 
