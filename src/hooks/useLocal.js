@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 
 import {
     getLocais as getLocaisService
@@ -9,7 +9,7 @@ export const useLocal = () =>{
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    const getLocal = async () =>{
+    const getLocal = useCallback(async () =>{
         try {
             setLoading(true);
             setError(null);
@@ -22,7 +22,7 @@ export const useLocal = () =>{
         } finally {
             setLoading(false);
         }
-    };
+    }, []);
 
     return {getLocal, loading, error};
 }
