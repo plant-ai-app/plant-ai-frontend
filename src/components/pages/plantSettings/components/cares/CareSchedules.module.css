@@ -1,0 +1,26 @@
+.section {
+    padding: 0 20px 24px;
+}
+
+.sectionTitle {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0 0 16px 4px;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 0px; 
+}
+
+.emptyText {
+    font-size: 14px;
+    color: #888;
+    text-align: center;
+    padding: 24px 0;
+    background: #fff;
+    border-radius: 20px;
+    border: 1px dashed #e5e7eb;
+}
