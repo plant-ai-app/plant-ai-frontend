@@ -2,10 +2,10 @@ import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import Container from "../../common/container/Container";
-import StepOne from "./steps/StepOne";
-import StepTwo from "./steps/StepTwo";
-import StepThree from "./steps/StepThree";
-import StepFour from "./steps/StepFour";
+import StepOne from "./steps/stepOne/StepOne.jsx";
+import StepTwo from "./steps/stepTwo/StepTwo.jsx";
+import StepThree from "./steps/stepThree/StepThree.jsx";
+import StepFour from "./steps/stepFour/StepFour.jsx";
 
 const pageVariants = {
     initial: {
