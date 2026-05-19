@@ -30,9 +30,11 @@
     flex-wrap: wrap;
     gap: 10px;
 }
-.typesGrid > button{
+
+.typesGrid>button {
     flex-grow: 1;
-    max-width: 200px;
+    max-width: 400px;
+    min-height: 50px;
 }
 
 .typePill {
