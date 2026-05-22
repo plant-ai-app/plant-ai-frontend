@@ -75,7 +75,7 @@ const DeleteModal = ({ isOpen, onClose }) => {
                     <BsExclamationTriangleFill className={styles.warningIcon} />
                 </div>
 
-                <h2 className={styles.modalTitle}>Delete Account</h2>
+                <h2 className={styles.modalTitle}>Deletar Conta</h2>
                 <p className={styles.modalDescription}>
                     Ao deletar sua conta, todos os seus dados serão apagados permanentemente. Esta ação não pode ser desfeita.
                 </p>

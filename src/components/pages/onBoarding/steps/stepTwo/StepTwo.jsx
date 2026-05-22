@@ -10,7 +10,7 @@ const StepTwo = ({ onNext }) => {
             <div className={styles.texts}>
                 <h1>Geração de informações com IA</h1>
                 <p>
-                   Conteúdo das plantas gerado por IA com auxílio de um chatbot.
+                   Conteúdo das plantas gerado por IA de forma inteligente.
                 </p>
             </div>
             <div className={styles.buttons}>

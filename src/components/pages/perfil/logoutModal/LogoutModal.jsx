@@ -30,7 +30,7 @@ const LogoutModal = ({ isOpen, onClose }) => {
                     <BsBoxArrowRight className={styles.warningIcon} />
                 </div>
 
-                <h2 className={styles.modalTitle}>Log Out</h2>
+                <h2 className={styles.modalTitle}>Sair</h2>
                 <p className={styles.modalDescription}>
                     Tem certeza que deseja sair da sua conta?
                 </p>
