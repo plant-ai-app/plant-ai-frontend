@@ -219,7 +219,7 @@ const Schedule = () => {
                     )}
                 </div>
             </div>
-            <AddButton onClick={() => alert("Adicionar nova tarefa")} />
+            {/* <AddButton onClick={() => alert("Adicionar nova tarefa")} /> */}
         </Container>
     );
 };
