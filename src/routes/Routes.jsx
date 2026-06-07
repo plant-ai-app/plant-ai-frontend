@@ -27,6 +27,8 @@ import PlantSettings from "../components/pages/plantSettings/PlantSettings.jsx";
 import CreateCare from "../components/pages/createCare/CreateCare.jsx";
 import EditCare from "../components/pages/editCare/EditCare.jsx";
 import History from "../components/pages/history/History.jsx";
+import AiAnalysis from "../components/pages/aiAnalysis/AiAnalysis.jsx";
+    
 
 //components
 import BottomNav from "../components/layouts/bottomNav/BottomNav.jsx";
@@ -126,6 +128,11 @@ const AppRoutes = () => {
                 <Route path="/history" element={
                     <PrivateRoute>
                         <History/>
+                    </PrivateRoute>
+                } />
+                <Route path="/ai-analysis" element={
+                    <PrivateRoute>
+                        <AiAnalysis/>
                     </PrivateRoute>
                 } />
             </Routes>
