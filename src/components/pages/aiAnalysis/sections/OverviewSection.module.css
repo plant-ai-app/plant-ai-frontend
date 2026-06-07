@@ -1,0 +1,58 @@
+.sectionBlock {
+    scroll-margin-top: 80px; /* offset for sticky tab bar */
+}
+
+.sectionTitle {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0 0 16px 0;
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 8px;
+}
+
+.classificationCard {
+    background-color: white;
+    border-radius: 16px;
+    border: 1px solid #f1f5f9;
+    padding: 8px 24px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+}
+
+.classificationRow {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 0;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.classificationRow:last-child {
+    border-bottom: none;
+}
+
+.rowLabel {
+    color: #64748b;
+    font-size: 0.95rem;
+}
+
+.rowValue {
+    color: #0f172a;
+    font-weight: 700;
+    font-size: 0.95rem;
+}
+
+.pillsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.pillBadge {
+    background-color: #f1f5f9;
+    color: #0f172a;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: 1px solid #e2e8f0;
+}
