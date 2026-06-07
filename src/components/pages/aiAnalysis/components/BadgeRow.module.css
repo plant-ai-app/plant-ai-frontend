@@ -1,0 +1,52 @@
+.badgesRow {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    gap: 16px;
+    padding: 0 24px 24px 24px;
+}
+
+.circleBadge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: white;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+}
+
+.circleIcon {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: #f1f5f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #64748b;
+    margin-bottom: 4px;
+}
+
+.badgeLabel {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #94a3b8;
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+}
+
+.badgeValue {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+/* Icons styling for badges */
+.diffIcon svg { color: #8b5cf6; } /* Purple for difficulty */
+.speedIcon svg { color: #3b82f6; } /* Blue for speed */
+.petsIcon svg { color: #10b981; } /* Green for safe/pets */
