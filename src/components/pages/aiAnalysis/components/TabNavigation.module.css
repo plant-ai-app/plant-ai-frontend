@@ -1,0 +1,43 @@
+.tabBar {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background-color: #fbfbfb;
+    display: flex;
+    overflow-x: auto;
+    border-bottom: 1px solid #e2e8f0;
+    padding: 0 24px;
+    gap: 24px;
+    scrollbar-width: none;
+}
+
+.tabBar::-webkit-scrollbar {
+    display: none;
+}
+
+.tabItem {
+    background: none;
+    padding: 16px 0;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    white-space: nowrap;
+    position: relative;
+}
+
+.tabItem.active {
+    color: #1e293b;
+}
+
+.tabItem.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: #1e293b;
+    border-radius: 3px 3px 0 0;
+}
