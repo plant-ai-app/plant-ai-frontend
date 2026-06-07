@@ -87,6 +87,7 @@ const ResetPassword = () => {
 
                 <form className={styles.form_container} onSubmit={handleSubmit}>
                     <Input
+                        showToggle={true}
                         type="password"
                         text="Nova Senha"
                         name="novaSenha"
@@ -96,6 +97,7 @@ const ResetPassword = () => {
                         required={true}
                     />
                     <Input
+                        showToggle={true}
                         type="password"
                         text="Repetir Nova Senha"
                         name="confirmarSenha"

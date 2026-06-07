@@ -20,6 +20,7 @@ const LoginForm = ({value, handleChange, onSubmit}) => {
                 required = {true}
             />
             <Input
+                showToggle={true}
                 type="password"
                 text="Digite sua senha"
                 name="senha"

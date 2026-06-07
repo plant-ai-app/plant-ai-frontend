@@ -33,11 +33,13 @@ const RegisterForm = ({value, handleChange, onSubmit}) => {
                 text="Digite sua senha"
                 name="senha"
                 placeholder="Senha"
-            handleOnChange={handleChange}
+                showToggle={true}
+                handleOnChange={handleChange}
                 value={value.senha ? value.senha : ''}
                 required = {true}
             />
             <Input
+                showToggle={true}
                 type="password"
                 text="Confirme sua senha"
                 name="confirmaSenha"
