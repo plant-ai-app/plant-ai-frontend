@@ -1,7 +1,7 @@
 import React from 'react';
-import { ArrowLeft } from 'lucide-react';
+// import { ArrowLeft } from 'lucide-react';
 import styles from './AiAnalysisHero.module.css';
-
+import BackButton from '../../../../components/common/backButton/BackButton.jsx';
 const AiAnalysisHero = ({ fotoUrl, plantName, scientificName, onBack }) => {
     return (
         <>
@@ -15,9 +15,14 @@ const AiAnalysisHero = ({ fotoUrl, plantName, scientificName, onBack }) => {
                 <div className={styles.heroOverlay} />
                 
                 <div className={styles.topBar}>
-                    <button className={styles.iconButton} onClick={onBack} aria-label="Voltar">
-                        <ArrowLeft size={24} color="#1e293b" />
-                    </button>
+                    <BackButton
+                        width="40px"
+                        height="40px"
+                        borderRadius="50%"
+                        backgroundColor="rgba(255, 255, 255, 0.2)"
+                        color="#fbfbfb"
+                        onClick={onBack} 
+                    />
                 </div>
             </div>
 

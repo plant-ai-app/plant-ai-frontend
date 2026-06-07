@@ -1,6 +1,7 @@
 .container {
     height: 100vh;
     overflow-y: auto;
+    overflow-x: hidden;
     background-color: #fbfbfb;
     padding-bottom: 40px;
     position: relative;
