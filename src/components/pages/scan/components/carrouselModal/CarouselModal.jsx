@@ -1,21 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FiX, FiMoreVertical, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import styles from './CarouselModal.module.css';
 
 const CarouselModal = ({ plant, onClose }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [showCredits, setShowCredits] = useState(false);
+    const [imageLoading, setImageLoading] = useState(true);
 
     if (!plant || !plant.images || plant.images.length === 0) return null;
 
     const images = plant.images;
 
+    // Pré-carrega todas as imagens em cache assim que o modal abre
+    useEffect(() => {
+        if (images && images.length > 0) {
+            images.forEach((img) => {
+                if (img.url) {
+                    const preloadImage = new Image();
+                    preloadImage.src = img.url;
+                }
+            });
+        }
+    }, [images]);
+
     const handleNext = () => {
+        setImageLoading(true);
         setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
         setShowCredits(false);
     };
 
     const handlePrev = () => {
+        setImageLoading(true);
         setCurrentIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
         setShowCredits(false);
     };
@@ -63,10 +78,17 @@ const CarouselModal = ({ plant, onClose }) => {
                         </button>
                     )}
                     
+                    {imageLoading && (
+                        <div className={styles.loaderContainer}>
+                            <div className={styles.spinner}></div>
+                        </div>
+                    )}
+                    
                     <img 
                         src={currentImage.url} 
                         alt={`${plant.name} image ${currentIndex + 1}`} 
-                        className={styles.mainImage}
+                        className={`${styles.mainImage} ${imageLoading ? styles.hidden : styles.visible}`}
+                        onLoad={() => setImageLoading(false)}
                     />
                     
                     {images.length > 1 && (
@@ -83,8 +105,11 @@ const CarouselModal = ({ plant, onClose }) => {
                                 key={idx} 
                                 className={`${styles.dot} ${idx === currentIndex ? styles.active : ''}`}
                                 onClick={() => {
-                                    setCurrentIndex(idx);
-                                    setShowCredits(false);
+                                    if (idx !== currentIndex) {
+                                        setImageLoading(true);
+                                        setCurrentIndex(idx);
+                                        setShowCredits(false);
+                                    }
                                 }}
                             />
                         ))}
