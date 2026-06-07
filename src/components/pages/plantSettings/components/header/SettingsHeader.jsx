@@ -7,7 +7,9 @@ const SettingsHeader = ({ plantId }) => {
     return (
         <header className={styles.header}>
             <BackButton
-                backgroundColor={'transparent'}
+                width="45px"
+                height="45px"
+                backgroundColor={''}
              />
             <h1 className={styles.title}>Configurações</h1>
             <button 
