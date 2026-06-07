@@ -1,0 +1,57 @@
+.sectionBlock {
+    scroll-margin-top: 80px; /* offset for sticky tab bar */
+}
+
+.sectionTitle {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0 0 16px 0;
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 8px;
+}
+
+.curiositiesGrid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-top: 16px;
+}
+
+@media (min-width: 640px) {
+    .curiositiesGrid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.curiosityCard {
+    background-color: #f8fafc;
+    border-radius: 16px;
+    border: 1px solid #f1f5f9;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.curiosityCardHeader {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #3b7420;
+}
+
+.curiosityCardTitle {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0;
+}
+
+.curiosityDesc {
+    font-size: 0.9rem;
+    color: #475569;
+    margin: 0;
+    line-height: 1.6;
+}
