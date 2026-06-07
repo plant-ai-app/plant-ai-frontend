@@ -9,7 +9,7 @@ const AlertsSection = React.forwardRef(({ data }, ref) => {
 
     return (
         <div id="alerts" ref={ref} className={styles.sectionBlock}>
-            <h3 className={styles.sectionTitle}>Alerts & Common Problems</h3>
+            <h3 className={styles.sectionTitle}>Alertas e Problemas Comuns</h3>
             
             <div className={styles.alertsContainer}>
                 {common_problems && common_problems.length > 0 ? (

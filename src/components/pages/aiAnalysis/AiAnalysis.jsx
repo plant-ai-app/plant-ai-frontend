@@ -36,10 +36,10 @@ const AiAnalysis = () => {
     const curiositiesRef = useRef(null);
 
     const tabs = [
-        { id: 'overview', label: 'Overview', ref: overviewRef },
-        { id: 'care', label: 'Care', ref: careRef },
-        { id: 'alerts', label: 'Alerts', ref: alertsRef },
-        { id: 'curiosities', label: 'Curiosities', ref: curiositiesRef },
+        { id: 'overview', label: 'Visão Geral', ref: overviewRef },
+        { id: 'care', label: 'Cuidados', ref: careRef },
+        { id: 'alerts', label: 'Alertas', ref: alertsRef },
+        { id: 'curiosities', label: 'Curiosidades', ref: curiositiesRef },
     ];
 
     // Scrollspy logic to highlight tab on scroll

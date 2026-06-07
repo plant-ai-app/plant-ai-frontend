@@ -9,7 +9,7 @@ const CareSection = React.forwardRef(({ data }, ref) => {
 
     return (
         <div id="care" ref={ref} className={styles.sectionBlock}>
-            <h3 className={styles.sectionTitle}>Basic Care Needs</h3>
+            <h3 className={styles.sectionTitle}>Cuidados Básicos</h3>
             
             <div className={styles.careGrid}>
                 {water && (
@@ -57,7 +57,7 @@ const CareSection = React.forwardRef(({ data }, ref) => {
 
             {maintenance && (
                 <div className={styles.maintenanceSection}>
-                    <h3 className={styles.sectionTitle}>Maintenance & Routine</h3>
+                    <h3 className={styles.sectionTitle}>Manutenção e Rotina</h3>
                     <div className={styles.careGrid}>
                         {maintenance.fertilizing && (
                             <div className={styles.careCard}>

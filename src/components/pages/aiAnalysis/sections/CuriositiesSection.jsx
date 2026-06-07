@@ -9,14 +9,14 @@ const CuriositiesSection = React.forwardRef(({ data }, ref) => {
 
     return (
         <div id="curiosities" ref={ref} className={styles.sectionBlock}>
-            <h3 className={styles.sectionTitle}>Curiosities & Facts</h3>
+            <h3 className={styles.sectionTitle}>Curiosidades e Fatos</h3>
             
             <div className={styles.curiositiesGrid}>
                 {origin && (
                     <div className={styles.curiosityCard}>
                         <div className={styles.curiosityCardHeader}>
                             <Globe size={18} />
-                            <h4 className={styles.curiosityCardTitle}>Origem & Habitat</h4>
+                            <h4 className={styles.curiosityCardTitle}>Origem e Habitat</h4>
                         </div>
                         <p className={styles.curiosityDesc}>{origin}</p>
                     </div>

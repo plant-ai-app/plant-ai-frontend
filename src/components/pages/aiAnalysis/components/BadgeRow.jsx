@@ -23,14 +23,14 @@ const BadgeRow = ({ difficulty, growth, toxicity }) => {
                 <div className={`${styles.circleIcon} ${styles.diffIcon}`}>
                     <BarChart2 size={16} />
                 </div>
-                <span className={styles.badgeLabel}>Diff</span>
+                <span className={styles.badgeLabel}>Dificuldade</span>
                 <span className={styles.badgeValue}>{mapDifficulty(difficulty?.level)}</span>
             </div>
             <div className={styles.circleBadge}>
                 <div className={`${styles.circleIcon} ${styles.speedIcon}`}>
                     <Gauge size={16} />
                 </div>
-                <span className={styles.badgeLabel}>Speed</span>
+                <span className={styles.badgeLabel}>Crescimento</span>
                 <span className={styles.badgeValue}>{mapSpeed(growth?.speed)}</span>
             </div>
             <div className={styles.circleBadge}>
