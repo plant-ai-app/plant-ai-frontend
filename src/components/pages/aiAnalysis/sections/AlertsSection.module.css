@@ -1,0 +1,58 @@
+.sectionBlock {
+    scroll-margin-top: 80px; /* offset for sticky tab bar */
+}
+
+.sectionTitle {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0 0 16px 0;
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 8px;
+}
+
+.alertsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.problemCard {
+    background-color: white;
+    border-radius: 16px;
+    border: 1px solid #fecaca;
+    border-left: 4px solid #ef4444;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.02);
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+}
+
+.problemIconContainer {
+    color: #ef4444;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+.problemContent {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.problemTitle {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #991b1b;
+    margin: 0;
+}
+
+.problemDesc {
+    font-size: 0.88rem;
+    color: #7f1d1d;
+    margin: 0;
+    line-height: 1.5;
+    opacity: 0.9;
+}
