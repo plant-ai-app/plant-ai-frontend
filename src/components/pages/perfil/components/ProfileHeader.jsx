@@ -20,9 +20,9 @@ const ProfileHeader = () => {
                 onClick={()=> navigate(-1)}
             />
             <h2 className={styles.title}>Perfil</h2>
-            <button onClick={() => alert('Settings')} className={styles.iconButton} aria-label="Settings">
+            {/* <button onClick={() => alert('Settings')} className={styles.iconButton} aria-label="Settings">
                 <BsGearFill />
-            </button>
+            </button> */}
         </div>
     );
 };
