@@ -15,6 +15,11 @@ export const resetPassword = async (userData) => {
     return response.data;
 }
 
+export const validateResetToken = async (token) => {
+    const response = await api.get(`/password/validate?token=${token}`);
+    return response.data;
+}
+
 export const changePassword = async (userData) => {
     const response = await api.patch("/usuario/senha", userData)
     return response.data;
@@ -28,3 +33,5 @@ export const deleteAccount = async (userData) => {
     })
     return response.data;
 }
+
+

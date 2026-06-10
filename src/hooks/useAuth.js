@@ -4,6 +4,7 @@ import {
     resetPassword as resetPasswordUser,
     changePassword as changePasswordUser,
     deleteAccount as deleteAccountUser,
+    validateResetToken as validateResetTokenUser,
 } from "../services/auth.service";
 
 export const useAuth = () => {
@@ -70,6 +71,21 @@ export const useAuth = () => {
         }
     }
 
+    const validateResetToken = async (token) => {
+        try {
+            setLoading(true)
+            setError(null)
+
+            const data = await validateResetTokenUser(token)
+            return data
+        } catch (error) {
+            setError(error.response?.data?.error || 'Erro ao validar token')
+            throw error
+        } finally {
+            setLoading(false)
+        }
+    }
+
     return {
         loading,
         error,
@@ -77,5 +93,6 @@ export const useAuth = () => {
         resetPassword,
         changePassword,
         deleteAccount,        
+        validateResetToken,
     }
 }
