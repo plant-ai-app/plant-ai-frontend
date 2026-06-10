@@ -18,11 +18,11 @@
     margin-top: 16px;
 }
 
-@media (min-width: 640px) {
+/* @media (min-width: 640px) {
     .curiositiesGrid {
         grid-template-columns: 1fr 1fr;
     }
-}
+} */
 
 .curiosityCard {
     background-color: #f8fafc;
