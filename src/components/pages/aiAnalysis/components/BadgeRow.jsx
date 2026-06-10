@@ -19,22 +19,24 @@ const BadgeRow = ({ difficulty, growth, toxicity }) => {
 
     return (
         <div className={styles.badgesRow}>
-            <div className={styles.circleBadge}>
-                <div className={`${styles.circleIcon} ${styles.diffIcon}`}>
+            <div className={`${styles.circleBadge} ${styles.difficulty}`}>
+                <div className={styles.circleIcon}>
                     <BarChart2 size={16} />
                 </div>
                 <span className={styles.badgeLabel}>Dificuldade</span>
                 <span className={styles.badgeValue}>{mapDifficulty(difficulty?.level)}</span>
             </div>
-            <div className={styles.circleBadge}>
-                <div className={`${styles.circleIcon} ${styles.speedIcon}`}>
+            
+            <div className={`${styles.circleBadge} ${styles.growth}`}>
+                <div className={styles.circleIcon}>
                     <Gauge size={16} />
                 </div>
                 <span className={styles.badgeLabel}>Crescimento</span>
                 <span className={styles.badgeValue}>{mapSpeed(growth?.speed)}</span>
             </div>
-            <div className={styles.circleBadge}>
-                <div className={`${styles.circleIcon} ${styles.petsIcon}`}>
+            
+            <div className={`${styles.circleBadge} ${toxicity?.is_toxic ? styles.petsToxic : styles.petsSafe}`}>
+                <div className={styles.circleIcon}>
                     <PawPrint size={16} />
                 </div>
                 <span className={styles.badgeLabel}>Pets</span>

@@ -2,7 +2,8 @@
     position: relative;
     z-index: 3;
     display: flex;
-    gap: 16px;
+    justify-content: start;
+    gap: 20px;
     padding: 0 24px 24px 24px;
 }
 
@@ -11,42 +12,97 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 80px;
-    height: 80px;
+    width: 88px;
+    height: 88px;
     border-radius: 50%;
-    background-color: white;
-    border: 1px solid #e2e8f0;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+    text-align: center;
+    padding: 6px;
 }
 
+
 .circleIcon {
-    width: 28px;
-    height: 28px;
+    width: 26px;
+    height: 26px;
     border-radius: 50%;
-    background-color: #f1f5f9;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #64748b;
-    margin-bottom: 4px;
+    margin-bottom: 3px;
+    flex-shrink: 0;
+}
+
+.circleIcon svg {
+    color: white !important;
 }
 
 .badgeLabel {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
     font-weight: 700;
-    text-transform: uppercase;
-    color: #94a3b8;
-    letter-spacing: 0.5px;
-    margin-bottom: 2px;
+    margin-bottom: 1px;
+    line-height: 1.1;
 }
 
 .badgeValue {
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: #0f172a;
+    font-size: 0.78rem;
+    font-weight: 800;
+    line-height: 1.1;
 }
 
-/* Icons styling for badges */
-.diffIcon svg { color: #8b5cf6; } /* Purple for difficulty */
-.speedIcon svg { color: #3b82f6; } /* Blue for speed */
-.petsIcon svg { color: #10b981; } /* Green for safe/pets */
+/* Category specific colors and themes */
+.difficulty {
+    background-color: #f5f3ff;
+    border: 1px solid #ddd6fe;
+}
+.difficulty .circleIcon {
+    background-color: #8b5cf6;
+}
+.difficulty .badgeLabel {
+    color: #7c3aed;
+}
+.difficulty .badgeValue {
+    color: #4c1d95;
+}
+
+.growth {
+    background-color: #f0f9ff;
+    border: 1px solid #bae6fd;
+}
+.growth .circleIcon {
+    background-color: #0284c7;
+}
+.growth .badgeLabel {
+    color: #0369a1;
+}
+.growth .badgeValue {
+    color: #0c4a6e;
+}
+
+.petsSafe {
+    background-color: #f0fdf4;
+    border: 1px solid #bbf7d0;
+}
+.petsSafe .circleIcon {
+    background-color: #10b981;
+}
+.petsSafe .badgeLabel {
+    color: #047857;
+}
+.petsSafe .badgeValue {
+    color: #064e3b;
+}
+
+.petsToxic {
+    background-color: #fff5f5;
+    border: 1px solid #fecaca;
+}
+.petsToxic .circleIcon {
+    background-color: #ef4444;
+}
+.petsToxic .badgeLabel {
+    color: #dc2626;
+}
+.petsToxic .badgeValue {
+    color: #7f1d1d;
+}
+
