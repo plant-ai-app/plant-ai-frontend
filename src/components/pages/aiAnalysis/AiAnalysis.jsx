@@ -14,6 +14,7 @@ import OverviewSection from './sections/OverviewSection';
 import CareSection from './sections/CareSection';
 import AlertsSection from './sections/AlertsSection';
 import CuriositiesSection from './sections/CuriositiesSection';
+import Loader from './loader/Loader';
 
 //hooks
 import { useAiAnalysis } from './hooks/useAiAnalysis';
@@ -26,6 +27,18 @@ const AiAnalysis = () => {
     
     // Local hook encapsulates state management & fetching logic cleanly without loops
     const { data, loading, error } = useAiAnalysis(scientificName);
+
+    // State to ensure loader is shown for at least 3 seconds
+    const [minLoadingTimePassed, setMinLoadingTimePassed] = useState(false);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setMinLoadingTimePassed(true);
+        }, 3000);
+        return () => clearTimeout(timer);
+    }, []);
+
+    const showLoader = loading || !minLoadingTimePassed;
     
     const [activeTab, setActiveTab] = useState('overview');
     const containerRef = useRef(null);
@@ -44,7 +57,7 @@ const AiAnalysis = () => {
 
     // Scrollspy logic to highlight tab on scroll
     useEffect(() => {
-        if (loading || error || !data) return;
+        if (showLoader || error || !data) return;
 
         const container = containerRef.current;
         if (!container) return;
@@ -75,12 +88,8 @@ const AiAnalysis = () => {
         }
     };
 
-    if (loading) {
-        return (
-            <div className={styles.loadingContainer}>
-                <p>Gerando análise da IA...</p>
-            </div>
-        );
+    if (showLoader) {
+        return <Loader />;
     }
 
     if (error || !data) {
