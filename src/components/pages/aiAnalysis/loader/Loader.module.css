@@ -1,0 +1,228 @@
+.loaderScreen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #fbfbfb;
+    z-index: 9999;
+    overflow: hidden;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Ambient background glow balls */
+.ambientGlows {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.glowBall {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.12;
+    mix-blend-mode: multiply;
+    animation: floatGlow 12s ease-in-out infinite alternate;
+}
+
+.glowPink {
+    background-color: #fa87e6;
+    width: 350px;
+    height: 350px;
+    top: -50px;
+    left: -50px;
+}
+
+.glowBlue {
+    background-color: #78d4ff;
+    width: 400px;
+    height: 400px;
+    bottom: -100px;
+    right: -100px;
+    animation-delay: -3s;
+}
+
+.glowPurple {
+    background-color: #8d7dff;
+    width: 300px;
+    height: 300px;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation-delay: -6s;
+}
+
+/* Glassmorphic main container */
+.glassContainer {
+    position: relative;
+    z-index: 10;
+    width: 90%;
+    max-width: 420px;
+    padding: 40px 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
+}
+
+
+
+/* Visual Wrapper for Layered SVG loaders */
+.loaderVisualWrapper {
+    position: relative;
+    width: 180px;
+    height: 180px;
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.svgContainer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loaderImg {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Background pulse/glow layer */
+.svgBgGlow {
+    filter: blur(25px);
+    opacity: 0.5;
+    transform: scale(1.1);
+    animation: glowPulse 2s ease-in-out infinite alternate;
+}
+
+/* Counter-rotating middle layer */
+.svgCounterRotate {
+    transform: scale(0.8);
+    opacity: 0.7;
+    animation: counterRotate 5s linear infinite;
+}
+
+/* Foreground rotating layer (already rotates via SVG inline animation, 
+   but adding dynamic subtle scale-pulsing here makes it look extremely premium) */
+.svgForeground {
+    transform: scale(0.95);
+    animation: pulseScale 3s ease-in-out infinite alternate;
+}
+
+/* Texts styling */
+.textWrapper {
+    width: 100%;
+    margin-bottom: 28px;
+}
+
+.title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0 0 10px 0;
+    letter-spacing: 0.5px;
+    background: linear-gradient(135deg, #8d7dff 0%, #fa87e6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.messageBox {
+    height: 48px; /* Fixed height to prevent layout shifts when message changes */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.message {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #64748b;
+    margin: 0;
+    line-height: 1.4;
+    animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Progress bar */
+.progressBarBg {
+    width: 100%;
+    height: 6px;
+    background-color: #f1f5f9;
+    border-radius: 99px;
+    overflow: hidden;
+}
+
+.progressBarFill {
+    height: 100%;
+    background: linear-gradient(90deg, #78d4ff, #8d7dff, #fa87e6);
+    border-radius: 99px;
+    width: 0%;
+    transition: width 0.05s linear;
+}
+
+/* Keyframes */
+@keyframes floatGlow {
+    0% {
+        transform: translateY(0) scale(1);
+    }
+    100% {
+        transform: translateY(-20px) scale(1.1);
+    }
+}
+
+
+
+@keyframes glowPulse {
+    0% {
+        opacity: 0.3;
+        transform: scale(1.05);
+    }
+    100% {
+        opacity: 0.6;
+        transform: scale(1.15);
+    }
+}
+
+@keyframes counterRotate {
+    from {
+        transform: scale(0.8) rotate(360deg);
+    }
+    to {
+        transform: scale(0.8) rotate(0deg);
+    }
+}
+
+@keyframes pulseScale {
+    0% {
+        transform: scale(0.92);
+    }
+    100% {
+        transform: scale(1.02);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
