@@ -1,5 +1,5 @@
 import styles from './Header.module.css';
-import { FiBell } from 'react-icons/fi';
+// import { FiBell } from 'react-icons/fi';
 import { PiPlantFill } from "react-icons/pi";
 
 const Header = ({ count = 0 }) => {
@@ -13,9 +13,9 @@ const Header = ({ count = 0 }) => {
                     {count > 0 ? `Você tem ${count} ${count === 1 ? 'cuidado' : 'cuidados'} para hoje` : 'Nenhum cuidado para hoje'}
                 </p>
             </div>
-            <button className={styles.bellButton} aria-label="Notificações">
+            {/* <button className={styles.bellButton} aria-label="Notificações">
                 <FiBell className={styles.bellIcon} />
-            </button>
+            </button> */}
         </header>
     );
 };
