@@ -6,9 +6,9 @@ const Header = () => {
     return (
         <div className={styles.headerContainer}>
             <h1 className={styles.title}>Minhas Plantas</h1>
-            <button className={styles.iconButton} aria-label="Notificações">
+            {/* <button className={styles.iconButton} aria-label="Notificações">
                 <BsBellFill />
-            </button>
+            </button> */}
         </div>
     );
 };
